@@ -1,8 +1,8 @@
-# Trainingsplan Wo 1–14 · Version 8
+# Trainingsplan Wo 1–14 · Version 18
 
 Web-App für deinen Trainingsplan (Stand: neue Excel vom 20.10.2026).
 
-## Neu in Version 8
+## Neu in Version 18
 - Übungen sind zugeklappt (Name, gemacht / geplant) und gehen beim Antippen auf
 - Neuer Tab Statistik: Verlauf pro Übung (geplant und gemacht), Wochen, Kraft-Stände
 - Farben und Schrift im Stil von GAINSFIRE (Dunkelgrau, Himmelblau, Roboto)
