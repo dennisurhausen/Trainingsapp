@@ -476,6 +476,30 @@ th,td{padding-inline:4.5px}
 .adjnote>span{flex:1;min-width:0;display:flex;flex-direction:column}
 .adjnote small{font-size:11.5px;color:var(--muted)}
 .adjnote .btn{white-space:nowrap}
+.dhead.tog{width:100%;border:0;background:none;color:var(--ink);text-align:left;cursor:pointer;border-radius:10px}
+.dhead.tog:active{background:var(--surface)}
+.dhead .chev{color:var(--muted);margin-left:2px;font-size:13px}
+.dhead.coll{background:var(--surface);padding:7px 8px;margin-top:6px}
+.dhead.fin .ic{background:color-mix(in srgb,var(--ok) 22%,transparent);color:var(--ok);font-weight:700}
+.dhead.fin .r b{color:var(--ok)}
+.setlink{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px;color:var(--ink)}
+.setlink .ic{font-size:20px;width:34px;height:34px;display:grid;place-items:center;border-radius:9px;background:var(--surface2)}
+.setlink>span:nth-child(2){flex:1;display:flex;flex-direction:column}
+.setlink small{color:var(--muted);font-size:12px}
+.setlink .chev{color:var(--muted);font-size:20px}
+.subhead{display:grid;grid-template-columns:80px 1fr 80px;align-items:center}
+.subhead h2{text-align:center;margin:0}
+.freebtn{width:100%;margin-top:12px;border:1px dashed var(--line)}
+.freecard{border-left:3px solid var(--dc);display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.ftag{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:color-mix(in srgb,var(--dc) 22%,transparent);color:var(--dc);border-radius:6px;padding:2px 6px;margin-right:4px}
+.flist{display:flex;flex-direction:column}
+.freeform{margin-top:12px;border:1px solid var(--accent)}
+.frrow{display:flex;flex-direction:column;gap:5px;background:var(--surface2);border-radius:10px;padding:6px}
+.frrow .frn{width:100%}
+.frq{display:flex;gap:5px;align-items:center}
+.frq input{flex:1;min-width:0}
+.frq select{flex:0 0 96px}
+.frrow>select{width:100%}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 
@@ -528,11 +552,11 @@ const RTXT = kw => ruleBy(kw).text;
 /* ---------- storage ---------- */
 function blank(){
   return {v:3, turn:{}, gym:{}, swim:{}, calc:{}, stufen:{boden:{},hand:{}}, lernstufe:{}, notes:[], form:{}, lastHilfe:{}, seenIntro:false,
-          ovr:{goal:{}, role:{}, tmove:{}, gmove:{}, sets:{}}, prefs:{sound:true, wake:true, notify:true, dipsBW:false, auto:true, theme:'auto', dismissed:{}, adj:true, adjUp:true}};
+          free:[], ovr:{goal:{}, role:{}, tmove:{}, gmove:{}, sets:{}}, prefs:{sound:true, wake:true, notify:true, dipsBW:false, auto:true, theme:'auto', dismissed:{}, adj:true, adjUp:true, speak:true}};
 }
 function migrate(s){
   const o=Object.assign(blank(), s);
-  o.ovr = Object.assign(blank().ovr, s.ovr||{}); o.form = s.form||{}; o.stufen = Object.assign({boden:{},hand:{}}, s.stufen||{}); o.lastHilfe=s.lastHilfe||{}; o.prefs=Object.assign({sound:true, wake:true, notify:true, dipsBW:false, auto:true, theme:'auto', dismissed:{}, adj:true, adjUp:true}, s.prefs||{}); o.ovr.noadj ||= {}; o.prefs.since ||= Date.now();
+  o.ovr = Object.assign(blank().ovr, s.ovr||{}); o.form = s.form||{}; o.stufen = Object.assign({boden:{},hand:{}}, s.stufen||{}); o.lastHilfe=s.lastHilfe||{}; o.free=Array.isArray(s.free)?s.free:[]; o.prefs=Object.assign({sound:true, wake:true, notify:true, dipsBW:false, auto:true, theme:'auto', dismissed:{}, adj:true, adjUp:true, speak:true}, s.prefs||{}); o.ovr.noadj ||= {}; o.prefs.since ||= Date.now();
   if(!s.v || s.v<3){
     // Einträge von Übungsnummern (alter Plan) auf stabile Übungs-Schlüssel umstellen
     Object.values(o.turn).forEach(D=>{ const m=MIG[D.day]||{}; const n={};
@@ -847,7 +871,7 @@ function vTraining(){
     out += `<h2>${WD[d.getDay()]}, ${dm(d)}</h2>`;
     const n=nextTraining(d);
     out += `<div class="card stack"><h2>Trainingsfrei</h2>${n?`<p class="muted">Nächstes Training: ${WD[n.d.getDay()]} ${dm(n.d)} · ${n.u.map(u=>u.label+' '+u.time).join(', ')}</p><div class="row"><button class="btn primary" data-act="date" data-v="${iso(n.d)}">Hinspringen</button></div>`:''}</div>`;
-    return out;
+    return out + vFree(dIso);
   }
   if(!UI.unit || !units.some(u=>u.id===UI.unit)){
     const now=new Date(); let pick=units[units.length-1];
@@ -861,7 +885,7 @@ function vTraining(){
   if(u.kind==='turn') out += vTurn(u.t, dIso);
   if(u.kind==='gym') out += vGym(u.g);
   if(u.kind==='swim') out += vSwim(dIso);
-  return out;
+  return out + vFree(dIso);
 }
 function vSwim(dIso){
   const e=S.swim[dIso]||{};
@@ -939,7 +963,9 @@ function vTurn(sess, dIso){
   const items = pool.filter(i=>grpOf(i)===x.g);
   const nowItem = items.find(i=>!i.program && goalOf(sess.day,i,w)>0 && !itemDone(sess,i));
   let html = '';
-  html += `<div class="dhead" style="--dc:${dcol(x.g)}"><span class="ic">${devIcon(x.g)}</span><span class="t"><b>${DEV[x.g].label}</b></span><span class="r">${x.st.cnt?`<b>${x.st.fin}/${x.st.cnt}</b>${x.st.min>=1?' · '+Math.round(x.st.min)+' min':''}`:esc(progLabel(x,sess))}</span></div>`;
+  const ck='dc:'+dIso+':'+x.g; const finD = x.st.cnt>0 && x.st.fin===x.st.cnt; const coll = (UI.dcol||{})[ck] ?? (UI.dev==='Alle' && finD);
+  html += `<button type="button" class="dhead tog ${coll?'coll':''} ${finD?'fin':''}" style="--dc:${dcol(x.g)}" data-act="dcol" data-v="${ck}" data-def="${coll?1:0}" aria-expanded="${!coll}"><span class="ic">${finD?'✓':devIcon(x.g)}</span><span class="t"><b>${DEV[x.g].label}</b>${coll&&x.st.cnt&&!finD?`<small>${x.st.cnt-x.st.fin} offen</small>`:''}</span><span class="r">${x.st.cnt?`<b>${x.st.fin}/${x.st.cnt}</b>${x.st.min>=1?' · '+Math.round(x.st.min)+' min':''}`:esc(progLabel(x,sess))}</span><span class="chev">${coll?'▾':'▴'}</span></button>`;
+  if(coll) return html;
   let sec=null; const multiSec = new Set(items.map(i=>i.section)).size>1;
   items.forEach(i=>{ if(multiSec && i.section!==sec){ sec=i.section; html+=`<div class="subsec">${esc(sec.replace(/^[^·]*·\s*/,'')||sec)}</div>`; } html += vTurnItem(i, sess, dIso, i===nowItem); });
   return html; };
@@ -963,6 +989,38 @@ function finishPanel(kind, key, planMin, D, hasEntries, recap){
     <p class="small muted">Es zählt nur, was du eingetragen hast. Offene Übungen bleiben offen.</p>
     <div class="row"><button class="btn primary" data-act="${kind==='turn'?'tfinish':'gfinish'}" data-v="${esc(key)}">✓ Abschließen</button><button class="btn ghost" data-act="finopen" data-v="">Abbrechen</button></div></div>`;
 }
+
+/* ----- Freies Training / Zusatzübungen ----- */
+const FUNITS = ['Wdh','Versuche','Sätze','Sek','min'];
+const FKIND = {turn:'Turnen', gym:'Gym', other:'Sonstiges'};
+const FDEV = ['Boden','Sprung','Reck','Pferd','Barren','Ringe','Handstand','Kondition'];
+function freeMin(f){ return Number(f.min)||0; }
+function exNames(){ const set=new Set(); Object.values(PLAN.turnen).forEach(T=>T.items.forEach(i=>{ if(!i.program) set.add(shortName(i.name).s); })); PLAN.gym.forEach(g=>g.items.forEach(it=>set.add(shortName(it.name,40).s))); return [...set].sort((a,b)=>a.localeCompare(b,'de')); }
+function freeDraftNew(dIso){ const u=unitsOf(parse(dIso)); return {id:null, date:dIso, kind: u.some(x=>x.kind==='turn')?'turn':u.some(x=>x.kind==='gym')?'gym':'turn', title:'', min:'', note:'', items:[{name:'', amt:'', unit:'Wdh', kg:'', dev:''}]}; }
+function vFreeForm(){ const d=UI.freeDraft; if(!d) return '';
+  return `<div class="card stack freeform"><div class="spread"><b>${d.id?'Freies Training bearbeiten':'Freies Training / Zusatzübung'}</b><button class="btn ghost sm" data-act="frcancel">Abbrechen</button></div>
+    <div class="seg full">${Object.entries(FKIND).map(([k,l])=>`<button class="${d.kind===k?'on':''}" data-act="frkind" data-v="${k}">${l}</button>`).join('')}</div>
+    <div class="row" style="flex-wrap:nowrap"><input type="text" id="frTitle" data-fr="title" value="${esc(d.title)}" placeholder="Titel (optional), z. B. Zusatz Reck"><input type="number" inputmode="numeric" id="frMin" data-fr="min" value="${esc(d.min)}" placeholder="Dauer min" style="max-width:110px"></div>
+    <datalist id="exnames">${exNames().map(n=>`<option value="${esc(n)}">`).join('')}</datalist>
+    <div class="stack" style="gap:6px">${d.items.map((r,k)=>`<div class="frrow">
+      <input type="text" list="exnames" id="fr-n-${k}" data-fr="name" data-k="${k}" value="${esc(r.name)}" placeholder="Übung" class="frn">
+      ${d.kind==='turn'?`<select id="fr-d-${k}" data-fr="dev" data-k="${k}" aria-label="Gerät"><option value="">Gerät</option>${FDEV.map(x=>`<option ${r.dev===x?'selected':''}>${x}</option>`).join('')}</select>`:''}
+      <div class="frq"><input type="number" inputmode="numeric" id="fr-a-${k}" data-fr="amt" data-k="${k}" value="${esc(r.amt)}" placeholder="Menge"><select id="fr-u-${k}" data-fr="unit" data-k="${k}" aria-label="Einheit">${FUNITS.map(x=>`<option ${r.unit===x?'selected':''}>${x}</option>`).join('')}</select>
+      ${d.kind==='gym'?`<input type="number" inputmode="decimal" id="fr-k-${k}" data-fr="kg" data-k="${k}" value="${esc(r.kg)}" placeholder="kg">`:''}
+      <button class="btn ghost sm" data-act="frdel" data-k="${k}" aria-label="Übung entfernen">✕</button></div></div>`).join('')}</div>
+    <button class="addset" data-act="fradd">+ Übung</button>
+    <textarea id="frNote" data-fr="note" placeholder="Notiz (optional)">${esc(d.note)}</textarea>
+    <button class="btn primary big" data-act="frsave">Speichern</button></div>`; }
+function vFreeCard(f){ const its=(f.items||[]).filter(r=>r.name);
+  return `<div class="card freecard" style="--dc:${f.kind==='turn'?'var(--d-hand)':f.kind==='gym'?'var(--accent)':'var(--d-sprung)'}"><div class="spread"><div><span class="ftag">Frei</span> <b>${esc(f.title||FKIND[f.kind])}</b>${f.title?` <span class="small muted">${FKIND[f.kind]}</span>`:''}</div><span class="small muted">${freeMin(f)?freeMin(f)+' min':''}</span></div>
+    ${its.length?`<div class="flist">${its.map(r=>`<div class="lgi"><span>${esc(r.name)}${r.dev?` <small>${esc(r.dev)}</small>`:''}</span><span class="num">${r.amt?esc(r.amt)+' '+esc(r.unit):''}${r.kg?` <small>@ ${fmt(Number(r.kg))} kg</small>`:''}</span></div>`).join('')}</div>`:''}
+    ${f.note?`<p class="small muted">${esc(f.note)}</p>`:''}
+    <div class="row"><button class="btn ghost sm" data-act="fredit" data-v="${f.id}">Bearbeiten</button><button class="btn ghost sm" data-act="frrm" data-v="${f.id}">Löschen</button></div></div>`; }
+function vFree(dIso){ const list=S.free.filter(f=>f.date===dIso);
+  let html = list.map(vFreeCard).join('');
+  if(UI.freeDraft && UI.freeDraft.date===dIso) html += vFreeForm();
+  else html += `<button class="btn ghost freebtn" data-act="fropen">＋ Freies Training / Zusatzübung</button>`;
+  return html; }
 function progLabel(x, sess){
   const i=x.items.find(y=>y.program); if(!i) return '';
   if(i.program==='boden'){ const p=bodenProg(sess.w,sess.day); return p? 'Bodenbahnen '+p.prog+(p.landing?' + Landungen':''):''; }
@@ -1308,7 +1366,8 @@ function cycleData(){
     const tr = turnP[k].plan ? turnP[k].done/turnP[k].plan : 0;
     const gPlan = gymP[k].plan*mps/60, gDone = gymP[k].done*mps/60;
     const pct = typeof W.lt?.pctHeavy==='number' ? W.lt.pctHeavy : null;
-    return {w:W.wo, W, tPlan, tDone:tPlan*tr, gPlan, gDone, pct, rir:W.lt?.rirZiel, state:W.lt?.state};
+    const fr=(S.free||[]).filter(f=>clampWeek(weekOf(parse(f.date)))===W.wo && weekOf(parse(f.date))===W.wo); const fT=fr.filter(f=>f.kind==='turn').reduce((a,f)=>a+freeMin(f),0)/60, fG=fr.filter(f=>f.kind==='gym').reduce((a,f)=>a+freeMin(f),0)/60;
+    return {w:W.wo, W, tPlan, tDone:tPlan*tr+fT, gPlan, gDone:gDone+fG, pct, rir:W.lt?.rirZiel, state:W.lt?.state};
   });
 }
 function segs(arr){ const out=[]; arr.forEach((v,k)=>{ const l=out[out.length-1]; if(l && l.v===v) l.n++; else out.push({v,s:k,n:1}); }); return out; }
@@ -1371,15 +1430,16 @@ function logSessions(){
     const sess=turnSession(parse(sl.date)); if(!sess || sess.day!==sl.day) return; out.push({kind:'turn', date:sl.date, time:'19:00', sess, D}); });
   PLAN.gym.forEach(g=>{ const L=S.gym[g.id]; if(!L) return; const any=Object.values(L.items||{}).some(I=>(I.sets||[]).some(x=>x.done)); if(!any && !L.end) return; const time=(g.header.match(/\d{2}:\d{2}/)||['09:00'])[0]; out.push({kind:'gym', date:gDate(g), time, g, L}); });
   Object.entries(S.swim).forEach(([d,e])=>{ if(e.done) out.push({kind:'swim', date:d, time:'10:00', e}); });
+  (S.free||[]).forEach(f=>out.push({kind:'free', date:f.date, time:'23:00', f}));
   return out.sort((a,b)=> (b.date+b.time).localeCompare(a.date+a.time));
 }
 function vLog(){
-  const f=UI.logF||'all'; const all=logSessions(); const list=all.filter(x=>f==='all'||x.kind===f); const lim=UI.logN||15;
-  let html = `<div class="seg full" style="margin-bottom:4px">${[['all','Alle'],['turn','Turnen'],['gym','Gym']].map(([k,l])=>`<button class="${f===k?'on':''}" data-act="logf" data-v="${k}">${l} <span class="muted">${k==='all'?all.length:all.filter(x=>x.kind===k).length}</span></button>`).join('')}</div>`;
+  const f=UI.logF||'all'; const all=logSessions(); const match=(x,k)=>x.kind===k || (x.kind==='free' && x.f.kind===k); const list=all.filter(x=>f==='all'||match(x,f)); const lim=UI.logN||15;
+  let html = `<div class="seg full" style="margin-bottom:4px">${[['all','Alle'],['turn','Turnen'],['gym','Gym']].map(([k,l])=>`<button class="${f===k?'on':''}" data-act="logf" data-v="${k}">${l} <span class="muted">${k==='all'?all.length:all.filter(x=>match(x,k)).length}</span></button>`).join('')}</div>`;
   if(!list.length) return html+`<div class="card"><p class="muted">Noch keine absolvierten Einheiten. Sobald du etwas einträgst, erscheint es hier.</p></div>`;
   let lastW=null;
   list.slice(0,lim).forEach(x=>{ const d=parse(x.date); const w=clampWeek(weekOf(d)); if(w!==lastW){ html+=`<div class="subsec">Woche ${w} · ${esc(PLAN.weeks[w-1].phase)}</div>`; lastW=w; }
-    const key='log:'+x.kind+':'+x.date+':'+(x.g?.id||''); const open=UI.open[key];
+    const key='log:'+x.kind+':'+x.date+':'+(x.g?.id||x.f?.id||''); const open=UI.open[key];
     let title, sub, pct, body='';
     if(x.kind==='turn'){ const st=groupStats(x.sess,x.sess.items); pct=st.pct; title='Turnen '+x.sess.day; const D=x.D;
       let V=0,G=0; x.sess.items.filter(i=>i.status==='Versuch').forEach(i=>{ const e=D.items?.[ikey(i)]; if(e){ V+=e.done||0; G+=okCount(e)||0; } });
@@ -1394,9 +1454,11 @@ function vLog(){
       if(open){ body = `<div class="lgdev" style="--dc:var(--accent)">${x.g.items.map(it=>{ const I=L.items?.[it.nr]; const ds=(I?.sets||[]).filter(z=>z.done); const n=setsOf(x.g,it); const isT=/min/.test(it.reps);
           const txt = isT ? (ds.length?'erledigt':'–') : ds.map(z=>`${z.kg!==''&&z.kg!=null?fmt(Number(z.kg)):'–'}×${z.reps||'?'}${z.rir!==''&&z.rir!=null?'@'+z.rir:''}`).join('  ');
           return `<div class="lgi ${ds.length>=n?'ok':ds.length?'part':'no'}"><span>${esc(shortName(I?.alt&&it.alt?it.alt:it.name,40).s)}</span><span class="num"><small>${esc(txt||'–')}</small></span></div>${I?.note||(I?.pain!==''&&I?.pain!=null)?`<div class="small muted lgn">${esc([I.note, I.pain!==''&&I.pain!=null?'Schmerz '+I.pain:''].filter(Boolean).join(' · '))}</div>`:''}`; }).join('')}</div>${gymRecap(x.g).includes('🏆')?`<div class="prs">${gymRecap(x.g).match(/<div>🏆[^<]*<\/div>/g).join('')}</div>`:''}`; } }
+    else if(x.kind==='free'){ pct=1; const F=x.f; const its=(F.items||[]).filter(r=>r.name); title='Frei · '+(F.title||FKIND[F.kind]); sub=[freeMin(F)?freeMin(F)+' min':'', its.length?its.length+' Übung'+(its.length>1?'en':''):''].filter(Boolean).join(' · ')||'ohne Details';
+      if(open) body = `<div class="lgdev" style="--dc:var(--d-sprung)">${its.map(r=>`<div class="lgi"><span>${esc(r.name)}${r.dev?` <small>${esc(r.dev)}</small>`:''}</span><span class="num">${r.amt?esc(r.amt)+' '+esc(r.unit):''}${r.kg?` <small>@ ${fmt(Number(r.kg))} kg</small>`:''}</span></div>`).join('')}${F.note?`<div class="small muted lgn">${esc(F.note)}</div>`:''}</div>`; }
     else { pct=1; title='Schwimmen'; sub=x.e.note?esc(x.e.note):'erledigt'; }
-    html += `<div class="item ${open?'open':'compact'} logitem" style="--dc:${x.kind==='turn'?'var(--d-hand)':x.kind==='gym'?'var(--accent)':'var(--d-sprung)'}">
-      <button type="button" class="lghead" data-act="toggle" data-v="${esc(key)}"><span class="ld"><b>${WD[d.getDay()]}</b><small>${dm(d)}</small></span><span class="nm">${esc(title)}<small>${sub}</small></span><span class="rg2" style="--p:${Math.round((pct||0)*100)}">${pct>=1?'✓':Math.round((pct||0)*100)}</span><span class="chev">${open?'▴':'▾'}</span></button>
+    html += `<div class="item ${open?'open':'compact'} logitem" style="--dc:${x.kind==='turn'||(x.kind==='free'&&x.f.kind==='turn')?'var(--d-hand)':x.kind==='gym'||(x.kind==='free'&&x.f.kind==='gym')?'var(--accent)':'var(--d-sprung)'}">
+      <button type="button" class="lghead" data-act="toggle" data-v="${esc(key)}"><span class="ld"><b>${WD[d.getDay()]}</b><small>${dm(d)}</small></span><span class="nm">${esc(title)}<small>${sub}</small></span><span class="rg2" style="--p:${Math.round((pct||0)*100)}">${x.kind==='free'?'＋':pct>=1?'✓':Math.round((pct||0)*100)}</span><span class="chev">${open?'▴':'▾'}</span></button>
       ${open?`${body}<div class="row"><button class="btn sm" data-act="date" data-v="${x.date}" data-tab="training">Im Training öffnen ›</button></div>`:''}</div>`; });
   if(list.length>lim) html += `<button class="btn ghost" style="width:100%" data-act="logmore">Ältere anzeigen (${list.length-lim})</button>`;
   return html;
@@ -1548,6 +1610,17 @@ function vBackupNag(){ const P=S.prefs; const has=Object.keys(S.turn).length+Obj
   const last=P.lastBackup||0; const ref=last||P.since||Date.now(); const days=Math.floor((Date.now()-ref)/864e5); const sunday=today().getDay()===0 && Date.now()-last>2*864e5;
   if(days<7 && !sunday) return '';
   return `<div class="nag"><span>💾</span><span class="t"><b>Sicherung</b><small>${last?`zuletzt vor ${days} Tag${days===1?'':'en'}`:'noch keine gespeichert'}</small></span><button class="btn primary sm" data-act="export">Herunterladen</button><button class="btn ghost sm" data-act="snooze" aria-label="Später">Später</button></div>`; }
+function vSettings(){
+  return `<div class="subhead"><button class="btn ghost sm" data-act="sub" data-v="">‹ Mehr</button><h2>Einstellungen</h2><span></span></div>
+  ${vUiPrefs()}
+  ${vTimerPrefs()}
+  <div class="card stack"><b>Kraft</b>
+    <div class="row" style="flex-wrap:nowrap"><label class="lbl" for="bw" style="flex:1">Körpergewicht</label><input type="number" id="bw" data-in="bw" value="${PLAN.bodyweight}" inputmode="decimal" style="max-width:90px"><span>kg</span></div>
+    <button type="button" class="prefrow" data-act="pref" data-v="dipsBW"><span><b>Körpergewicht bei Dips einrechnen</b><small>${S.prefs.dipsBW?'an: e1RM = (Zusatz + Körpergewicht) × …':'aus: e1RM nur aus dem Zusatzgewicht'}</small></span><span class="sw ${S.prefs.dipsBW?'on':''}"><i></i></span></button></div>
+  <div class="card stack"><b>App</b>
+    <button class="btn ghost sm" data-act="introagain">Einführung wieder anzeigen</button>
+    <div class="row">${UI.confirmReset?`<span class="small">Alle Einträge löschen?</span><button class="btn danger" data-act="reset2">Ja, löschen</button><button class="btn ghost" data-act="reset0">Abbrechen</button>`:`<button class="btn ghost sm danger" data-act="reset1">Alle Einträge zurücksetzen</button>`}</div></div>`;
+}
 function vUiPrefs(){ const P=S.prefs;
   return `<div class="card stack"><b>Darstellung &amp; Bedienung</b>
     <div class="row" style="flex-wrap:nowrap"><span class="lbl" style="flex:1">Ansicht</span><div class="seg">${[['auto','Automatisch'],['light','Hell'],['dark','Dunkel']].map(([k,l])=>`<button class="${(P.theme||'auto')===k?'on':''}" data-act="theme" data-v="${k}">${l}</button>`).join('')}</div></div>
@@ -1560,13 +1633,14 @@ function vTimerPrefs(){
   const P=S.prefs; let perm='nicht verfügbar'; try{ if('Notification' in window) perm={granted:'erlaubt',denied:'blockiert',default:'noch nicht gefragt'}[Notification.permission]; }catch(e){}
   const sw = 'serviceWorker' in navigator && window.isSecureContext && window.top===window;
   const tg=(k,l,sub)=>`<button type="button" class="prefrow" data-act="pref" data-v="${k}"><span><b>${l}</b><small>${sub}</small></span><span class="sw ${P[k]?'on':''}"><i></i></span></button>`;
-  return `<details class="card" ${UI.open.prefs?'open':''}><summary data-act="toggle" data-v="prefs"><b>Pausen-Timer</b></summary><div class="stack" style="margin-top:8px">
+  return `<div class="card stack"><b>Pausen-Timer</b><div class="stack">
     ${tg('sound','Ton am Ende der Pause','Piepton + Vibration. Am iPhone muss der Lautlos-Schalter aus sein.')}
+    ${tg('speak','Ansage am Pausenende','sagt den nächsten Satz an, z. B. „Beinpresse, 157,5 Kilo, 8 Wiederholungen“ · 10 s vorher „Noch 10 Sekunden“')}
     ${tg('wake','Display anlassen','während der Pause und solange ein Training läuft (nach ▶ Start)')}
     ${tg('notify','Benachrichtigung bei gesperrtem Display', sw ? `Status: ${perm}` : 'nur in der installierten App (GitHub-Version vom Startbildschirm)')}
-    <div class="row">${sw && perm==='noch nicht gefragt' ? `<button class="btn sm" data-act="notifyask">Benachrichtigungen erlauben</button>`:''}<button class="btn ghost sm" data-act="testbeep">▶ Test: 5 s Pause</button></div>
+    <div class="row">${sw && perm==='noch nicht gefragt' ? `<button class="btn sm" data-act="notifyask">Benachrichtigungen erlauben</button>`:''}<button class="btn ghost sm" data-act="testbeep">▶ Test: 12 s Pause</button></div>
     ${perm==='blockiert'?`<p class="small muted">Blockiert: in den Handy-Einstellungen bei der App Benachrichtigungen erlauben.</p>`:''}
-  </div></details>`;
+  </div></div>`;
 }
 function vMehr(){
   const durs = ['A','C','B'].map(u=>{ const ms=PLAN.gym.filter(g=>unitLetter(g)===u).map(g=>S.gym[g.id]).filter(L=>L?.start&&L?.end).map(L=>Math.round((L.end-L.start)/60e3)); return {u, est:ESTIMATE[u], ms}; });
@@ -1575,9 +1649,11 @@ function vMehr(){
   const colors = ['var(--d-reck)','var(--d-sprung)','var(--d-boden)','var(--d-pferd)','var(--d-hand)','var(--d-barren)','var(--d-ringe)'];
   const series = topics.slice(0,7).map((t,k)=>({name:t,color:colors[k],pts:pp.filter(p=>p.src===t).map(p=>({x:weekX(p.date),y:p.y,tip:`${dm(parse(p.date))} ${t}: Schmerz ${p.y}`}))}));
   const nTurn = logRows().length; const nGym = PLAN.gym.reduce((a,g)=>a+g.items.reduce((b,it)=>b+((S.gym[g.id]?.items?.[it.nr]?.sets||[]).filter(s=>s.done).length),0),0);
+  if(UI.sub==='settings') return vSettings();
   return `<h2 class="center-h">Mehr</h2>
+  <button type="button" class="setlink" data-act="sub" data-v="settings"><span class="ic">⚙</span><span><b>Einstellungen</b><small>Ansicht, Bedienung, Gewichte, Pausen-Timer, Körpergewicht</small></span><span class="chev">›</span></button>
   <div class="card export"><div class="spread"><b>Excel-Auswertung</b><span class="small muted">${nTurn} Turn-Einträge · ${nGym} Gym-Sätze</span></div>
-    <p class="small muted">Dein Plan im gewohnten Format mit allen Einträgen, plus Blätter App-Auswertung, App-Turnen und App-Gym.</p>
+    <p class="small muted">Dein Plan im gewohnten Format mit allen Einträgen, plus Blätter App-Auswertung, App-Turnen, App-Gym und App-Frei (freie Trainings).</p>
     <button class="btn primary big" data-act="xlsx" id="xlsxBtn">⬇ Excel herunterladen</button></div>
   <details class="card"><summary><b>Notizen</b> <span class="small muted">(${notes.length})</span></summary><div class="stack" style="margin-top:10px">
   <div class="row" style="flex-wrap:nowrap"><div class="field" style="flex:0 0 140px"><label class="lbl" for="nDate">Datum</label><input type="date" id="nDate" value="${iso(today())}"></div><div class="field" style="flex:1"><label class="lbl" for="nTopic">Thema</label><input type="text" id="nTopic" placeholder="z. B. Schulter"></div></div>
@@ -1591,16 +1667,13 @@ function vMehr(){
   <details class="card"><summary><b>Pause und Taper</b></summary><div class="tablewrap" style="margin-top:8px"><table><thead><tr><th>Zeitraum</th><th>Tag</th><th>Turnen</th><th>Gym</th><th>Hinweis</th></tr></thead><tbody>${PLAN.pause.rows.filter(r=>r[0]||r[1]).map(r=>`<tr><td>${esc(r[0]||'')}</td><td>${esc(r[1]||'')}</td><td>${esc(r[2]||'')}</td><td>${esc(r[3]||'')}</td><td class="muted">${esc(r[5]||'')}</td></tr>`).join('')}</tbody></table></div>${PLAN.pause.notes.map(n=>`<p class="small muted" style="margin-top:8px">${esc(n)}</p>`).join('')}</details>
   <details class="card"><summary><b>Regeln</b></summary><div class="list" style="margin-top:6px">${PLAN.rules.map(r=>`<div class="small"><b class="num">${r.nr}</b> ${esc(r.text)} <span class="muted">(${esc(r.src)})</span></div>`).join('')}</div></details>
   <details class="card"><summary><b>Annahmen</b></summary><div class="stack small" style="margin-top:8px">${PLAN.assumptions.map(a=>`<p>${esc(a)}</p>`).join('')}</div></details>
-  ${vUiPrefs()}
-  ${vTimerPrefs()}
   <details class="card"><summary><b>Datensicherung</b></summary><div class="stack" style="margin-top:8px">
     <p class="small muted">Deine Einträge liegen nur in diesem Browser auf diesem Gerät. Sichere sie ab und zu.</p>
     <div class="row"><button class="btn" data-act="export">Backup herunterladen</button><button class="btn" data-act="copy">Backup kopieren</button></div>
     <div class="field"><label class="lbl" for="impFile">Backup einspielen</label><input type="file" id="impFile" accept=".json,application/json"></div>
     <div class="field"><label class="lbl" for="impText">… oder Backup-Text einfügen</label><textarea id="impText" placeholder='{"v":3, …}'></textarea><div class="row"><button class="btn" data-act="importtext">Einspielen</button></div></div>
     <textarea id="outText" readonly hidden></textarea>
-    <div class="row">${UI.confirmReset?`<span class="small">Alle Einträge löschen?</span><button class="btn danger" data-act="reset2">Ja, löschen</button><button class="btn ghost" data-act="reset0">Abbrechen</button>`:`<button class="btn ghost sm danger" data-act="reset1">Alles zurücksetzen</button>`}</div>
-    <button class="btn ghost sm" data-act="introagain">Einführung wieder anzeigen</button></div></details>`;
+    </div></details>`;
 }
 function overridesList(){
   const out=[];
@@ -1713,6 +1786,12 @@ async function buildWorkbook(ExcelJS){
     vals.forEach((x,c2)=>{ const cell=ws3.getCell(gr,c2+1); cell.value=x; if(c2===0) cell.numFmt='dd.mm.yy'; }); gr++; }); }));
   if(PLAN.calc.some(c=>kgCounts(c.nr))){ gr++; ws3.getCell(gr,1).value=`e1RM gesamt = (kg + Körpergewicht ${PLAN.bodyweight} kg bei Dips) × (1 + (Wdh + RIR)/30). e1RM Zusatz = gesamt − Körpergewicht. Ziel kg im Gym Plan ist immer das Zusatzgewicht.`; ws3.getCell(gr,1).font={italic:true,color:{argb:'FF666666'}}; }
   ws3.views=[{state:'frozen', ySplit:1}]; ws3.autoFilter={from:'A1', to:'M1'};
+  if((S.free||[]).length){ const wf=wb.addWorksheet('App-Frei'); wf.columns=[{width:10},{width:7},{width:11},{width:24},{width:8},{width:34},{width:11},{width:8},{width:9},{width:8},{width:36}];
+    head(wf,1,['Datum','Woche','Art','Titel','Dauer','Übung','Gerät','Menge','Einheit','kg','Notiz']); let fr=2;
+    S.free.slice().sort((a,b)=>a.date.localeCompare(b.date)).forEach(f=>{ const its=(f.items||[]).filter(r=>r.name); (its.length?its:[{}]).forEach((r,k)=>{
+      const vals=[xDate(f.date), weekOf(parse(f.date)), FKIND[f.kind], f.title||null, k===0&&freeMin(f)?freeMin(f):null, r.name||null, r.dev||null, r.amt===''||r.amt==null?null:Number(r.amt), r.unit||null, r.kg===''||r.kg==null?null:Number(r.kg), k===0?(f.note||null):null];
+      vals.forEach((x,c)=>{ const cell=wf.getCell(fr,c+1); cell.value=x; if(c===0) cell.numFmt='dd.mm.yy'; }); fr++; }); });
+    wf.views=[{state:'frozen', ySplit:1}]; }
   wb.eachSheet(ws=>ws.eachRow(row=>row.eachCell(c=>{ if(typeof c.value==='number' && !isFinite(c.value)) c.value=null; })));
   wb.calcProperties.fullCalcOnLoad = true;
   return wb;
@@ -1741,7 +1820,7 @@ function gI(gid,nr){ const L=gL(gid); return L.items[nr] ||= {sets:[], alt:false
 const curTurn = () => turnSession(UI.date);
 function autoStartTurn(dIso){ const D=S.turn[dIso]; if(D && !D.start && dIso===iso(today())){ D.start=Date.now(); } }
 function itemFromKey(k){ const s=curTurn(); return s ? s.T.items.find(i=>ikey(i)===k) : null; }
-const UNDO = {tfinish:'Training abgeschlossen', gfinish:'Einheit abgeschlossen', gsets:'Sätze geändert', inc:'Eingetragen', dec:'Zurückgenommen', try:'Versuch eingetragen', tryundo:'Versuch gelöscht', dot:'Versuch geändert', cnt:'Menge geändert', cfull:'Übung abgehakt', setchip:'Satz abgehakt', ladder:'Landung abgehakt', gset:'Satz abgehakt', gtoggle:'Übung abgehakt', tnote:'Note gesetzt', delnote:'Notiz gelöscht', goalset:'Soll geändert', moveto:'Verschoben'};
+const UNDO = {frrm:'Gelöscht', frsave:'Gespeichert', tfinish:'Training abgeschlossen', gfinish:'Einheit abgeschlossen', gsets:'Sätze geändert', inc:'Eingetragen', dec:'Zurückgenommen', try:'Versuch eingetragen', tryundo:'Versuch gelöscht', dot:'Versuch geändert', cnt:'Menge geändert', cfull:'Übung abgehakt', setchip:'Satz abgehakt', ladder:'Landung abgehakt', gset:'Satz abgehakt', gtoggle:'Übung abgehakt', tnote:'Note gesetzt', delnote:'Notiz gelöscht', goalset:'Soll geändert', moveto:'Verschoben'};
 
 /* Zahlenfelder: Feld sicher anwählen + Leiste mit −/+ (falls die Tastatur nicht aufgeht) */
 const ADJ = {kg:[-5,-2.5,2.5,5], reps:[-1,1], rir:[-1,1]};
@@ -1804,10 +1883,22 @@ document.addEventListener('click', ev=>{
       UI.finish=null; UI.recap=g.id; stopTimer(); save(); msg='Einheit abgeschlossen ✓'; break; }
     case 'pref': S.prefs[v]=!S.prefs[v]; save(); if(v==='wake') wakeSync(); if(v==='sound' && S.prefs.sound) beepNow(); if(v==='notify' && S.prefs.notify){ S.prefs.asked=false; notifyAsk(); } break;
     case 'notifyask': try{ Notification.requestPermission().then(()=>render()); }catch(e){} break;
-    case 'testbeep': startTimer(5,'Test'); break;
+    case 'testbeep': startTimer(12,'Test','Pause vorbei. Test: Beinpresse, 157,5 Kilo, 8 Wiederholungen.'); break;
     case 'logf': UI.logF=v; UI.logN=15; break;
     case 'logmore': UI.logN=(UI.logN||15)+15; break;
     case 'noadj': { const k=b.dataset.g+':'+b.dataset.nr; S.ovr.noadj ||= {}; if(S.ovr.noadj[k]) delete S.ovr.noadj[k]; else S.ovr.noadj[k]=true; save(); msg = S.ovr.noadj[k] ? 'Plan-Gewicht für diese Übung' : 'Angepasstes Gewicht'; break; }
+    case 'dcol': (UI.dcol ||= {})[v] = b.dataset.def!=='1'; break;
+    case 'fropen': UI.freeDraft=freeDraftNew(dIso); setTimeout(()=>document.querySelector('.freeform')?.scrollIntoView({behavior:'smooth',block:'center'}),40); break;
+    case 'frcancel': UI.freeDraft=null; break;
+    case 'frkind': UI.freeDraft.kind=v; UI.freeDraft.items.forEach(r=>{ if(v==='gym' && r.unit==='Wdh') r.unit='Sätze'; if(v!=='gym' && r.unit==='Sätze' && !r.kg) r.unit='Wdh'; }); break;
+    case 'fradd': UI.freeDraft.items.push({name:'', amt:'', unit: UI.freeDraft.kind==='gym'?'Sätze':'Wdh', kg:'', dev:''}); break;
+    case 'frdel': UI.freeDraft.items.splice(Number(b.dataset.k),1); if(!UI.freeDraft.items.length) UI.freeDraft.items.push({name:'',amt:'',unit:'Wdh',kg:'',dev:''}); break;
+    case 'frsave': { const d=UI.freeDraft; const its=d.items.filter(r=>r.name.trim()); if(!its.length && !d.min && !d.note.trim()){ toast('Bitte mindestens eine Übung, Dauer oder Notiz eintragen.'); return; }
+      const rec={id:d.id||uid(), date:d.date, kind:d.kind, title:d.title.trim(), min:d.min===''?'':Number(d.min), note:d.note.trim(), items:its.map(r=>({...r, name:r.name.trim(), amt:r.amt===''?'':Number(r.amt), kg:r.kg===''?'':Number(r.kg)})), ts:Date.now()};
+      const i=S.free.findIndex(f=>f.id===rec.id); if(i>=0) S.free[i]=rec; else S.free.push(rec); UI.freeDraft=null; save(); msg='Freies Training gespeichert'; break; }
+    case 'fredit': { const f=S.free.find(x=>x.id===v); if(f){ UI.freeDraft=JSON.parse(JSON.stringify({...f, min:f.min??'', note:f.note||'', title:f.title||'', items:(f.items||[]).length?f.items.map(r=>({name:r.name||'',amt:r.amt??'',unit:r.unit||'Wdh',kg:r.kg??'',dev:r.dev||''})):[{name:'',amt:'',unit:'Wdh',kg:'',dev:''}]})); } break; }
+    case 'frrm': S.free=S.free.filter(x=>x.id!==v); save(); msg='Freies Training gelöscht'; break;
+    case 'sub': UI.sub=v||null; window.scrollTo(0,0); break;
     case 'theme': S.prefs.theme=v; save(); applyTheme(); break;
     case 'dismiss': (S.prefs.dismissed ||= {})[v]=true; save(); break;
     case 'undismiss': S.prefs.dismissed={}; save(); break;
@@ -1888,7 +1979,7 @@ document.addEventListener('click', ev=>{
         s.done=true;
         const L=gL(g.id); if(!L.start && gDate(g)===iso(today())) L.start=Date.now();
         const last = I.sets.filter(x=>x.done).length>=setsOf(g,it) && it === g.items[g.items.length-1];
-        const p=pauseSec(it.pause); if(p && !last) startTimer(p, exKey(I.alt&&it.alt?it.alt:it.name));
+        const p=pauseSec(it.pause); if(p && !last) startTimer(p, exKey(I.alt&&it.alt?it.alt:it.name), nextSetSpeech(g,it,I));
         msg=`Satz ${k+1}: ${fmt(Number(s.kg))} kg × ${s.reps}`;
       }
       save(); break; }
@@ -1916,6 +2007,9 @@ document.addEventListener('click', ev=>{
 });
 function readSetInputs(gid,nr,k,s){ ['kg','reps','rir'].forEach(f=>{ const el=document.getElementById(`g-${gid}-${nr}-${k}-${f}`); if(el && el.value!=='') s[f]=Number(el.value); }); }
 
+document.addEventListener('input', ev=>{ const el=ev.target; const f=el.dataset?.fr; if(!f || !UI.freeDraft) return;
+  if(el.dataset.k!=null) UI.freeDraft.items[Number(el.dataset.k)][f]=el.value; else UI.freeDraft[f]=el.value; });
+document.addEventListener('change', ev=>{ const el0=ev.target; if(el0.dataset?.fr && UI.freeDraft){ if(el0.dataset.k!=null) UI.freeDraft.items[Number(el0.dataset.k)][el0.dataset.fr]=el0.value; else UI.freeDraft[el0.dataset.fr]=el0.value; return; } });
 document.addEventListener('change', ev=>{
   const el=ev.target; const f=el.dataset.in;
   if(el.id==='impFile'){ const file=el.files[0]; if(file){ const r=new FileReader(); r.onload=()=>{ doImport(r.result); render(); }; r.readAsText(file); } return; }
@@ -1965,16 +2059,30 @@ function wakeSync(){ if(TM || sessionRunning()) wakeOn(); else wakeOff(); }
 function swPost(msg){ try{ const c = navigator.serviceWorker?.controller || SWR?.active; c?.postMessage(msg); }catch(e){} }
 function notifyAsk(){ try{ if(S.prefs.notify && 'Notification' in window && Notification.permission==='default' && !S.prefs.asked){ S.prefs.asked=true; save(); Notification.requestPermission().then(()=>render()); } }catch(e){} }
 function notifySchedule(){ if(!TM || !S.prefs.notify) return; try{ if(!('Notification' in window) || Notification.permission!=='granted') return; }catch(e){ return; }
-  swPost({type:'pause', delay:TM.end-Date.now(), title:'Pause vorbei', body:'Nächster Satz: '+TM.label}); }
-function startTimer(sec,label){ stopTimer(); TM={end:Date.now()+sec*1000,label}; $('#timer').hidden=false; audioUnlock(); scheduleBeep(); notifyAsk(); notifySchedule(); wakeOn(); tick(); TM.iv=setInterval(tick,250); }
+  swPost({type:'pause', delay:TM.end-Date.now(), title:'Pause vorbei', body:(TM.say||'Nächster Satz: '+TM.label).replace(/^Pause vorbei\.\s*/,'')}); }
+/* Ansage: was als Nächstes kommt */
+function nextSetSpeech(g, it, I){
+  const n=setsOf(g,it); const dn=(I.sets||[]).filter(x=>x.done).length; const say=(x)=>String(x).replace('.',',');
+  const one=(item, II, k)=>{ const nm=shortName(II?.alt&&item.alt?item.alt:item.name,40).s.replace(/\s*–\s*/g,', ').replace(/·.*$/,''); if(/min/.test(item.reps)) return `${nm}, ${item.reps}`;
+    const tg=target(item); const prev=II?.sets?.[k-1]; const kg = (prev?.kg!==''&&prev?.kg!=null&&II?.sets?.[k-1]) ? Number(prev.kg) : (typeof tg==='number'?tg:null);
+    const rr=repsRange(item.reps); return `${nm}${kg!=null&&kg>0?`, ${say(kg)} Kilo`:''}${rr?`, ${rr.lo===rr.hi?rr.lo:rr.lo+' bis '+rr.hi} Wiederholungen`:''}`; };
+  if(dn<n) return `Pause vorbei. Satz ${dn+1} von ${n}. ${one(it,I,dn)}.`;
+  const idx=g.items.indexOf(it); const nx=g.items.slice(idx+1).find(x=>(S.gym[g.id]?.items?.[x.nr]?.sets||[]).filter(z=>z.done).length<setsOf(g,x));
+  return nx ? `Pause vorbei. Nächste Übung: ${one(nx, S.gym[g.id]?.items?.[nx.nr], 0)}.` : 'Pause vorbei.';
+}
+function speak(t){ if(!S.prefs.speak || !t) return; try{ const u=new SpeechSynthesisUtterance(t); u.lang='de-DE'; u.rate=1.0; const v=speechSynthesis.getVoices().find(x=>/^de/i.test(x.lang)); if(v) u.voice=v; speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(e){} }
+function speakUnlock(){ try{ if(S.prefs.speak && window.speechSynthesis && !speakUnlock.done){ const u=new SpeechSynthesisUtterance(' '); u.volume=0; speechSynthesis.speak(u); speakUnlock.done=true; } }catch(e){} }
+function startTimer(sec,label,say){ stopTimer(); TM={end:Date.now()+sec*1000,label,say,dur:sec}; speakUnlock(); $('#timer').hidden=false; audioUnlock(); scheduleBeep(); notifyAsk(); notifySchedule(); wakeOn(); tick(); TM.iv=setInterval(tick,250); }
 function stopTimer(){ if(TM){ clearInterval(TM.iv); TM=null; } cancelBeep(); swPost({type:'cancel'}); $('#timer').hidden=true; $('#timer').classList.remove('over'); wakeSync(); }
 function tick(){ if(!TM) return; const left=Math.round((TM.end-Date.now())/1000); const a=Math.abs(left);
   $('#timerT').textContent=(left<0?'+':'')+Math.floor(a/60)+':'+pad(a%60);
   $('#timerL').textContent = left>0 ? 'Pause · '+TM.label : 'Pause vorbei · nächster Satz';
   if(left<=0 && !TM.buzzed){ TM.buzzed=true; $('#timer').classList.add('over'); try{ navigator.vibrate&&navigator.vibrate([300,120,300,120,300]); }catch(e){}
-    if(!AQ.length || Date.now()-TM.end > 1500 || (AC && AC.state!=='running')) beepNow(); AQ=[]; }
+    if(!AQ.length || Date.now()-TM.end > 1500 || (AC && AC.state!=='running')) beepNow(); AQ=[];
+    if(TM.say) setTimeout(()=>speak(TM?.say), S.prefs.sound?1900:0); }
+  if(left===10 && !TM.warn10 && TM.dur>15){ TM.warn10=true; if(S.prefs.speak && TM.say) speak('Noch 10 Sekunden'); }
 }
-$('#timerPlus').addEventListener('click',()=>{ if(TM){ if(TM.buzzed && TM.end<Date.now()) TM.end=Date.now(); TM.end+=30000; TM.buzzed=false; $('#timer').classList.remove('over'); scheduleBeep(); notifySchedule(); tick(); } });
+$('#timerPlus').addEventListener('click',()=>{ if(TM){ if(TM.buzzed && TM.end<Date.now()) TM.end=Date.now(); TM.end+=30000; TM.buzzed=false; TM.warn10=false; $('#timer').classList.remove('over'); scheduleBeep(); notifySchedule(); tick(); } });
 document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='visible'){ if(AC && AC.state==='suspended') AC.resume(); tick(); wakeSync(); } });
 try{ if('serviceWorker' in navigator && window.isSecureContext && window.top===window) navigator.serviceWorker.register('sw.js').then(r=>{ SWR=r; }).catch(()=>{}); }catch(e){}
 $('#timerStop').addEventListener('click',stopTimer);
