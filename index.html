@@ -500,6 +500,16 @@ th,td{padding-inline:4.5px}
 .frq input{flex:1;min-width:0}
 .frq select{flex:0 0 96px}
 .frrow>select{width:100%}
+.dhead .r small.act{display:block;font-size:11.5px;margin-top:2px;color:var(--muted)}
+.act.over,.ttab .over{color:var(--warn)!important} .act.under,.ttab .under{color:var(--accent)!important} .act.ok,.ttab .ok{color:var(--ok)!important}
+.ttab{display:flex;flex-direction:column;font-size:13px}
+.ttab .tr{display:grid;grid-template-columns:1fr 60px 50px 74px;gap:6px;padding:4px 0;border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent);align-items:center}
+.ttab .tr.g2{grid-template-columns:1fr 70px}
+.ttab .tr>span:not(:first-child){text-align:right}
+.ttab .th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.ttab .tr i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--dc);margin-right:6px}
+.ttab small{font-size:11px;opacity:.85}
+.btn.okb{background:var(--ok-soft);color:var(--ok)}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 
@@ -687,13 +697,16 @@ function nextOpenKey(key){
   if(key.startsWith('g:')){ const [,gid,nr]=key.split(':'); const g=PLAN.gym.find(x=>x.id===gid); const idx=g.items.findIndex(x=>String(x.nr)===nr);
     const nx=g.items.slice(idx+1).find(it=>(S.gym[gid]?.items?.[it.nr]?.sets||[]).filter(x=>x.done).length<setsOf(g,it)); return nx ? 'g:'+gid+':'+nx.nr : null; }
   return null; }
+function vDevTimeTable(sess, dIso){ const tt=turnTimes(dIso); const gs=sessGroups(sess).filter(x=>x.st.cnt>0 || (x.g==='Einturnen' && tt && devActual(sess,'Einturnen',tt)));
+  return `<div class="ttab"><div class="tr th"><span>Gerät</span><span>erledigt</span><span>Plan</span><span>ist</span></div>${gs.map(x=>{ const a=devActual(sess,x.g,tt)/60; const pl=x.st.min; const cls=!a||!pl?'':a>pl*1.15?'over':a<pl*0.85?'under':'ok';
+    return `<div class="tr" style="--dc:${dcol(x.g)}"><span><i></i>${DEV[x.g].label}</span><span class="num">${x.st.cnt?x.st.fin+'/'+x.st.cnt:'–'}</span><span class="num">${pl?Math.round(pl)+'′':'–'}</span><span class="num ${cls}">${a?Math.round(a)+'′'+(pl?` <small>${a-pl>=0?'+':''}${Math.round(a-pl)}</small>`:''):'–'}</span></div>`; }).join('')}</div>${tt?'':'<p class="small muted">Zeiten pro Gerät entstehen aus den Zeitpunkten deiner Einträge, nur wenn du am selben Tag einträgst.</p>'}`; }
 function turnRecap(sess, dIso){ const D=S.turn[dIso]||{}; const gs=sessGroups(sess).filter(x=>x.st.cnt>0);
   let V=0,G=0; sess.items.filter(i=>i.status==='Versuch').forEach(i=>{ const e=D.items?.[ikey(i)]; if(e){ V+=e.done||0; G+=okCount(e)||0; } });
   const open=sess.items.filter(i=>!i.program && goalOf(sess.day,i,sess.w)>0 && !itemDone(sess,i)).map(i=>shortName(i.name).s);
   const more=sess.items.filter(i=>{ const g=goalOf(sess.day,i,sess.w); return g>0 && (D.items?.[ikey(i)]?.done||0)>g; }).length;
   const all=groupStats(sess,sess.items);
   return `<div class="recap"><div class="stats"><div class="stat"><b class="num">${all.fin}/${all.cnt}</b><span>Übungen</span></div><div class="stat"><b class="num">${G}/${V}</b><span>Versuche gelungen</span></div><div class="stat"><b class="num">${more}</b><span>mehr als geplant</span></div></div>
-    <div class="rdev">${gs.map(x=>`<span style="--dc:${dcol(x.g)}"><i></i>${DEV[x.g].label} <b>${x.st.fin}/${x.st.cnt}</b></span>`).join('')}</div>
+    ${vDevTimeTable(sess, dIso)}
     ${open.length?`<p class="small muted">Offen geblieben: ${open.slice(0,8).map(esc).join(' · ')}${open.length>8?` · +${open.length-8}`:''}</p>`:'<p class="small" style="color:var(--ok)">Alles geschafft 💪</p>'}</div>`; }
 function gymRecap(g){ const pr=gymProgress(g); const L=S.gym[g.id]||{}; let vol=0;
   g.items.forEach(it=>(L.items?.[it.nr]?.sets||[]).forEach(x=>{ if(x.done && Number(x.kg)>0 && Number(x.reps)>0) vol+=Number(x.kg)*Number(x.reps); }));
@@ -702,6 +715,7 @@ function gymRecap(g){ const pr=gymProgress(g); const L=S.gym[g.id]||{}; let vol=
   const open=g.items.filter(it=>(L.items?.[it.nr]?.sets||[]).filter(x=>x.done).length<setsOf(g,it)).map(it=>shortName(it.name,40).s);
   return `<div class="recap"><div class="stats"><div class="stat"><b class="num">${pr.fin}/${pr.tot}</b><span>Sätze</span></div><div class="stat"><b class="num">${fmt(Math.round(vol/10)*10)}</b><span>kg bewegt</span></div><div class="stat"><b class="num">${prs.length}</b><span>Bestwerte</span></div></div>
     ${prs.length?`<div class="prs">${prs.map(t=>`<div>🏆 ${esc(t)}</div>`).join('')}</div>`:''}
+    ${(()=>{ const tt=gymTimes(g.id); if(!tt) return ''; return `<div class="ttab">${g.items.filter(it=>tt[String(it.nr)]).map(it=>`<div class="tr g2"><span>${esc(shortName(it.name,40).s)}</span><span class="num">${mmss(tt[String(it.nr)])}</span></div>`).join('')}</div>`; })()}
     ${open.length?`<p class="small muted">Offen geblieben: ${open.map(esc).join(' · ')}</p>`:'<p class="small" style="color:var(--ok)">Alles geschafft 💪</p>'}</div>`; }
 function calcTest(nr, st){
   const o = S.calc[nr]?.[st]; if(o) return {...o, nr};
@@ -749,6 +763,16 @@ function okCount(e){ if(!e) return 0; if(e.seq&&e.seq.length) return e.seq.filte
 function seqOf(e){ if(!e) return []; if(!e.seq) e.seq=[]; if(!e.seq.length && e.done>0) e.seq=Array(e.done).fill(null); return e.seq; }
 function graded(e){ return !!(e?.seq && e.seq.some(x=>x!==null)); }
 function ticksOf(e, plan){ if(!plan) return []; if(e?.setsDone && e.setsDone.length===plan.length) return e.setsDone.slice(); let left=e?.done||0; return plan.map(v=>{ if(left>=v){ left-=v; return true; } return false; }); }
+/* ----- Zeit pro Übung: Zeit seit dem vorherigen Eintrag zählt für die Übung (max. 25 min je Abschnitt) ----- */
+function segTimes(start, log){ const ev=(log||[]).slice().sort((a,b)=>a.t-b.t); let prev=start||null; const out={};
+  ev.forEach(e=>{ if(prev!=null){ const d=Math.min((e.t-prev)/1000, 25*60); if(d>0) out[e.k]=(out[e.k]||0)+d; } prev=e.t; }); return out; }
+function turnTimes(dIso){ const D=S.turn[dIso]; if(!D?.log?.length) return null; return segTimes(D.start, D.log); }
+function gymTimes(gid){ const L=S.gym[gid]; if(!L?.log?.length) return null; return segTimes(L.start, L.log); }
+function devActual(sess, g, tt){ if(!tt) return 0; let sec=0; Object.entries(tt).forEach(([k,v])=>{ if(k.startsWith('prog:')){ if(g==='Einturnen') sec+=v; return; } const i=sess.T.items.find(x=>ikey(x)===k); if(i && grpOf(i)===g) sec+=v; }); return sec; }
+const mmss = sec => { sec=Math.round(sec); return sec>=3600 ? Math.floor(sec/3600)+':'+pad(Math.floor(sec%3600/60))+' h' : Math.floor(sec/60)+':'+pad(sec%60); };
+const minTxt = sec => Math.round(sec/60)+' min';
+function devTimeTag(planMin, actSec){ if(!actSec) return ''; const am=actSec/60; const diff=Math.round(am-planMin); const cls = !planMin ? '' : am>planMin*1.15 ? 'over' : am<planMin*0.85 ? 'under' : 'ok';
+  return `<small class="act ${cls}">⏱ ${Math.round(am)} min${planMin?` (${diff>0?'+':''}${diff})`:''}</small>`; }
 function groupStats(sess, items){
   let tot=0, done=0, fin=0, cnt=0;
   items.forEach(i=>{ if(i.program) return; const goal=goalOf(sess.day,i,sess.w); if(goal<=0) return; const e=S.turn[sess.date]?.items[ikey(i)]; const d=Math.min(goal,e?.done||0);
@@ -959,12 +983,13 @@ function vTurn(sess, dIso){
   </nav>`;
   const onG = new Set(groups.map(y=>y.g));
   const pool = UI.showAll ? T.items.filter(i=>onG.has(grpOf(i)) && (!i.program || sess.items.includes(i))) : sess.items;
+  const TT = turnTimes(dIso);
   const devBlock = x => {
   const items = pool.filter(i=>grpOf(i)===x.g);
   const nowItem = items.find(i=>!i.program && goalOf(sess.day,i,w)>0 && !itemDone(sess,i));
   let html = '';
   const ck='dc:'+dIso+':'+x.g; const finD = x.st.cnt>0 && x.st.fin===x.st.cnt; const coll = (UI.dcol||{})[ck] ?? (UI.dev==='Alle' && finD);
-  html += `<button type="button" class="dhead tog ${coll?'coll':''} ${finD?'fin':''}" style="--dc:${dcol(x.g)}" data-act="dcol" data-v="${ck}" data-def="${coll?1:0}" aria-expanded="${!coll}"><span class="ic">${finD?'✓':devIcon(x.g)}</span><span class="t"><b>${DEV[x.g].label}</b>${coll&&x.st.cnt&&!finD?`<small>${x.st.cnt-x.st.fin} offen</small>`:''}</span><span class="r">${x.st.cnt?`<b>${x.st.fin}/${x.st.cnt}</b>${x.st.min>=1?' · '+Math.round(x.st.min)+' min':''}`:esc(progLabel(x,sess))}</span><span class="chev">${coll?'▾':'▴'}</span></button>`;
+  html += `<button type="button" class="dhead tog ${coll?'coll':''} ${finD?'fin':''}" style="--dc:${dcol(x.g)}" data-act="dcol" data-v="${ck}" data-def="${coll?1:0}" aria-expanded="${!coll}"><span class="ic">${finD?'✓':devIcon(x.g)}</span><span class="t"><b>${DEV[x.g].label}</b>${coll&&x.st.cnt&&!finD?`<small>${x.st.cnt-x.st.fin} offen</small>`:''}</span><span class="r">${x.st.cnt?`<b>${x.st.fin}/${x.st.cnt}</b>${x.st.min>=1?' · '+Math.round(x.st.min)+' min':''}`:esc(progLabel(x,sess))}${devTimeTag(x.st.min, devActual(sess, x.g, TT))}</span><span class="chev">${coll?'▾':'▴'}</span></button>`;
   if(coll) return html;
   let sec=null; const multiSec = new Set(items.map(i=>i.section)).size>1;
   items.forEach(i=>{ if(multiSec && i.section!==sec){ sec=i.section; html+=`<div class="subsec">${esc(sec.replace(/^[^·]*·\s*/,'')||sec)}</div>`; } html += vTurnItem(i, sess, dIso, i===nowItem); });
@@ -1035,10 +1060,12 @@ function vTurnItem(i, sess, dIso, isNow){
   const done = e?.done||0, fin = goal>0 && done>=goal;
   const ekey = `${sess.day}:${k}`; const openKey='it:'+dIso+':'+k;
   const up = unitParts(i.unit); const isSec = /Sek/.test(i.unit||'');
+  const tsec = turnTimes(dIso)?.[k]||0; const tplan = goal*(i.sec||0)/60;
+  const tTag = tsec ? `⏱ ${mmss(tsec)}${tplan?` / ${Math.round(tplan*10)/10} min Plan`:''}` : '';
   // Übungen sind zugeklappt, Antippen öffnet sie
   if(!UI.open[openKey]){
     const okN = isTry ? okCount(e) : 0;
-    const info = [isTry?'Versuch':'', roleOf(i,w)?({S:'Schwerpunkt','S=':'Schwerpunkt',U:'Untergrenze',K:'konstant'}[roleOf(i,w)]||''):'', isTry&&done?`${okN} gelungen`:''].filter(Boolean).join(' · ');
+    const info = [isTry?'Versuch':'', roleOf(i,w)?({S:'Schwerpunkt','S=':'Schwerpunkt',U:'Untergrenze',K:'konstant'}[roleOf(i,w)]||''):'', isTry&&done?`${okN} gelungen`:'', tsec?'⏱ '+mmss(tsec):''].filter(Boolean).join(' · ');
     return `<button type="button" class="item compact ${isNow?'now':''}" style="--dc:${dcol(grpOf(i))}" data-act="toggle" data-v="${esc(openKey)}" aria-expanded="false">
       <span class="ck ${fin?'fin':isNow?'next':''}">${fin?'✓':''}</span>
       <span class="nm">${esc(shortName(i.name).s)}${info||isNow?`<small>${isNow?'<b>jetzt</b>'+(info?' · ':''):''}${esc(info)}</small>`:''}</span>
@@ -1067,7 +1094,7 @@ function vTurnItem(i, sess, dIso, isNow){
   } else {
     body = stepperUI(sess, i, e, goal, plan, up, isSec);
   }
-  const sub = [up.sub, plan && plan.length>1 ? setLabel(plan) : '', hs ? `Stufe ${hsStufe}: ${hs.stages[hsStufe-1]||''}` : ''].filter(Boolean).join(' · ');
+  const sub = [up.sub, plan && plan.length>1 ? setLabel(plan) : '', hs ? `Stufe ${hsStufe}: ${hs.stages[hsStufe-1]||''}` : '', tTag].filter(Boolean).join(' · ');
   const foot = `<div class="ifoot">
       ${isTry?`<input type="text" id="tn-${esc(k)}" data-in="tnotiz" data-ik="${esc(k)}" value="${esc(e?.notiz||'')}" placeholder="Notiz, z. B. zu früh gelöst">`:''}
       ${hs?`<div class="row small"><span class="lbl">Stufe</span><div class="seg">${[1,2,3].map(n=>`<button class="${hsStufe==n?'on':''}" data-act="hstufe" data-v="${n}" data-name="${esc(hs.name)}">${n}</button>`).join('')}</div></div>`:''}
@@ -1125,7 +1152,7 @@ function vBoden(i, sess){
   const p = bodenProg(sess.w, sess.day); const P = p && PLAN.bodenbahnen.programs[p.prog]; if(!P) return '';
   const key = 'bb'+p.prog; const open = UI.open[key];
   return `<div class="item" style="--dc:${dcol('Einturnen')}"><div class="ihead"><div class="txt"><div class="iname">Bodenbahnen ${esc(P.name)}</div><div class="isub">5 Bahnen hin und zurück${p.landing?' · heute nur 1 Durchgang, danach Landungen':' · 2 Durchgänge'}</div></div>
-    <button class="btn sm" data-act="toggle" data-v="${key}">${open?'Zu':'Bahnen'}</button></div>
+    <div class="row" style="gap:6px;flex-wrap:nowrap"><button class="btn sm" data-act="toggle" data-v="${key}">${open?'Zu':'Bahnen'}</button>${(()=>{ const D=S.turn[sess.date]||{}; const dn=D.prog?.boden; return `<button class="btn sm ${dn?'okb':'primary'}" data-act="progdone" data-v="boden">${dn?'✓ '+hm(new Date(dn)):'✓ Fertig'}</button>`; })()}</div></div>
     ${open?`<div class="stages">${P.lanes.map(l=>{ const k=p.prog+'-'+l.bahn; const st=S.stufen.boden[k]??l.stufe; return `<div class="stage"><div><b>${l.bahn}. ${esc(l.name)}</b></div><div class="seg">${[1,2,3].map(n=>`<button class="${st==n?'on':''}" data-act="bstufe" data-k="${k}" data-v="${n}" aria-label="Stufe ${n}">${n}</button>`).join('')}</div><div class="d">Stufe ${st}: ${esc(l.stages[st-1])}${l.hint?` · ${esc(l.hint)}`:''}</div></div>`; }).join('')}</div>`:''}</div>`;
 }
 function vHandProg(sess){
@@ -1182,7 +1209,8 @@ function vGymItem(g, it, isNow){
   const openKey='g:'+g.id+':'+it.nr;
   if(!UI.open[openKey]){
     const dn = sets.filter(s=>s.done); const tgt=target(it);
-    const sub = isTime ? it.reps : (dn.length ? dn.map(s=>`${fmt(Number(s.kg))}×${s.reps}`).join(' · ') : `${n} × ${it.reps}${typeof tgt==='number'?' · Ziel '+fmt(tgt)+' kg'+(tgt!==target(it,true)?(tgt<target(it,true)?' ↓':' ↑'):''):tgt==='testen'?' · Gewicht testen':''}`);
+    const gsec = gymTimes(g.id)?.[String(it.nr)]||0;
+    const sub = (gsec?'⏱ '+mmss(gsec)+' · ':'') + (isTime ? it.reps : (dn.length ? dn.map(s=>`${fmt(Number(s.kg))}×${s.reps}`).join(' · ') : `${n} × ${it.reps}${typeof tgt==='number'?' · Ziel '+fmt(tgt)+' kg'+(tgt!==target(it,true)?(tgt<target(it,true)?' ↓':' ↑'):''):tgt==='testen'?' · Gewicht testen':''}`));
     return `<button type="button" class="item compact ${isNow?'now':''}" style="--dc:var(--accent)" data-act="toggle" data-v="${esc(openKey)}" aria-expanded="false">
       <span class="ck ${doneAll?'fin':isNow?'next':''}">${doneAll?'✓':''}</span>
       <span class="nm">${esc(shortName(name,40).s)}<small>${isNow?'<b>jetzt</b> · ':''}${esc(sub)}</small></span>
@@ -1444,16 +1472,18 @@ function vLog(){
     if(x.kind==='turn'){ const st=groupStats(x.sess,x.sess.items); pct=st.pct; title='Turnen '+x.sess.day; const D=x.D;
       let V=0,G=0; x.sess.items.filter(i=>i.status==='Versuch').forEach(i=>{ const e=D.items?.[ikey(i)]; if(e){ V+=e.done||0; G+=okCount(e)||0; } });
       sub=[D.start&&D.end?Math.round((D.end-D.start)/60e3)+' min':'', `${st.fin}/${st.cnt} Übungen`, V?`${G}/${V} Versuche ✓`:''].filter(Boolean).join(' · ');
-      if(open){ body = sessGroups(x.sess).filter(y=>y.st.cnt>0).map(y=>{ const its=x.sess.items.filter(i=>grpOf(i)===y.g && !i.program && goalOf(x.sess.day,i,x.sess.w)>0);
-        return `<div class="lgdev" style="--dc:${dcol(y.g)}"><div class="lgh"><i></i><b>${DEV[y.g].label}</b><span class="muted">${y.st.fin}/${y.st.cnt}</span></div>${its.map(i=>{ const e=D.items?.[ikey(i)]||{}; const goal=goalOf(x.sess.day,i,x.sess.w); const dn=e.done||0;
+      if(open){ const TTl=turnTimes(x.date); body = sessGroups(x.sess).filter(y=>y.st.cnt>0).map(y=>{ const its=x.sess.items.filter(i=>grpOf(i)===y.g && !i.program && goalOf(x.sess.day,i,x.sess.w)>0); const da=devActual(x.sess,y.g,TTl);
+        return `<div class="lgdev" style="--dc:${dcol(y.g)}"><div class="lgh"><i></i><b>${DEV[y.g].label}</b><span class="muted">${y.st.fin}/${y.st.cnt}${da?` · ⏱ ${Math.round(da/60)}′ / ${Math.round(y.st.min)}′ Plan`:''}</span></div>${its.map(i=>{ const e=D.items?.[ikey(i)]||{}; const goal=goalOf(x.sess.day,i,x.sess.w); const dn=e.done||0;
           const extra = i.status==='Versuch' ? (dn===0?'':[`${okCount(e)||0}/${dn} ✓`, e.hilfe||'', e.note?'Note '+e.note:''].filter(Boolean).join(' · ')) : (e.inc&&e.inc.length>1?e.inc.join('+'):'' );
-          return `<div class="lgi ${dn>=goal?'ok':dn>0?'part':'no'}"><span>${esc(shortName(i.name).s)}</span><span class="num">${dn}/${goal}${extra?` <small>${esc(extra)}</small>`:''}</span></div>${e.notiz?`<div class="small muted lgn">„${esc(e.notiz)}“</div>`:''}`; }).join('')}</div>`; }).join(''); } }
+          const isec=TTl?.[ikey(i)];
+          return `<div class="lgi ${dn>=goal?'ok':dn>0?'part':'no'}"><span>${esc(shortName(i.name).s)}${isec?` <small>⏱ ${mmss(isec)}</small>`:''}</span><span class="num">${dn}/${goal}${extra?` <small>${esc(extra)}</small>`:''}</span></div>${e.notiz?`<div class="small muted lgn">„${esc(e.notiz)}“</div>`:''}`; }).join('')}</div>`; }).join(''); } }
     else if(x.kind==='gym'){ const pr=gymProgress(x.g); pct=pr.pct; title='Gym '+unitLetter(x.g); const L=x.L; let vol=0;
       x.g.items.forEach(it=>(L.items?.[it.nr]?.sets||[]).forEach(z=>{ if(z.done&&Number(z.kg)>0&&Number(z.reps)>0) vol+=Number(z.kg)*Number(z.reps); }));
       sub=[L.start&&L.end?Math.round((L.end-L.start)/60e3)+' min':'', `${pr.fin}/${pr.tot} Sätze`, vol?fmt(Math.round(vol/10)*10)+' kg':''].filter(Boolean).join(' · ');
       if(open){ body = `<div class="lgdev" style="--dc:var(--accent)">${x.g.items.map(it=>{ const I=L.items?.[it.nr]; const ds=(I?.sets||[]).filter(z=>z.done); const n=setsOf(x.g,it); const isT=/min/.test(it.reps);
           const txt = isT ? (ds.length?'erledigt':'–') : ds.map(z=>`${z.kg!==''&&z.kg!=null?fmt(Number(z.kg)):'–'}×${z.reps||'?'}${z.rir!==''&&z.rir!=null?'@'+z.rir:''}`).join('  ');
-          return `<div class="lgi ${ds.length>=n?'ok':ds.length?'part':'no'}"><span>${esc(shortName(I?.alt&&it.alt?it.alt:it.name,40).s)}</span><span class="num"><small>${esc(txt||'–')}</small></span></div>${I?.note||(I?.pain!==''&&I?.pain!=null)?`<div class="small muted lgn">${esc([I.note, I.pain!==''&&I.pain!=null?'Schmerz '+I.pain:''].filter(Boolean).join(' · '))}</div>`:''}`; }).join('')}</div>${gymRecap(x.g).includes('🏆')?`<div class="prs">${gymRecap(x.g).match(/<div>🏆[^<]*<\/div>/g).join('')}</div>`:''}`; } }
+          const gsec2=gymTimes(x.g.id)?.[String(it.nr)];
+          return `<div class="lgi ${ds.length>=n?'ok':ds.length?'part':'no'}"><span>${esc(shortName(I?.alt&&it.alt?it.alt:it.name,40).s)}${gsec2?` <small>⏱ ${mmss(gsec2)}</small>`:''}</span><span class="num"><small>${esc(txt||'–')}</small></span></div>${I?.note||(I?.pain!==''&&I?.pain!=null)?`<div class="small muted lgn">${esc([I.note, I.pain!==''&&I.pain!=null?'Schmerz '+I.pain:''].filter(Boolean).join(' · '))}</div>`:''}`; }).join('')}</div>${gymRecap(x.g).includes('🏆')?`<div class="prs">${gymRecap(x.g).match(/<div>🏆[^<]*<\/div>/g).join('')}</div>`:''}`; } }
     else if(x.kind==='free'){ pct=1; const F=x.f; const its=(F.items||[]).filter(r=>r.name); title='Frei · '+(F.title||FKIND[F.kind]); sub=[freeMin(F)?freeMin(F)+' min':'', its.length?its.length+' Übung'+(its.length>1?'en':''):''].filter(Boolean).join(' · ')||'ohne Details';
       if(open) body = `<div class="lgdev" style="--dc:var(--d-sprung)">${its.map(r=>`<div class="lgi"><span>${esc(r.name)}${r.dev?` <small>${esc(r.dev)}</small>`:''}</span><span class="num">${r.amt?esc(r.amt)+' '+esc(r.unit):''}${r.kg?` <small>@ ${fmt(Number(r.kg))} kg</small>`:''}</span></div>`).join('')}${F.note?`<div class="small muted lgn">${esc(F.note)}</div>`:''}</div>`; }
     else { pct=1; title='Schwimmen'; sub=x.e.note?esc(x.e.note):'erledigt'; }
@@ -1771,21 +1801,21 @@ async function buildWorkbook(ExcelJS){
   ws1.views=[{state:'frozen', ySplit:0}];
   // App-Turnen
   const ws2=wb.addWorksheet('App-Turnen'); ws2.columns=[{width:10},{width:7},{width:6},{width:12},{width:44},{width:16},{width:9},{width:9},{width:10},{width:12},{width:7},{width:36}];
-  head(ws2,1,['Datum','Abend','Woche','Gerät','Übung','Einheit','Soll','Ist','gelungen','Hilfe','Note','Notiz']);
+  head(ws2,1,['Datum','Abend','Woche','Gerät','Übung','Einheit','Soll','Ist','gelungen','Hilfe','Note','Notiz','Zeit ist (min)','Zeit Plan (min)']); ws2.getColumn(13).width=13; ws2.getColumn(14).width=14;
   logRows().sort((a,b)=>a.date.localeCompare(b.date)).forEach((x,k)=>{ const slot=turnSlots().find(s=>s.date===x.date && s.day===x.day); const w=slot?slot.w:weekOf(parse(x.date));
-    const vals=[xDate(x.date),x.day,w,DEV[grpOf(x.item)]?.label||x.device,x.element,unitParts(x.unit).main,goalOf(x.day,x.item,w),x.versuche,x.status==='Versuch'?(x.ok??null):null,x.hilfe||null,x.note??null,x.notiz||null];
+    const vals=[xDate(x.date),x.day,w,DEV[grpOf(x.item)]?.label||x.device,x.element,unitParts(x.unit).main,goalOf(x.day,x.item,w),x.versuche,x.status==='Versuch'?(x.ok??null):null,x.hilfe||null,x.note??null,x.notiz||null, (()=>{ const v=turnTimes(x.date)?.[ikey(x.item)]; return v?Math.round(v/6)/10:null; })(), Math.round(goalOf(x.day,x.item,w)*(x.item.sec||0)/6)/10||null];
     vals.forEach((v,c)=>{ const cell=ws2.getCell(k+2,c+1); cell.value=v; if(c===0) cell.numFmt='dd.mm.yy'; }); });
-  ws2.views=[{state:'frozen', ySplit:1}]; ws2.autoFilter={from:'A1', to:'L1'};
+  ws2.views=[{state:'frozen', ySplit:1}]; ws2.autoFilter={from:'A1', to:'N1'};
   // App-Gym
   const ws3=wb.addWorksheet('App-Gym'); ws3.columns=[{width:10},{width:7},{width:8},{width:40},{width:6},{width:8},{width:7},{width:7},{width:12},{width:12},{width:9},{width:9},{width:30}];
-  head(ws3,1,['Datum','Woche','Einheit','Übung','Satz','kg','Wdh','RIR','e1RM gesamt','e1RM Zusatz','Ziel kg','Schmerz','Notiz']); let gr=2;
+  head(ws3,1,['Datum','Woche','Einheit','Übung','Satz','kg','Wdh','RIR','e1RM gesamt','e1RM Zusatz','Ziel kg','Schmerz','Notiz','Zeit Übung (min)']); ws3.getColumn(14).width=15; let gr=2;
   const nn = x => (x===''||x==null||!isFinite(Number(x))) ? null : Number(x);
   PLAN.gym.slice().sort((a,b)=>gDate(a).localeCompare(gDate(b))).forEach(g=>g.items.forEach(it=>{ const I=S.gym[g.id]?.items?.[it.nr]; (I?.sets||[]).forEach((s,k)=>{ if(!s.done) return;
     const c=PLAN.calc.find(c=>exKey(it.name).startsWith(c.name)); const v=(c && nn(s.kg)!=null && nn(s.reps))?e1({nr:c.nr,kg:nn(s.kg),reps:nn(s.reps),rir:nn(s.rir)||0}):null; const tg=target(it);
-    const vals=[xDate(gDate(g)),parseInt(g.code.slice(1)),unitLetter(g),I.alt&&it.alt?it.alt:it.name,k+1,nn(s.kg),nn(s.reps),nn(s.rir),v==null?null:Math.round(v),v==null?null:Math.round(e1Zus(c.nr,v)),typeof tg==='number'?tg:null,nn(I.pain),I.note||null];
+    const vals=[xDate(gDate(g)),parseInt(g.code.slice(1)),unitLetter(g),I.alt&&it.alt?it.alt:it.name,k+1,nn(s.kg),nn(s.reps),nn(s.rir),v==null?null:Math.round(v),v==null?null:Math.round(e1Zus(c.nr,v)),typeof tg==='number'?tg:null,nn(I.pain),I.note||null, k===0 && gymTimes(g.id)?.[String(it.nr)] ? Math.round(gymTimes(g.id)[String(it.nr)]/6)/10 : null];
     vals.forEach((x,c2)=>{ const cell=ws3.getCell(gr,c2+1); cell.value=x; if(c2===0) cell.numFmt='dd.mm.yy'; }); gr++; }); }));
   if(PLAN.calc.some(c=>kgCounts(c.nr))){ gr++; ws3.getCell(gr,1).value=`e1RM gesamt = (kg + Körpergewicht ${PLAN.bodyweight} kg bei Dips) × (1 + (Wdh + RIR)/30). e1RM Zusatz = gesamt − Körpergewicht. Ziel kg im Gym Plan ist immer das Zusatzgewicht.`; ws3.getCell(gr,1).font={italic:true,color:{argb:'FF666666'}}; }
-  ws3.views=[{state:'frozen', ySplit:1}]; ws3.autoFilter={from:'A1', to:'M1'};
+  ws3.views=[{state:'frozen', ySplit:1}]; ws3.autoFilter={from:'A1', to:'N1'};
   if((S.free||[]).length){ const wf=wb.addWorksheet('App-Frei'); wf.columns=[{width:10},{width:7},{width:11},{width:24},{width:8},{width:34},{width:11},{width:8},{width:9},{width:8},{width:36}];
     head(wf,1,['Datum','Woche','Art','Titel','Dauer','Übung','Gerät','Menge','Einheit','kg','Notiz']); let fr=2;
     S.free.slice().sort((a,b)=>a.date.localeCompare(b.date)).forEach(f=>{ const its=(f.items||[]).filter(r=>r.name); (its.length?its:[{}]).forEach((r,k)=>{
@@ -1899,6 +1929,7 @@ document.addEventListener('click', ev=>{
     case 'fredit': { const f=S.free.find(x=>x.id===v); if(f){ UI.freeDraft=JSON.parse(JSON.stringify({...f, min:f.min??'', note:f.note||'', title:f.title||'', items:(f.items||[]).length?f.items.map(r=>({name:r.name||'',amt:r.amt??'',unit:r.unit||'Wdh',kg:r.kg??'',dev:r.dev||''})):[{name:'',amt:'',unit:'Wdh',kg:'',dev:''}]})); } break; }
     case 'frrm': S.free=S.free.filter(x=>x.id!==v); save(); msg='Freies Training gelöscht'; break;
     case 'sub': UI.sub=v||null; window.scrollTo(0,0); break;
+    case 'progdone': { const sess=curTurn(); const D=S.turn[dIso] ||= {day:sess?.day, items:{}}; D.prog ||= {}; if(D.prog[v]){ delete D.prog[v]; D.log=(D.log||[]).filter(e=>e.k!=='prog:'+v); msg='Wieder offen'; } else { D.prog[v]=Date.now(); if(dIso===iso(today())){ autoStartTurn(dIso); (D.log ||= []).push({t:Date.now(), k:'prog:'+v}); } msg='Einturnen erledigt'; } save(); break; }
     case 'theme': S.prefs.theme=v; save(); applyTheme(); break;
     case 'dismiss': (S.prefs.dismissed ||= {})[v]=true; save(); break;
     case 'undismiss': S.prefs.dismissed={}; save(); break;
@@ -2000,6 +2031,11 @@ document.addEventListener('click', ev=>{
     case 'reset2': S=seed(blank()); save(); UI.confirmReset=false; msg='Zurückgesetzt'; break;
     default: return;
   }
+  // Zeitstempel für die Zeit pro Übung (nur am selben Tag, nur vorwärts)
+  try{ const now=Date.now();
+    if(ik && ['inc','sadj','sfull','cfull','try','setchip','ladder'].includes(a) && dIso===iso(today()) && !(a==='sadj' && Number(v)<0)){ const D=S.turn[dIso]; if(D){ (D.log ||= []).push({t:now, k:ik}); save(); } }
+    if(a==='gset' || a==='gtoggle'){ const g=PLAN.gym.find(x=>x.id===b.dataset.g); if(g && gDate(g)===iso(today())){ const I=S.gym[g.id]?.items?.[b.dataset.nr]; const k=Number(b.dataset.k||0); if(I?.sets?.[k]?.done){ const L=gL(g.id); (L.log ||= []).push({t:now, k:String(b.dataset.nr)}); save(); } } }
+  }catch(e){}
   if(S.prefs.auto!==false && tk && wasDone===false && okeyDone(tk)===true && UI.open[tk]){ UI.open[tk]=false; const nx=nextOpenKey(tk); if(nx){ UI.open[nx]=true; UI.scrollTo=nx; } }
   render();
   if(UI.scrollTo){ const key=UI.scrollTo; UI.scrollTo=null; setTimeout(()=>{ const el=[...document.querySelectorAll('.ihead[data-v]')].find(x=>x.dataset.v===key)?.closest('.item'); if(el){ const y=el.getBoundingClientRect().top+scrollY-($('#topwrap').offsetHeight+70); scrollTo({top:Math.max(0,y), behavior:'smooth'}); } }, 30); }
