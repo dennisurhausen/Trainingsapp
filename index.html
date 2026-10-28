@@ -549,6 +549,22 @@ th,td{padding-inline:4.5px}
 .kannbox .item.open{opacity:1}
 .set.hold{grid-template-columns:17px 43px 1fr 40px 39.5px}
 .goal .n.okc{color:var(--ok)}
+.seq button{position:relative;width:27px;height:27px;font-size:12px}
+.seq button i{position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);font-style:normal;font-size:8.5px;font-weight:600;color:var(--muted);white-space:nowrap}
+.seq{row-gap:13px;padding-bottom:6px}
+.seq button.sel{box-shadow:0 0 0 2px var(--accent)}
+.tryed{display:flex;flex-direction:column;gap:7px;background:var(--surface2);border:1px solid var(--accent);border-radius:12px;padding:9px 10px}
+.tryed .notes button{font-size:16px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:5px 10px;font-size:12.5px}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.trysum{display:flex;flex-wrap:wrap;gap:4px 14px;color:var(--muted)} .trysum b{color:var(--ink)}
+.devbars{display:flex;flex-direction:column;gap:5px}
+.devbars .db{display:grid;grid-template-columns:76px 1fr 54px;gap:8px;align-items:center;font-size:12.5px}
+.devbars .bar{position:relative;height:10px;border-radius:5px;background:var(--surface2);overflow:hidden}
+.devbars .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px}
+.devbars .bar i.p{background:var(--sunk)}
+.devbars .db b{text-align:right;font-size:12px}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 
@@ -732,7 +748,7 @@ const TABS = [['training','Training'],['plan','Plan'],['kraft','Statistik'],['me
 const WD = ['So','Mo','Di','Mi','Do','Fr','Sa'];
 const START = new Date(2026,9,19);
 const ESTIMATE = {A:105, C:85, B:120};
-const HILFE = PLAN.hilfeOptions || ['Partner','Weichboden','Trampolin','Doppelmini','Matte','ohne'];
+const HILFE = (()=>{ const base=(PLAN.hilfeOptions||['Partner','Weichboden','Trampolin','Doppelmini','Matte','ohne']).filter(x=>x!=='ohne'); ['Gummiband','Sprungbrett','Kasten / Erhöhung','Wand'].forEach(x=>{ if(!base.includes(x)) base.push(x); }); base.push('ohne'); return base; })();
 /* Regeln über ein Stichwort finden (Nummern können sich ändern) */
 function ruleBy(kw){ return PLAN.rules.find(r=>r.text.includes(kw)) || {nr:'', text:''}; }
 function ruleShort(r){ const t=r.text; const i=t.indexOf(':'); return (i>0 && i<48) ? t.slice(0,i) : t.split(' ').slice(0,6).join(' ')+' …'; }
@@ -886,8 +902,8 @@ function turnRecap(sess, dIso){ const D=S.turn[dIso]||{}; const gs=sessGroups(se
   let V=0,G=0; sess.items.filter(i=>i.status==='Versuch').forEach(i=>{ const e=D.items?.[ikey(i)]; if(e){ V+=e.done||0; G+=okCount(e)||0; } });
   const open=sess.items.filter(i=>!i.program && !isKann(sess,i) && goalOf(sess.day,i,sess.w)>0 && !itemDone(sess,i)).map(i=>shortName(i.name).s);
   const more=sess.items.filter(i=>{ const g=goalOf(sess.day,i,sess.w); return g>0 && (D.items?.[ikey(i)]?.done||0)>g; }).length;
-  const all=groupStats(sess,sess.items);
-  return `<div class="recap"><div class="stats"><div class="stat"><b class="num">${all.fin}/${all.cnt}</b><span>Übungen</span></div><div class="stat"><b class="num">${G}/${V}</b><span>Versuche gelungen</span></div><div class="stat"><b class="num">${more}</b><span>mehr als geplant</span></div></div>
+  const m=turnSessMetrics(sess,dIso);
+  return `<div class="recap"><div class="stats"><div class="stat"><b class="num">${m.done}/${m.plan}</b><span>Ausführungen</span></div><div class="stat"><b class="num">${m.mf}/${m.mc}</b><span>Muss-Übungen</span></div><div class="stat"><b class="num">${G}/${V}</b><span>Versuche ✓</span></div><div class="stat"><b class="num">${m.avg==null?'–':fmt(Math.round(m.avg*10)/10)}</b><span>Ø Note</span></div></div>${more?`<p class="small muted">${more} Übung${more>1?'en':''} mehr als geplant.</p>`:''}
     ${vDevTimeTable(sess, dIso)}
     ${open.length?`<p class="small muted">Offen geblieben: ${open.slice(0,8).map(esc).join(' · ')}${open.length>8?` · +${open.length-8}`:''}</p>`:'<p class="small" style="color:var(--ok)">Alles geschafft 💪</p>'}</div>`; }
 function gymRecap(g){ const pr=gymProgress(g); const L=S.gym[g.id]||{}; let vol=0;
@@ -944,6 +960,11 @@ function tEntry(date,k,create){
 }
 function okCount(e){ if(!e) return 0; if(e.seq&&e.seq.length) return e.seq.filter(x=>x===true).length; return e.ok||0; }
 function seqOf(e){ if(!e) return []; if(!e.seq) e.seq=[]; if(!e.seq.length && e.done>0) e.seq=Array(e.done).fill(null); return e.seq; }
+function tryArrays(e){ const q=seqOf(e); e.grades ||= []; e.helps ||= []; while(e.grades.length<q.length) e.grades.push(null); while(e.helps.length<q.length) e.helps.push(null); return q; }
+function helpOf(e,n){ return e?.helps?.[n] || e?.hilfe || ''; }
+function tryNoteAvg(e, onlyOk){ const g=(e?.grades||[]).map((v,i)=>({v,ok:e.seq?.[i]})).filter(x=>x.v!=null && (!onlyOk||x.ok===true)); return g.length? g.reduce((a,x)=>a+x.v,0)/g.length : null; }
+function syncTry(e){ e.done=(e.seq||[]).length; e.ok=okCount(e); if(e.grades){ const a=tryNoteAvg(e); e.note = a==null?null:Math.round(a*10)/10; } const hs=(e.helps||[]).filter(Boolean); if(hs.length) e.hilfe=hs[hs.length-1]; }
+const HABBR = h => ({Partner:'P', Weichboden:'WB', Trampolin:'Tr', Doppelmini:'DM', Matte:'M', Gummiband:'G', Sprungbrett:'SB', 'Kasten / Erhöhung':'K', Wand:'W', ohne:'o'})[h] || (h?h.slice(0,2):'');
 function graded(e){ return !!(e?.seq && e.seq.some(x=>x!==null)); }
 function ticksOf(e, plan){ if(!plan) return []; if(e?.setsDone && e.setsDone.length===plan.length) return e.setsDone.slice(); let left=e?.done||0; return plan.map(v=>{ if(left>=v){ left-=v; return true; } return false; }); }
 /* ----- Zeit pro Übung: Zeit seit dem vorherigen Eintrag zählt für die Übung (max. 25 min je Abschnitt) ----- */
@@ -1159,10 +1180,12 @@ function vTurn(sess, dIso){
       {act:'showall', label: UI.showAll?'Nur geplante Übungen zeigen':'Alle Übungen der Geräte zeigen', sub:'auch Übungen mit Soll 0 in dieser Woche'},
       {act:'moveopen', v:sess.key, label:'Training verschieben', sub:'auf einen anderen Tag'},
       {act:'toggle', v:'hints', label: UI.open.hints?'Hinweise ausblenden':'Schwerpunkt, Hinweise und Regeln', sub:'warum der Abend so aufgebaut ist'},
-      ...(D.start?[{act:'treset', label:'Zeitmessung zurücksetzen'}]:[])
+      ...(D.start?[{act:'treset', label:'Zeitmessung zurücksetzen'}]:[]),
+      ...(Object.keys(D.items||{}).length||D.start?[{act:'logdel', v:'turn:'+dIso, label:'Einträge dieses Abends löschen', sub:'alle Übungen, Zeiten und Start/Ende'}]:[])
     ])}
     ${UI.open.hints?`<div class="stack small"><p>${esc(T.focus.replace(/^Schwerpunkt:\s*/,''))}</p><p class="muted">${esc(T.why.replace(/^Warum:\s*/,''))}</p>${T.notes.map(n=>`<p class="muted">${esc(n)}</p>`).join('')}${ruleRef('Reihenfolge im Gerätblock')}${ruleRef('Check zu Beginn')}${ruleRef('Boden: immer vw')}${ruleRef('Pferd: immer')}${planMin>180?ruleRef('Turnabend > 180'):''}</div>`:''}</div>`:''}
     ${UI.move===sess.key?`<div class="card">${vMovePanel('turn',sess.key,sess.orig,dIso)}</div>`:''}`;
+  if(UI.confirmDel==='turn:'+dIso) html += `<div class="note warn small row">Alle Einträge dieses Abends löschen? ${delBtn('turn:'+dIso)}</div>`;
   const fn = vFormNote(fkey,false); if(fn && fn.includes('warn')) html += fn;
   if(sess.date!==sess.orig) html += `<div class="note warn small">Verschoben von ${WD[parse(sess.orig).getDay()]} ${dm(parse(sess.orig))}.${twoInRow?' Zwei Turnabende hintereinander: am zweiten den Barren weglassen, falls er am ersten dran war.':''}</div>`;
   html += `<nav class="devnav" aria-label="Geräte">
@@ -1287,14 +1310,20 @@ function vTurnItem(i, sess, dIso, isNow){
     const last2 = seq.length>=2 && seq[seq.length-1]===false && seq[seq.length-2]===false;
     const slots = Math.max(goal, seq.length); const unknown = seq.some(x=>x===null);
     const hil = e?.hilfe || S.lastHilfe[i.name] || '';
-    body = `<div class="seq" aria-label="Versuche">${[...Array(slots)].map((_,n)=> n<seq.length? `<button type="button" class="${seq[n]===true?'y':seq[n]===false?'x':'q'}" data-act="dot" data-ik="${esc(k)}" data-k="${n}" aria-label="Versuch ${n+1} umschalten">${seq[n]===null?'?':n+1}</button>` : `<span class="e"></span>`).join('')}</div>
-      ${unknown?`<div class="small muted">? = noch nicht bewertet. Punkt antippen zum Bewerten.</div>`:''}
+    const ed = (UI.tryEdit && UI.tryEdit.k===openKey) ? UI.tryEdit.n : null; const grades=e?.grades||[];
+    const avg=tryNoteAvg(e), avgOk=tryNoteAvg(e,true); const vo=seq.filter((x,n)=>helpOf(e,n)==='ohne').length, go=seq.filter((x,n)=>x===true && helpOf(e,n)==='ohne').length;
+    body = `<div class="seq" aria-label="Versuche">${[...Array(slots)].map((_,n)=> n<seq.length? `<button type="button" class="${seq[n]===true?'y':seq[n]===false?'x':'q'} ${ed===n?'sel':''}" data-act="tsel" data-ik="${esc(k)}" data-k="${n}" aria-label="Versuch ${n+1} bearbeiten">${grades[n]!=null?grades[n]:(seq[n]===null?'?':'·')}<i>${esc(HABBR(helpOf(e,n)))}</i></button>` : `<span class="e"></span>`).join('')}</div>
+      ${ed!=null && ed<seq.length ? `<div class="tryed"><div class="spread"><b>Versuch ${ed+1}</b><button class="btn ghost sm" data-act="tsel" data-ik="${esc(k)}" data-k="${ed}" aria-label="Schließen">✕</button></div>
+        <div class="seg full"><button class="${seq[ed]===true?'on':''}" data-act="tres" data-ik="${esc(k)}" data-k="${ed}" data-v="1">✓ gelungen</button><button class="${seq[ed]===false?'on':''}" data-act="tres" data-ik="${esc(k)}" data-k="${ed}" data-v="0">✗ nicht</button></div>
+        <div class="lbl">Note <span class="muted">1 sauber … 5 schlecht</span></div><div class="seg full notes">${[1,2,3,4,5].map(n=>`<button class="${grades[ed]==n?'on':''}" data-act="tgrade" data-ik="${esc(k)}" data-k="${ed}" data-v="${n}">${n}</button>`).join('')}</div>
+        <div class="lbl">Hilfe bei diesem Versuch</div><div class="chips">${HILFE.map(h=>`<button class="chip ${helpOf(e,ed)===h?'on':''}" data-act="thelp" data-ik="${esc(k)}" data-k="${ed}" data-v="${esc(h)}" data-name="${esc(i.name)}">${esc(h)}</button>`).join('')}</div>
+        <button class="btn ghost sm" data-act="tdel" data-ik="${esc(k)}" data-k="${ed}">Versuch löschen</button></div>` : (seq.length?`<div class="small muted">Punkt antippen: gelungen/nicht, Note und Hilfe pro Versuch ändern.</div>`:'')}
       <div class="attempts"><button class="abtn yes" data-act="try" data-ik="${esc(k)}" data-v="1">+ ✓ Gelungen</button><button class="abtn no" data-act="try" data-ik="${esc(k)}" data-v="0">+ ✗ Nicht</button><button class="abtn undo" data-act="tryundo" data-ik="${esc(k)}" aria-label="Letzten Versuch löschen">↶</button></div>
+      ${seq.length?`<div class="trysum small"><span>Ø Note <b>${avg==null?'–':fmt(Math.round(avg*10)/10)}</b></span><span>gelungene Ø <b>${avgOk==null?'–':fmt(Math.round(avgOk*10)/10)}</b></span><span>ohne Hilfe <b>${go}/${vo}</b></span></div>`:''}
       ${last2?`<div class="note bad small"><b>2 Fehlversuche in Folge – abbrechen.</b> ${esc(RTXT('Abbruch nach 2').split('.').slice(1,2).join('.'))}</div>`:''}
       ${seq.length>goal && goal>0?`<div class="note small">${seq.length-goal} Versuch${seq.length-goal>1?'e':''} mehr als geplant – wird so eingetragen. Die Zahl im Plan ist eine Obergrenze (Regel 10).</div>`:''}
-      ${seq.length>=goal && goal>0?`<div class="note ok small">Geplante ${goal} Versuche erreicht.${!hil||unknown?' Bitte noch '+[!hil?'Hilfe':'',unknown?'gelungen/nicht':''].filter(Boolean).join(' und ')+' eintragen.':''}</div>`:''}
-      <div class="row"><label class="lbl" for="hs-${esc(k)}">Hilfe</label><select id="hs-${esc(k)}" data-in="hilfe" data-ik="${esc(k)}" data-name="${esc(i.name)}"><option value="">wählen</option>${HILFE.map(h=>`<option ${hil===h?'selected':''}>${esc(h)}</option>`).join('')}</select>
-        <span class="lbl">Note 1.–2.</span><div class="seg">${[1,2,3,4,5].map(n=>`<button class="${e?.note==n?'on':''}" data-act="tnote" data-ik="${esc(k)}" data-v="${n}">${n}</button>`).join('')}</div></div>`;
+      ${seq.length>=goal && goal>0 && unknown?`<div class="note ok small">Geplante ${goal} Versuche erreicht. Bitte noch gelungen/nicht eintragen (Punkt mit ? antippen).</div>`:''}
+      <div class="row"><label class="lbl" for="hs-${esc(k)}">Hilfe für neue Versuche</label><select id="hs-${esc(k)}" data-in="hilfe" data-ik="${esc(k)}" data-name="${esc(i.name)}"><option value="">wählen</option>${HILFE.map(h=>`<option ${hil===h?'selected':''}>${esc(h)}</option>`).join('')}</select></div>`;
   } else if(plan && plan.length>1){
     body = setRowsUI(i, e, goal, plan, up, isSec);
   } else if(roundSpec(i) && !i.landing){
@@ -1306,7 +1335,7 @@ function vTurnItem(i, sess, dIso, isNow){
   const foot = `<div class="ifoot">
       <input type="text" id="tn-${esc(k)}" data-in="tnotiz" data-ik="${esc(k)}" value="${esc(e?.notiz||'')}" placeholder="${isTry?'Notiz, z. B. zu früh gelöst':'Notiz zur Übung'}">
       ${hs?`<div class="row small"><span class="lbl">Stufe</span><div class="seg">${[1,2,3].map(n=>`<button class="${hsStufe==n?'on':''}" data-act="hstufe" data-v="${n}" data-name="${esc(hs.name)}">${n}</button>`).join('')}</div></div>`:''}
-      <div class="row small">${!isTry&&done<goal?`<button class="btn sm" data-act="cfull" data-ik="${esc(k)}">✓ Alles geschafft</button>`:''}<button class="btn ghost sm" data-act="toggle" data-v="${esc('d:'+openKey)}">✎ Soll ${fmt(goal)} ändern</button></div>
+      <div class="row small">${!isTry&&done<goal?`<button class="btn sm" data-act="cfull" data-ik="${esc(k)}">✓ Alles geschafft</button>`:''}<button class="btn ghost sm" data-act="toggle" data-v="${esc('d:'+openKey)}">✎ Soll ${fmt(goal)} ändern</button>${e&&(e.done||e.notiz)?`<button class="btn ghost sm" data-act="ireset" data-ik="${esc(k)}">↺ Übung zurücksetzen</button>`:''}</div>
     </div>`;
   const details = goalEdit ? `<div class="panel">
       <div class="row" style="flex-wrap:nowrap"><div class="field" style="flex:0 0 110px"><label class="lbl" for="eg-${esc(k)}">Soll Wo ${w}</label><input type="number" inputmode="numeric" id="eg-${esc(k)}" value="${goal}"></div>
@@ -1502,11 +1531,13 @@ function vGym(g){
     ${UI.menu?`<div class="card stack"><p class="small muted">${esc(sub)}${est?' · '+esc(est.replace(/\s*\(Schätzung\)/,'')):''} · Phase ${esc(lt.code)} ${esc(W.phase)} · RIR schwer ${esc(lt.rirZiel)}</p><p class="small muted">Tipp: ✓ übernimmt die Vorgabe (grau). Nur Abweichungen eintippen.</p>`+vMenu([
       {act:'moveopen', v:g.id, label:'Einheit verschieben', sub:'auf einen anderen Tag'},
       {act:'toggle', v:'ghints', label: UI.open.ghints?'Hinweise ausblenden':'Phase und Regeln', sub:`${lt.code} ${W.phase}: was diese Woche gilt`},
-      ...(L.start?[{act:'greset', v:g.id, label:'Zeitmessung zurücksetzen'}]:[])
+      ...(L.start?[{act:'greset', v:g.id, label:'Zeitmessung zurücksetzen'}]:[]),
+      ...(Object.keys(L.items||{}).length||L.start?[{act:'logdel', v:'gym:'+g.id, label:'Einträge dieser Einheit löschen', sub:'alle Sätze, Zeiten und Start/Ende'}]:[])
     ])+`${UI.open.ghints?`<div class="stack small"><p><b>Leichtere Sätze:</b> ${esc(lt.leicht)}</p><p><b>Assistenz:</b> ${esc(lt.assist)}</p>${lt.kommentar?`<p class="muted">${esc(lt.kommentar)}</p>`:''}${ruleRef('Last erst steigern')}${ruleRef('Hauptübungen: schwerer')}${ruleRef('Zeitnot')}${ruleRef('Verpasste Einheit')}</div>`:''}</div>`:''}
     ${UI.move===g.id?`<div class="card">${vMovePanel('gym',g.id,g.date,dIso)}</div>`:''}
   ${(vFormNote(g.id,true).includes('warn'))?vFormNote(g.id,true):''}
   ${dIso!==g.date?`<div class="note warn small">Verschoben von ${WD[parse(g.date).getDay()]} ${dm(parse(g.date))}.${sameDayTurn?' Am selben Tag ist Turnen: Gym leicht halten (RIR 3), Turnen geht vor.':''}</div>`:''}`;
+  if(UI.confirmDel==='gym:'+g.id) html += `<div class="note warn small row">Alle Einträge dieser Einheit löschen? ${delBtn('gym:'+g.id)}</div>`;
   if(tooLong) html += `<div class="note warn small">Über 120 min.${ruleRef('Gym-Einheit > 120')}</div>`;
   g.items.forEach(it=> html += vGymItem(g, it, it===nowIt));
   { const estMin = Number((est||'').match(/(\d+)\s*min/)?.[1]) || 90; html += finishPanel('gym', g.id, estMin, L, Object.values(L.items||{}).some(I=>(I.sets||[]).some(x=>x.done)), ()=>gymRecap(g)); }
@@ -1567,7 +1598,7 @@ function vGymItem(g, it, isNow){
       <div class="row" style="flex-wrap:nowrap"><input type="text" id="gn-${g.id}-${it.nr}" data-in="gnote" data-g="${g.id}" data-nr="${it.nr}" value="${esc(L.note||'')}" placeholder="Notiz">
         <input type="number" inputmode="numeric" min="0" max="10" id="gp-${g.id}-${it.nr}" data-in="gpain" data-g="${g.id}" data-nr="${it.nr}" value="${esc(pain??'')}" placeholder="Schmerz" aria-label="Schmerz 0 bis 10" style="max-width:96px"></div>
       ${UI.swapFor===g.id+':'+it.nr ? vSwapPanel(g,it) : ''}
-      ${true?`<div class="row small"><button class="btn ghost sm" data-act="swopen" data-g="${g.id}" data-nr="${it.nr}">⇄ Übung wechseln</button>${swapped?`<button class="btn ghost sm" data-act="swpick" data-g="${g.id}" data-nr="${it.nr}" data-v="${esc(baseEx(it.name))}">↺ Plan: ${esc(shortName(baseEx(it.name),30).s)}</button>`:''}${isTime||n<=1?'':`<button class="btn ghost sm" data-act="gsets" data-g="${g.id}" data-nr="${it.nr}" data-v="-1">− letzten Satz</button>`}</div>`:''}
+      ${true?`<div class="row small"><button class="btn ghost sm" data-act="swopen" data-g="${g.id}" data-nr="${it.nr}">⇄ Übung wechseln</button>${swapped?`<button class="btn ghost sm" data-act="swpick" data-g="${g.id}" data-nr="${it.nr}" data-v="${esc(baseEx(it.name))}">↺ Plan: ${esc(shortName(baseEx(it.name),30).s)}</button>`:''}${isTime||n<=1?'':`<button class="btn ghost sm" data-act="gsets" data-g="${g.id}" data-nr="${it.nr}" data-v="-1">− letzten Satz</button>`}${sets.some(x=>x.done)?`<button class="btn ghost sm" data-act="gireset" data-g="${g.id}" data-nr="${it.nr}">↺ zurücksetzen</button>`:''}</div>`:''}
 </div>`;
   return `<div class="item open ${isNow?'now':''}" style="--dc:var(--accent)">
     <div class="ihead" data-act="toggle" data-v="${esc(openKey)}" role="button" aria-expanded="true"><div class="txt"><div class="iname">${esc(shortName(name,40).s)}${swapped?' <span class="tag swtag">⇄ getauscht</span>':''}</div>${shortName(name,40).rest?`<div class="isub">${esc(shortName(name,40).rest)}</div>`:''}
@@ -1582,6 +1613,22 @@ function vGymItem(g, it, isNow){
 }
 
 /* ----- Fortschritt-Daten ----- */
+/* Ausführungen: Wdh, Versuche, Elemente, Sätze. Halteübungen in Sekunden zählen als Sätze. */
+const isSecUnit = i => /Sek/.test(String(i.unit||''));
+function execCount(i, n){ if(!n) return 0; if(isSecUnit(i)) return i.setSize ? Math.ceil(n/i.setSize) : 1; return n; }
+function execDone(i, e){ if(!e) return 0; if(isSecUnit(i)){ if(e.inc) return e.inc.filter(v=>v>0).length; return i.setSize ? Math.ceil((e.done||0)/i.setSize) : ((e.done||0)>0?1:0); } return e.done||0; }
+function turnSessMetrics(sess, dIso){ const D=S.turn[dIso]||{}; let plan=0, done=0, mc=0, mf=0, V=0, G=0; const gr=[];
+  sess.items.forEach(i=>{ if(i.program) return; const goal=goalOf(sess.day,i,sess.w); const e=D.items?.[ikey(i)]; const kann=isKann(sess,i);
+    if(!kann && goal>0){ plan+=execCount(i,goal); mc++; if((e?.done||0)>=goal) mf++; }
+    done+=execDone(i,e);
+    if(i.status==='Versuch' && e){ V+=e.done||0; G+=okCount(e)||0; (e.grades||[]).forEach(x=>{ if(x!=null) gr.push(x); }); if(!e.grades && e.note!=null) gr.push(e.note); } });
+  return {plan, done, mc, mf, V, G, avg: gr.length? gr.reduce((a,x)=>a+x,0)/gr.length : null}; }
+function turnWeekMetrics(w){ const m={plan:0, done:0, mc:0, mf:0, V:0, G:0, gsum:0, gn:0, dev:{}};
+  turnSlots().filter(sl=>sl.w===w).forEach(sl=>{ const sess=turnSession(parse(sl.date)); if(!sess) return; const x=turnSessMetrics(sess, sl.date);
+    m.plan+=x.plan; m.done+=x.done; m.mc+=x.mc; m.mf+=x.mf; m.V+=x.V; m.G+=x.G; if(x.avg!=null){ m.gsum+=x.avg; m.gn++; }
+    const D=S.turn[sl.date]||{}; sess.items.forEach(i=>{ if(i.program) return; const g=grpOf(i); const o=(m.dev[g] ||= {plan:0, done:0}); const goal=goalOf(sess.day,i,sess.w); if(!isKann(sess,i)) o.plan+=execCount(i,goal); o.done+=execDone(i, D.items?.[ikey(i)]); }); });
+  (S.free||[]).filter(f=>f.kind==='turn' && weekOf(parse(f.date))===w).forEach(f=>(f.items||[]).forEach(r=>{ m.done+=Number(r.amt)||0; }));
+  m.avg = m.gn? m.gsum/m.gn : null; return m; }
 function weekProgress(metric){
   const rows=[...Array(14)].map((_,k)=>({w:k+1, plan:0, done:0}));
   if(metric==='gym'){
@@ -1592,7 +1639,8 @@ function weekProgress(metric){
     T.items.forEach(i=>{ if(i.program || (i.prio?.[sl.w-1]==='K')) return; const goal=goalOf(sl.day,i,sl.w); if(goal<=0) return;
       const hand = metric==='hand'; if(hand && !(grpOf(i)==='Handstand')) return;
       const e=S.turn[sl.date]?.items[ikey(i)]; const d=Math.min(goal,e?.done||0);
-      if(hand){ rows[sl.w-1].plan+=goal; rows[sl.w-1].done+=d; } else { rows[sl.w-1].plan+=goal*i.sec/60; rows[sl.w-1].done+=d*i.sec/60; } }); });
+      if(hand){ rows[sl.w-1].plan+=goal; rows[sl.w-1].done+=d; } }); });
+  if(metric!=='hand') rows.forEach(r=>{ const m=turnWeekMetrics(r.w); r.plan=m.plan; r.done=m.done; r.m=m; });
   return rows;
 }
 function e1Series(c){
@@ -1608,15 +1656,17 @@ function e1Step(c){ const out=[]; PLAN.ltStates.forEach((st,k)=>{ if(!st) return
 function vWeeks(){
   const cw = clampWeek(weekOf(today()));
   const metric = UI.metric; const data = weekProgress(metric);
-  const units = {turn:'min', gym:'Sätzen', hand:'Versuchen/Wdh'};
+  const units = {turn:'Ausführungen', gym:'Sätzen', hand:'Versuchen/Wdh'};
   const sel = UI.selWeek ? data[UI.selWeek-1] : data[cw-1];
   const upto = data.filter(d=>d.w<=cw).reduce((a,d)=>({plan:a.plan+d.plan, done:a.done+d.done}),{plan:0,done:0});
   return `<div class="card stack">
     <div class="seg full" role="tablist">${[['turn','Turnen'],['gym','Gym'],['hand','Handstand']].map(([k,l])=>`<button class="${metric===k?'on':''}" data-act="metric" data-v="${k}">${l}</button>`).join('')}</div>
-    <div class="small muted">${{turn:'Minuten an den Geräten pro Woche',gym:'Abgehakte Gym-Sätze pro Woche',hand:'Handstand-Menge pro Woche (Versuche und Wiederholungen)'}[metric]}</div>
+    <div class="small muted">${{turn:'Ausführungen pro Woche: Wdh, Versuche, Elemente, Sätze (nur Muss-Übungen im Plan)',gym:'Abgehakte Gym-Sätze pro Woche',hand:'Handstand-Menge pro Woche (Versuche und Wiederholungen)'}[metric]}</div>
     ${weekBars(data,{unit:units[metric], label:'Wochen geplant und gemacht'})}
     <div class="legend"><span><i style="--c:var(--sunk);border:1px solid var(--line)"></i>geplant</span><span><i style="--c:var(--accent)"></i>gemacht</span></div>
-    <div class="readout"><b>Woche ${sel.w}:</b> ${fmt(Math.round(sel.done))} von ${fmt(Math.round(sel.plan))} ${units[metric]}${sel.plan?` (${Math.round(sel.done/sel.plan*100)} %)`:''}<br><span class="muted">Bis Woche ${cw}: ${Math.round(upto.done)} von ${Math.round(upto.plan)}${upto.plan?` (${Math.round(upto.done/upto.plan*100)} %)`:''}. Woche antippen für Details.</span></div></div>`;
+    <div class="readout"><b>Woche ${sel.w}:</b> ${fmt(Math.round(sel.done))} von ${fmt(Math.round(sel.plan))} ${units[metric]}${sel.plan?` (${Math.round(sel.done/sel.plan*100)} %)`:''}<br><span class="muted">Bis Woche ${cw}: ${Math.round(upto.done)} von ${Math.round(upto.plan)}${upto.plan?` (${Math.round(upto.done/upto.plan*100)} %)`:''}. Woche antippen für Details.</span></div></div>${metric==='turn'?(()=>{ const m=sel.m; if(!m) return ''; const devs=Object.entries(m.dev).filter(([g,o])=>o.plan||o.done); const mx=Math.max(1,...devs.map(([g,o])=>Math.max(o.plan,o.done)));
+      return `<div class="stats"><div class="stat"><b class="num">${m.mc?Math.round(m.mf/m.mc*100)+' %':'–'}</b><span>Planerfüllung (${m.mf}/${m.mc} Muss)</span></div><div class="stat"><b class="num">${m.V?Math.round(m.G/m.V*100)+' %':'–'}</b><span>Versuche gelungen (${m.G}/${m.V})</span></div><div class="stat"><b class="num">${m.avg==null?'–':fmt(Math.round(m.avg*10)/10)}</b><span>Ø Note</span></div></div>
+        <div class="lbl">Ausführungen pro Gerät · Woche ${sel.w}</div><div class="devbars">${devs.map(([g,o])=>`<div class="db"><span>${DEV[g]?.label||g}</span><span class="bar"><i class="p" style="width:${o.plan/mx*100}%"></i><i class="d" style="width:${Math.min(o.done,mx)/mx*100}%;background:${dcol(g)}"></i></span><b class="num">${o.done}/${o.plan}</b></div>`).join('')}</div>`; })():''}`;
 }
 
 /* ----- Statistik › Übungen: Liste wie im Log, antippen öffnet Verlauf ----- */
@@ -1754,41 +1804,47 @@ function cycleData(){
   const m1 = (PLAN.durations||[]).reduce((a,d)=>a+(Number(d.measured)||0),0);
   const mps = s1 && m1 ? m1/s1 : 3.5;
   return PLAN.weeks.map((W,k)=>{
-    const tPlan = (W.turnMin.Mo+W.turnMin.Di+W.turnMin.Do)/60;
-    const tr = turnP[k].plan ? turnP[k].done/turnP[k].plan : 0;
-    const gPlan = gymP[k].plan*mps/60, gDone = gymP[k].done*mps/60;
+    const tm = turnP[k].m || turnWeekMetrics(W.wo);
+    const tPlan = tm.plan, tr=1; const tQ = tm.V ? tm.G/tm.V : null;
+    const gPlan = gymP[k].plan, gDone = gymP[k].done;
     const pct = typeof W.lt?.pctHeavy==='number' ? W.lt.pctHeavy : null;
-    const fr=(S.free||[]).filter(f=>clampWeek(weekOf(parse(f.date)))===W.wo && weekOf(parse(f.date))===W.wo); const fT=fr.filter(f=>f.kind==='turn').reduce((a,f)=>a+freeMin(f),0)/60, fG=fr.filter(f=>f.kind==='gym').reduce((a,f)=>a+freeMin(f),0)/60;
-    return {w:W.wo, W, tPlan, tDone:tPlan*tr+fT, gPlan, gDone:gDone+fG, pct, rir:W.lt?.rirZiel, state:W.lt?.state};
+    const fG=(S.free||[]).filter(f=>f.kind==='gym' && weekOf(parse(f.date))===W.wo).reduce((a,f)=>a+(f.items||[]).reduce((b,r)=>b+(r.unit==='Sätze'?(Number(r.amt)||0):1),0),0);
+    return {w:W.wo, W, tPlan, tDone:tm.done, tQ, gPlan, gDone:gDone+fG, pct, rir:W.lt?.rirZiel, state:W.lt?.state};
   });
 }
 function segs(arr){ const out=[]; arr.forEach((v,k)=>{ const l=out[out.length-1]; if(l && l.v===v) l.n++; else out.push({v,s:k,n:1}); }); return out; }
 function vCycle(){
   const mode = UI.cyc || 'komb'; const D = cycleData(); const cw = clampWeek(weekOf(today())); const sel = UI.cycW || cw;
-  const Wd=360, L=34, R=mode==='gym'?28:8, top=14, H=120, cwid=(Wd-L-R)/14, bw=cwid*0.66;
-  const val = d => mode==='turn'?[[d.tPlan,d.tDone,'var(--d-hand)']]:mode==='gym'?[[d.gPlan,d.gDone,'var(--accent)']]:[[d.tPlan,d.tDone,'var(--d-hand)'],[d.gPlan,d.gDone,'var(--accent)']];
-  const max = Math.max(1, ...D.map(d=>val(d).reduce((a,x)=>a+x[0],0)))*1.12;
-  const step = max>12?4:max>6?2:1; const y = v => top+H-v/max*H; const x = k => L+k*cwid+cwid/2;
+  const Wd=360, L=34, R=mode!=='komb'?28:8, top=14, H=120, cwid=(Wd-L-R)/14, bw=cwid*0.66;
+  const tmx=Math.max(1,...D.map(d=>d.tPlan)), gmx=Math.max(1,...D.map(d=>d.gPlan));
+  const val = d => mode==='turn'?[[d.tPlan,d.tDone,'var(--d-hand)']]:mode==='gym'?[[d.gPlan,d.gDone,'var(--accent)']]:[[d.tPlan/tmx*100,d.tDone/tmx*100,'var(--d-hand)'],[d.gPlan/gmx*100,d.gDone/gmx*100,'var(--accent)']];
+  const side = mode==='komb';
+  const max = side ? 115 : Math.max(1, ...D.map(d=>val(d).reduce((a,x)=>a+x[0],0)))*1.12;
+  const step = side?25 : max>400?100:max>200?50:max>100?25:max>40?10:max>12?4:max>6?2:1; const y = v => top+H-v/max*H; const x = k => L+k*cwid+cwid/2;
   let g = '';
-  for(let v=0; v<=max; v+=step) g += `<line x1="${L}" x2="${Wd-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width=".6"/><text x="${L-4}" y="${y(v)+3}" text-anchor="end" class="cy-ax">${v}h</text>`;
+  for(let v=0; v<=max; v+=step) g += `<line x1="${L}" x2="${Wd-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width=".6"/><text x="${L-4}" y="${y(v)+3}" text-anchor="end" class="cy-ax">${v}${side?'%':''}</text>`;
   // Phasen-Hintergrund
   segs(D.map(d=>d.W.phase)).forEach(sg=>{ if(sg.v==='Pause') g += `<rect x="${L+sg.s*cwid}" y="${top}" width="${sg.n*cwid}" height="${H}" fill="var(--sunk)" opacity=".55"/>`; });
   // Woche markiert
   g += `<rect x="${L+(sel-1)*cwid+1}" y="${top-6}" width="${cwid-2}" height="${H+6}" rx="4" fill="var(--accent)" opacity=".12"/>`;
   D.forEach((d,k)=>{ let base=0;
-    val(d).forEach(([pl,dn,c])=>{ if(pl<=0) return; const y0=y(base), y1=y(base+pl);
-      g += `<rect x="${x(k)-bw/2}" y="${y1}" width="${bw}" height="${y0-y1}" rx="2" fill="${c}" opacity=".26"/>`;
-      if(dn>0){ const yd=y(base+Math.min(dn,pl*1.5)); g += `<rect x="${x(k)-bw/2}" y="${yd}" width="${bw}" height="${y0-yd}" rx="2" fill="${c}"/>`; }
+    val(d).forEach(([pl,dn,c],j)=>{ if(pl<=0 && !(dn>0)) return; const bx = side ? x(k)-bw/2+j*(bw/2) : x(k)-bw/2, bwd = side ? bw/2-0.8 : bw; const b0 = side?0:base;
+      const y0=y(b0), y1=y(b0+pl); if(pl>0) g += `<rect x="${bx}" y="${y1}" width="${bwd}" height="${y0-y1}" rx="2" fill="${c}" opacity=".26"/>`;
+      if(dn>0){ const yd=y(b0+Math.min(dn, Math.max(pl,1)*1.5, max-b0)); g += `<rect x="${bx}" y="${yd}" width="${bwd}" height="${y0-yd}" rx="2" fill="${c}"/>`; }
       base+=pl; }); });
   // Trend (gleitender Schnitt wie Fitness-Kurve)
   const ew = (arr)=>{ let e=null; return arr.map(v=>e = e==null? v : e+0.4*(v-e)); };
-  const tot = D.map(d=>val(d).reduce((a,x)=>a+x[0],0)); const totD = D.map(d=>val(d).reduce((a,x)=>a+x[1],0));
+  const agg = arr => side ? arr.reduce((a,x)=>a+x,0)/arr.length : arr.reduce((a,x)=>a+x,0);
+  const tot = D.map(d=>agg(val(d).map(x=>x[0]))); const totD = D.map(d=>agg(val(d).map(x=>x[1])));
   const tp = ew(tot); g += `<polyline points="${tp.map((v,k)=>`${x(k)},${y(v)}`).join(' ')}" fill="none" stroke="var(--ink)" stroke-width="1.3" stroke-dasharray="3 3" opacity=".7"/>`;
   if(totD.some(v=>v>0)){ const lastD = totD.reduce((m,v,k)=>v>0?k:m,-1); const td = ew(totD).slice(0,lastD+1); g += `<polyline points="${td.map((v,k)=>`${x(k)},${y(v)}`).join(' ')}" fill="none" stroke="var(--ink)" stroke-width="1.8"/>`; }
   // Intensität Gym
   if(mode==='gym'){ const yp = v => top+H-(v-0.6)/0.3*H; const pts=D.map((d,k)=>d.pct!=null?[x(k),yp(d.pct)]:null);
     g += [0.6,0.7,0.8,0.9].map(v=>`<text x="${Wd-R+3}" y="${yp(v)+3}" class="cy-ax" fill="var(--warn)">${Math.round(v*100)}%</text>`).join('');
     let path=''; pts.forEach((p,k)=>{ if(!p) return; path += (k&&pts[k-1]?'L':'M')+p[0]+','+p[1]; }); g += `<path d="${path}" fill="none" stroke="var(--warn)" stroke-width="1.6"/>${pts.filter(Boolean).map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="2.2" fill="var(--warn)"/>`).join('')}`; }
+  if(mode==='turn'){ const yq = v => top+H-v*H; const pts=D.map((d,k)=>d.tQ!=null?[x(k),yq(d.tQ)]:null);
+    g += [0,0.5,1].map(v=>`<text x="${Wd-R+3}" y="${yq(v)+3}" class="cy-ax" fill="var(--ok)">${Math.round(v*100)}%</text>`).join('');
+    let path=''; pts.forEach((p,k)=>{ if(!p) return; path += (k&&pts[k-1]?'L':'M')+p[0]+','+p[1]; }); if(path) g += `<path d="${path}" fill="none" stroke="var(--ok)" stroke-width="1.6"/>${pts.filter(Boolean).map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="2.2" fill="var(--ok)"/>`).join('')}`; }
   // heute + Wettkampf
   const fr = (today()-START)/864e5/7; if(fr>=0 && fr<=14) g += `<line x1="${L+fr*cwid}" x2="${L+fr*cwid}" y1="${top-8}" y2="${top+H}" stroke="var(--accent)" stroke-width="1.4"/><text x="${L+fr*cwid}" y="${top-9}" text-anchor="middle" class="cy-ax" fill="var(--accent)">heute</text>`;
   g += `<text x="${L+14*cwid-2}" y="${top+6}" text-anchor="end" font-size="11">🏆</text>`;
@@ -1812,8 +1868,8 @@ function vCycle(){
   return `<div class="card cyc">
     <div class="spread"><b>Zyklen</b><div class="seg">${[['turn','Turnen'],['gym','Gym'],['komb','Kombiniert']].map(([k,l])=>`<button class="${mode===k?'on':''}" data-act="cyc" data-v="${k}">${l}</button>`).join('')}</div></div>
     <svg viewBox="0 0 ${Wd} ${Ht}" width="100%" role="img" aria-label="Belastung pro Woche mit Makro-, Meso- und Mikrozyklus">${g}</svg>
-    <div class="legend">${mode!=='gym'?'<span><i style="--c:var(--d-hand)"></i>Turnen</span>':''}${mode!=='turn'?'<span><i style="--c:var(--accent)"></i>Gym</span>':''}<span><i style="--c:var(--line)"></i>hell = geplant, kräftig = gemacht</span><span>┄ Trend geplant · ─ Trend gemacht</span>${mode==='gym'?'<span><i style="--c:var(--warn)"></i>% 1RM schwerer Satz</span>':''}</div>
-    <p class="small muted">${mode!=='turn'?'Gym-Stunden aus deinen gemessenen Einheiten in Woche 1 hochgerechnet. ':''}Woche antippen: darunter erscheint ihr Wochenplan.</p></div>`;
+    <div class="legend">${mode!=='gym'?'<span><i style="--c:var(--d-hand)"></i>Turnen</span>':''}${mode!=='turn'?'<span><i style="--c:var(--accent)"></i>Gym</span>':''}<span><i style="--c:var(--line)"></i>hell = geplant, kräftig = gemacht</span><span>┄ Trend geplant · ─ Trend gemacht</span>${mode==='gym'?'<span><i style="--c:var(--warn)"></i>% 1RM schwerer Satz</span>':''}${mode==='turn'?'<span><i style="--c:var(--ok)"></i>Versuche gelungen %</span>':''}</div>
+    <p class="small muted">${{turn:'Balken = Ausführungen (Wdh, Versuche, Elemente, Sätze) der Muss-Übungen.', gym:'Balken = Sätze pro Woche.', komb:'Balken = % vom Spitzenwert der Planung (Turnen: Ausführungen, Gym: Sätze), so sind beide vergleichbar.'}[mode]} Woche antippen: darunter erscheint ihr Wochenplan.</p></div>`;
 }
 /* ----- Trainingslog: absolvierte Einheiten ----- */
 function logSessions(){
@@ -1826,6 +1882,7 @@ function logSessions(){
   Object.entries(S.home||{}).forEach(([d,H])=>{ if(Object.values(H).some(e=>(e.vals||[]).some(x=>x>0))) out.push({kind:'home', date:d, time:PLAN.home?.time||'19:45', H}); });
   return out.sort((a,b)=> (b.date+b.time).localeCompare(a.date+a.time));
 }
+function delBtn(key){ return UI.confirmDel===key ? `<span class="small">Wirklich löschen?</span><button class="btn danger sm" data-act="logdel2" data-v="${esc(key)}">Ja, löschen</button><button class="btn ghost sm" data-act="logdel" data-v="">Nein</button>` : `<button class="btn ghost sm danger" data-act="logdel" data-v="${esc(key)}">Einheit löschen</button>`; }
 function vLog(){
   const f=UI.logF||'all'; const all=logSessions(); const match=(x,k)=>x.kind===k || (x.kind==='free' && x.f.kind===k); const list=all.filter(x=>f==='all'||match(x,f)); const lim=UI.logN||15;
   let html = `<div class="seg full" style="margin-bottom:4px">${[['all','Alle'],['turn','Turnen'],['gym','Gym']].map(([k,l])=>`<button class="${f===k?'on':''}" data-act="logf" data-v="${k}">${l} <span class="muted">${k==='all'?all.length:all.filter(x=>match(x,k)).length}</span></button>`).join('')}</div>`;
@@ -1836,7 +1893,8 @@ function vLog(){
     let title, sub, pct, body='';
     if(x.kind==='turn'){ const st=groupStats(x.sess,x.sess.items); pct=st.pct; title='Turnen '+x.sess.day; const D=x.D;
       let V=0,G=0; x.sess.items.filter(i=>i.status==='Versuch').forEach(i=>{ const e=D.items?.[ikey(i)]; if(e){ V+=e.done||0; G+=okCount(e)||0; } });
-      sub=[D.start&&D.end?Math.round((D.end-D.start)/60e3)+' min':'', `${st.fin}/${st.cnt} Übungen`, V?`${G}/${V} Versuche ✓`:''].filter(Boolean).join(' · ');
+      const mm=turnSessMetrics(x.sess, x.date);
+      sub=[`${mm.done}/${mm.plan} Ausführungen`, `${mm.mf}/${mm.mc} Muss`, V?`${G}/${V} ✓`:'', mm.avg!=null?'Ø '+fmt(Math.round(mm.avg*10)/10):'', D.start&&D.end?Math.round((D.end-D.start)/60e3)+' min':''].filter(Boolean).join(' · '); pct = mm.plan ? Math.min(1, mm.done/mm.plan) : st.pct;
       if(open){ const TTl=turnTimes(x.date); body = sessGroups(x.sess).filter(y=>y.st.cnt>0).map(y=>{ const its=x.sess.items.filter(i=>grpOf(i)===y.g && !i.program && goalOf(x.sess.day,i,x.sess.w)>0); const da=devActual(x.sess,y.g,TTl);
         return `<div class="lgdev" style="--dc:${dcol(y.g)}"><div class="lgh"><i></i><b>${DEV[y.g].label}</b><span class="muted">${y.st.fin}/${y.st.cnt}${da?` · ⏱ ${Math.round(da/60)}′ / ${Math.round(y.st.min)}′ Plan`:''}</span></div>${its.map(i=>{ const e=D.items?.[ikey(i)]||{}; const goal=goalOf(x.sess.day,i,x.sess.w); const dn=e.done||0;
           const extra = i.status==='Versuch' ? (dn===0?'':[`${okCount(e)||0}/${dn} ✓`, e.hilfe||'', e.note?'Note '+e.note:''].filter(Boolean).join(' · ')) : (e.rounds?e.rounds.join(' · '):e.inc&&e.inc.length>1?e.inc.join('+'):'' );
@@ -1856,7 +1914,7 @@ function vLog(){
     else { pct=1; title='Schwimmen'; sub=x.e.note?esc(x.e.note):'erledigt'; }
     html += `<div class="item ${open?'open':'compact'} logitem" style="--dc:${x.kind==='turn'||(x.kind==='free'&&x.f.kind==='turn')?'var(--d-hand)':x.kind==='gym'||(x.kind==='free'&&x.f.kind==='gym')?'var(--accent)':'var(--d-sprung)'}">
       <button type="button" class="lghead" data-act="toggle" data-v="${esc(key)}"><span class="ld"><b>${WD[d.getDay()]}</b><small>${dm(d)}</small></span><span class="nm">${esc(title)}<small>${sub}</small></span><span class="rg2" style="--p:${Math.round((pct||0)*100)}">${x.kind==='free'?'＋':pct>=1?'✓':Math.round((pct||0)*100)}</span><span class="chev">${open?'▴':'▾'}</span></button>
-      ${open?`${body}<div class="row"><button class="btn sm" data-act="date" data-v="${x.date}" data-tab="training">Im Training öffnen ›</button></div>`:''}</div>`; });
+      ${open?`${body}<div class="row"><button class="btn sm" data-act="date" data-v="${x.date}" data-tab="training">Im Training öffnen ›</button>${delBtn(x.kind+':'+(x.kind==='gym'?x.g.id:x.kind==='free'?x.f.id:x.date))}</div>`:''}</div>`; });
   if(list.length>lim) html += `<button class="btn ghost" style="width:100%" data-act="logmore">Ältere anzeigen (${list.length-lim})</button>`;
   return html;
 }
@@ -1904,15 +1962,19 @@ function logRows(){
   const rows=[];
   Object.entries(S.turn).forEach(([date,D])=>{ const T=PLAN.turnen[D.day]; if(!T) return;
     Object.entries(D.items||{}).forEach(([k,e])=>{ const it=T.items.find(i=>ikey(i)===k); if(!it||!(e.done>0)) return;
-      rows.push({date, day:D.day, item:it, element:it.name, device:it.device, status:it.status, unit:it.unit, versuche:e.done, ok:graded(e)?okCount(e):(e.ok??null), hilfe:e.hilfe, note:e.note, notiz:[e.notiz, e.rounds?`je Runde: ${e.rounds.join('/')}`:'', e.inc&&e.inc.length>1?`je Satz: ${e.inc.join('/')}`:''].filter(Boolean).join(' · ')}); }); });
+      const att = e.seq?.length && (e.helps||e.grades) ? e.seq.map((x,n)=>({ok:x, h:helpOf(e,n), g:e.grades?.[n]??null})) : null;
+      const vo = att ? att.filter(a=>a.h==='ohne').length : (e.hilfe==='ohne'?e.done:0), go = att ? att.filter(a=>a.h==='ohne' && a.ok===true).length : (e.hilfe==='ohne'?(graded(e)?okCount(e):(e.ok||0)):0);
+      const grades = att ? att.map(a=>a.g).filter(x=>x!=null) : (e.note!=null?[e.note]:[]);
+      const helpsTxt = att && new Set(att.map(a=>a.h)).size>1 ? 'Hilfe je Versuch: '+att.map(a=>HABBR(a.h)||'–').join('·') : '';
+      rows.push({date, day:D.day, item:it, element:it.name, device:it.device, status:it.status, unit:it.unit, versuche:e.done, ok:graded(e)?okCount(e):(e.ok??null), hilfe:e.hilfe, note:(att&&grades.length)?Math.round(grades.reduce((x,y)=>x+y,0)/grades.length*10)/10:e.note, vo, go, grades, notiz:[e.notiz, att&&att.some(a=>a.g!=null)?'Noten: '+att.map(a=>a.g??'–').join('·'):'', helpsTxt, e.rounds?`je Runde: ${e.rounds.join('/')}`:'', e.inc&&e.inc.length>1?`je Satz: ${e.inc.join('/')}`:''].filter(Boolean).join(' · ')}); }); });
   return rows.sort((a,b)=>b.date.localeCompare(a.date));
 }
 function elementStats(name){
   const from = iso(addDays(today(),-14));
   const r = logRows().filter(x=>x.element===name && x.date>=from);
   const V=r.reduce((a,x)=>a+x.versuche,0), G=r.reduce((a,x)=>a+(x.ok||0),0);
-  const ro=r.filter(x=>x.hilfe==='ohne'); const VO=ro.reduce((a,x)=>a+x.versuche,0), GO=ro.reduce((a,x)=>a+(x.ok||0),0);
-  const notes=r.filter(x=>x.note); const avg = notes.length? notes.reduce((a,x)=>a+Number(x.note),0)/notes.length : null;
+  const VO=r.reduce((a,x)=>a+(x.vo||0),0), GO=r.reduce((a,x)=>a+(x.go||0),0);
+  const gs=r.flatMap(x=>x.grades||[]); const avg = gs.length? gs.reduce((a,x)=>a+Number(x),0)/gs.length : null;
   const K=r.length; const QO = VO?GO/VO:null;
   let amp; if(K<3) amp=['n','zu wenig Daten']; else if(QO==null) amp=['r','rot (nur mit Hilfe)']; else if(QO>=.8) amp=['g','grün']; else if(QO>=.5) amp=['y','gelb']; else amp=['r','rot'];
   const U=r.filter(x=>x.status==='Versuch' && x.ok==null).reduce((a,x)=>a+x.versuche,0);
@@ -1932,7 +1994,7 @@ function sessionBars(name){
 }
 const pct = x => x==null?'–':Math.round(x*100)+' %';
 function elementWeekly(name){ const rows=logRows().filter(x=>x.element===name); const by={};
-  rows.forEach(x=>{ const w=clampWeek(weekOf(parse(x.date))); const o=(by[w] ||= {V:0,G:0,GO:0,U:0}); o.V+=x.versuche; if(x.ok!=null){ o.G+=x.ok; if(x.hilfe==='ohne') o.GO+=x.ok; } else o.U+=x.versuche; });
+  rows.forEach(x=>{ const w=clampWeek(weekOf(parse(x.date))); const o=(by[w] ||= {V:0,G:0,GO:0,U:0}); o.V+=x.versuche; if(x.ok!=null){ o.G+=x.ok; o.GO+=(x.go||0); } else o.U+=x.versuche; });
   return Object.entries(by).map(([w,o])=>({w:Number(w), ...o})).sort((a,b)=>a.w-b.w); }
 function vStatusDetail(x, w, ph){
   const st=elementStats(x.element); const ls=S.lernstufe[x.element]||'A'; const r=currentRole(x.element,w);
@@ -2265,7 +2327,7 @@ function gI(gid,nr){ const L=gL(gid); return L.items[nr] ||= {sets:[], alt:false
 const curTurn = () => turnSession(UI.date);
 function autoStartTurn(dIso){ const D=S.turn[dIso]; if(D && !D.start && dIso===iso(today())){ D.start=Date.now(); } }
 function itemFromKey(k){ const s=curTurn(); return s ? s.T.items.find(i=>ikey(i)===k) : null; }
-const UNDO = {swpick:'Übung gewechselt', radj:'Eingetragen', rfull:'Eingetragen', frrm:'Gelöscht', frsave:'Gespeichert', tfinish:'Training abgeschlossen', gfinish:'Einheit abgeschlossen', gsets:'Sätze geändert', inc:'Eingetragen', dec:'Zurückgenommen', try:'Versuch eingetragen', tryundo:'Versuch gelöscht', dot:'Versuch geändert', cnt:'Menge geändert', cfull:'Übung abgehakt', setchip:'Satz abgehakt', ladder:'Landung abgehakt', gset:'Satz abgehakt', gtoggle:'Übung abgehakt', tnote:'Note gesetzt', delnote:'Notiz gelöscht', goalset:'Soll geändert', moveto:'Verschoben'};
+const UNDO = {tgrade:'Note eingetragen', tdel:'Versuch gelöscht', logdel2:'Einheit gelöscht', ireset:'Übung zurückgesetzt', gireset:'Übung zurückgesetzt', swpick:'Übung gewechselt', radj:'Eingetragen', rfull:'Eingetragen', frrm:'Gelöscht', frsave:'Gespeichert', tfinish:'Training abgeschlossen', gfinish:'Einheit abgeschlossen', gsets:'Sätze geändert', inc:'Eingetragen', dec:'Zurückgenommen', try:'Versuch eingetragen', tryundo:'Versuch gelöscht', dot:'Versuch geändert', cnt:'Menge geändert', cfull:'Übung abgehakt', setchip:'Satz abgehakt', ladder:'Landung abgehakt', gset:'Satz abgehakt', gtoggle:'Übung abgehakt', tnote:'Note gesetzt', delnote:'Notiz gelöscht', goalset:'Soll geändert', moveto:'Verschoben'};
 
 /* Zahlenfelder: Feld sicher anwählen + Leiste mit −/+ (falls die Tastatur nicht aufgeht) */
 const ADJ = {kg:[-5,-2.5,2.5,5], reps:[-1,1], rir:[-1,1]};
@@ -2364,6 +2426,12 @@ document.addEventListener('click', ev=>{
     case 'plancancel': UI.planPreview=null; break;
     case 'planapply': { const P=UI.planPreview; if(!P) break; try{ localStorage.setItem(PLAN_KEY, JSON.stringify(P.plan)); try{ localStorage.setItem(TPL_KEY, P.b64); }catch(e){ localStorage.removeItem(TPL_KEY); } save(); location.reload(); }catch(e){ toast('Speicher voll – Plan konnte nicht übernommen werden.'); } return; }
     case 'planreset': try{ localStorage.removeItem(PLAN_KEY); localStorage.removeItem(TPL_KEY); }catch(e){} location.reload(); return;
+    case 'logdel': UI.confirmDel = v||null; UI.menu=false; break;
+    case 'logdel2': { const [kind, ...rest]=v.split(':'); const id=rest.join(':');
+      if(kind==='turn') delete S.turn[id]; else if(kind==='gym') delete S.gym[id]; else if(kind==='home'){ if(S.home) delete S.home[id]; } else if(kind==='swim') delete S.swim[id]; else if(kind==='free') S.free=S.free.filter(f=>f.id!==id);
+      UI.confirmDel=null; UI.recap=null; save(); msg='Einheit gelöscht'; break; }
+    case 'ireset': { const D=S.turn[dIso]; if(D){ delete D.items[ik]; D.log=(D.log||[]).filter(x=>x.k!==ik); save(); } UI.tryEdit=null; msg='Übung zurückgesetzt'; break; }
+    case 'gireset': { const L=S.gym[b.dataset.g]; if(L?.items){ delete L.items[b.dataset.nr]; L.log=(L.log||[]).filter(x=>x.k!==String(b.dataset.nr)); save(); } msg='Übung zurückgesetzt'; break; }
     case 'theme': S.prefs.theme=v; save(); applyTheme(); break;
     case 'dismiss': (S.prefs.dismissed ||= {})[v]=true; save(); break;
     case 'undismiss': S.prefs.dismissed={}; save(); break;
@@ -2406,8 +2474,14 @@ document.addEventListener('click', ev=>{
       else { const g=PLAN.gym.find(x=>x.id===key); if(v===g.date) delete S.ovr.gmove[key]; else S.ovr.gmove[key]=v; }
       save(); UI.move=null; UI.date=parse(v); UI.unit=kind; msg='Verschoben auf '+WD[parse(v).getDay()]+' '+dm(parse(v)); window.scrollTo(0,0); break; }
     case 'movereset': { const key=b.dataset.key; if(b.dataset.k==='turn'){ const sl=turnSlots().find(s=>s.key===key); if(sl && S.turn[sl.date] && sl.date!==sl.orig){ S.turn[sl.orig]=S.turn[sl.date]; delete S.turn[sl.date]; } delete S.ovr.tmove[key]; } else delete S.ovr.gmove[key]; save(); break; }
-    case 'try': { const e=tEntry(dIso,ik,true); const q=seqOf(e); q.push(v==='1'); e.done=q.length; e.ok=okCount(e); const it=itemFromKey(ik); if(!e.hilfe && it && S.lastHilfe[it.name]) e.hilfe=S.lastHilfe[it.name]; autoStartTurn(dIso); save(); msg=(v==='1'?'✓ gelungen':'✗ nicht gelungen')+` · Versuch ${q.length}`; try{ navigator.vibrate&&navigator.vibrate(15); }catch(x){} break; }
-    case 'tryundo': { const e=tEntry(dIso,ik,false); if(e){ const q=seqOf(e); q.pop(); e.done=q.length; e.ok=okCount(e); save(); } break; }
+    case 'try': { const e=tEntry(dIso,ik,true); const q=tryArrays(e); const it=itemFromKey(ik); if(!e.hilfe && it && S.lastHilfe[it.name]) e.hilfe=S.lastHilfe[it.name];
+      q.push(v==='1'); e.grades.push(null); e.helps.push(e.hilfe||null); syncTry(e); UI.tryEdit={k:'it:'+dIso+':'+ik, n:q.length-1}; autoStartTurn(dIso); save(); msg=(v==='1'?'✓ gelungen':'✗ nicht gelungen')+` · Versuch ${q.length}`; try{ navigator.vibrate&&navigator.vibrate(15); }catch(x){} break; }
+    case 'tryundo': { const e=tEntry(dIso,ik,false); if(e){ const q=tryArrays(e); q.pop(); e.grades.pop(); e.helps.pop(); syncTry(e); UI.tryEdit=null; save(); } break; }
+    case 'tsel': { const key='it:'+dIso+':'+ik, n=Number(b.dataset.k); UI.tryEdit = (UI.tryEdit && UI.tryEdit.k===key && UI.tryEdit.n===n) ? null : {k:key, n}; break; }
+    case 'tres': { const e=tEntry(dIso,ik,true); const q=tryArrays(e); const n=Number(b.dataset.k); q[n] = v==='1'; syncTry(e); save(); break; }
+    case 'tgrade': { const e=tEntry(dIso,ik,true); tryArrays(e); const n=Number(b.dataset.k); e.grades[n] = e.grades[n]==Number(v) ? null : Number(v); syncTry(e); UI.tryEdit=null; save(); msg=`Versuch ${n+1}: Note ${e.grades[n]??'–'}`; break; }
+    case 'thelp': { const e=tEntry(dIso,ik,true); tryArrays(e); const n=Number(b.dataset.k); e.helps[n]=v; S.lastHilfe[b.dataset.name]=v; syncTry(e); save(); break; }
+    case 'tdel': { const e=tEntry(dIso,ik,true); tryArrays(e); const n=Number(b.dataset.k); e.seq.splice(n,1); e.grades.splice(n,1); e.helps.splice(n,1); syncTry(e); UI.tryEdit=null; save(); msg='Versuch gelöscht'; break; }
     case 'dot': { const e=tEntry(dIso,ik,false); if(e){ const q=seqOf(e); const k=Number(b.dataset.k); q[k] = q[k]===null?true:(q[k]===true?false:null); e.ok=okCount(e); save(); } break; }
     case 'tnote': { const e=tEntry(dIso,ik,true); e.note = e.note==v?null:Number(v); save(); break; }
     case 'inc': { const e=tEntry(dIso,ik,true); if(!e.inc) e.inc = e.done>0 ? [e.done] : []; e.inc.push(Number(v)); e.done=e.inc.reduce((x,y)=>x+y,0); delete e.setsDone; autoStartTurn(dIso); save();
