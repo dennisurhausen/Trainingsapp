@@ -1,8 +1,11 @@
-# Trainingsplan Wo 1–14 · Version 31
+# Trainingsplan Wo 1–14 · Version 32
 
 Web-App für deinen Trainingsplan (Stand: neue Excel vom 20.10.2026).
 
-## Neu in Version 31
+## Neu in Version 32
+- Bauch 2 (Supersatz) schon am Freitag Woche 2 (30.10.)
+
+## Aus Version 31
 - Neuer Plan (Trainingsplan_Wo1-14_v5_1): ab Wo 3 Bauch 1/2 als Supersatz statt Schiffchen/Winkelstütz, Fliegende wieder in Einheit B, neue Zeitschätzungen
 - Supersatz: nach jedem Satz geht automatisch die nächste Übung der Runde auf (① → ② → ③ → Pause → ①)
 - Alles ist zugeklappt, auch Zuhause; ist eine Übung fertig, geht die nächste automatisch auf (auch bei Versuchen, sobald der letzte Versuch eine Note hat)
