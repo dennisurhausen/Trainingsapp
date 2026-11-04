@@ -1,8 +1,15 @@
-# Trainingsplan Wo 1–14 · Version 32
+# Trainingsplan Wo 1–14 · Version 34
 
 Web-App für deinen Trainingsplan (Stand: neue Excel vom 20.10.2026).
 
-## Neu in Version 32
+## Neu in Version 34
+- Zusatzübungen füllen die Kreise oben (Tage, Geräte, Log) in Orange direkt hinter dem Plan-Anteil; „+“ wenn mehr als das Soll
+
+## Aus Version 33
+- Notiz pro Versuch (im Versuch-Editor), sichtbar im Log und im Export; Punkte mit Notiz haben eine kleine Markierung
+- Gym: Aufwärmen-Haken nach dem Start, die Aufwärmzeit wird separat gemessen und nicht der ersten Übung zugerechnet
+
+## Aus Version 32
 - Bauch 2 (Supersatz) schon am Freitag Woche 2 (30.10.)
 
 ## Aus Version 31

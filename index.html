@@ -390,10 +390,13 @@ th,td{padding-inline:4.5px}
 .prefrow .sw i{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--muted);transition:transform .15s}
 .prefrow .sw.on{background:var(--accent)} .prefrow .sw.on i{transform:translateX(18px);background:#fff}
 .day .rg{position:relative;width:27px;height:27px;display:grid;place-items:center;border-radius:50%;font-size:14px!important}
-.day .rg::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p,0)*1%), color-mix(in srgb,var(--muted) 28%,transparent) 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2.6px),#000 calc(100% - 2.2px));mask:radial-gradient(farthest-side,transparent calc(100% - 2.6px),#000 calc(100% - 2.2px))}
+.day .rg::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p,0)*1%), var(--warn) 0 calc(var(--x,var(--p,0))*1%), color-mix(in srgb,var(--muted) 28%,transparent) 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2.6px),#000 calc(100% - 2.2px));mask:radial-gradient(farthest-side,transparent calc(100% - 2.6px),#000 calc(100% - 2.2px))}
 .day .rg.none::before{display:none}
 .day .rg.full{background:color-mix(in srgb,var(--ok) 22%,transparent)}
-.day.sel .rg::before{background:conic-gradient(var(--accent-ink) calc(var(--p,0)*1%), color-mix(in srgb,var(--accent-ink) 35%,transparent) 0)}
+.day.sel .rg::before{background:conic-gradient(var(--accent-ink) calc(var(--p,0)*1%), var(--warn) 0 calc(var(--x,var(--p,0))*1%), color-mix(in srgb,var(--accent-ink) 35%,transparent) 0)}
+.day .rg.full.hasx{background:color-mix(in srgb,var(--warn) 18%,transparent)}
+.day .rg.over::after{content:"+";position:absolute;top:-5px;right:-6px;font-size:11px;font-weight:800;color:var(--warn)}
+.dchip .pbx{position:absolute;bottom:0;height:2.5px;background:var(--warn)}
 .dayinfo{display:flex;align-items:stretch;gap:0;padding:0;overflow:hidden}
 .dayinfo .dt{flex:1;min-width:0;display:flex;gap:8px;align-items:flex-start;border:0;background:none;color:inherit;text-align:left;padding:7px 4px 7px 10px;font-size:13px}
 .dayinfo .dx{flex:none;border:0;background:none;color:var(--muted);width:38px;font-size:14px}
@@ -458,7 +461,10 @@ th,td{padding-inline:4.5px}
 .lghead .nm{flex:1;min-width:0;display:flex;flex-direction:column;font-size:15px;font-weight:500}
 .lghead .nm small{font-size:12px;font-weight:400;color:var(--muted)}
 .rg2{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:10.5px;font-weight:700;font-family:var(--f-display);color:var(--muted);
-  background:radial-gradient(closest-side,var(--surface) 76%,transparent 78% 100%),conic-gradient(var(--ok) calc(var(--p)*1%), var(--sunk) 0)}
+  background:radial-gradient(closest-side,var(--surface) 76%,transparent 78% 100%),conic-gradient(var(--ok) calc(var(--p)*1%), var(--warn) 0 calc(var(--x,var(--p))*1%), var(--sunk) 0)}
+.rg2.hasx{grid-auto-flow:row;line-height:1;align-content:center}
+.rg2 em{font-style:normal;font-size:8.5px;color:var(--warn);display:block;text-align:center}
+.dchip em.xs{font-style:normal;color:var(--warn);font-weight:700}
 .lgdev{margin:2px 12px 8px;padding-left:8px;border-left:2px solid var(--dc)}
 .lgh{display:flex;align-items:center;gap:6px;font-size:12.5px;margin:4px 0 2px}
 .lgh i{width:8px;height:8px;border-radius:50%;background:var(--dc)}
@@ -572,6 +578,12 @@ th,td{padding-inline:4.5px}
 .xquick{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px}
 .xquick .chip{font-size:12px}
 .sstag{background:color-mix(in srgb,var(--accent) 20%,transparent)!important;color:var(--accent)!important;font-size:10px!important;vertical-align:middle}
+.warmbtn{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0;color:inherit;font:inherit}
+.warmbtn .ck{width:26px;height:26px;border-radius:50%;border:2px solid var(--warn);display:grid;place-items:center;flex:none;color:#fff;font-weight:700}
+.warmbtn.done .ck{background:var(--ok);border-color:var(--ok)}
+.warmbtn small{display:block;color:var(--muted);font-size:12px}
+.seq button{position:relative}
+.seq u.tn{position:absolute;top:2px;right:2px;width:6px;height:6px;border-radius:50%;background:var(--warn)}
 .addx{width:100%;margin-top:6px;border:1px dashed var(--line);font-size:13px}
 .xform{border:1px solid var(--accent);margin-top:8px}
 .xform .field{flex:1;min-width:0}
@@ -930,13 +942,16 @@ function e1Txt(nr, v){ if(v==null) return ''; return kgCounts(nr) ? `${fmt(Math.
 /* Kurze Übungsnamen: lange Beschreibungen erst aufgeklappt zeigen */
 function shortName(n, lim=50){ n=String(n||''); if(n.length<=lim) return {s:n, rest:''}; const m=n.slice(8).search(/:| \(|,| · /); if(m<0) return {s:n, rest:''};
   const i=m+8; return {s:n.slice(0,i).trim(), rest:n.slice(i).replace(/^(:|,| · )\s*/,'').trim()}; }
+function dayXp(x){ const u=unitsOf(x); if(!u.length) return 0; const v=u.map(z=> z.kind==='turn'? groupStats(z.t,z.t.items).xp : z.kind==='gym'? gymProgress(z.g).xp : 0); return v.reduce((a,b)=>a+b,0)/v.length; }
+/* Ring-Stil: grün = Plan, orange = Zusatz direkt dahinter */
+const ringVars = (p,x) => { const P=Math.min(100,Math.round(p*100)); const X=Math.min(100-P, Math.round((x||0)*100)); return `--p:${P};--x:${P+X}`; };
 function dayPct(x){ const u=unitsOf(x); if(!u.length) return null; const v=u.map(z=> z.kind==='turn'? groupStats(z.t,z.t.items).pct : z.kind==='gym'? gymProgress(z.g).pct : z.kind==='home'? homeProgress(iso(x)).pct : (S.swim[iso(x)]?.done?1:0)); return v.reduce((a,b)=>a+b,0)/v.length; }
 function applyTheme(){ const m=S?.prefs?.theme||'auto'; const light = m==='light' || (m==='auto' && window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches);
   document.documentElement.dataset.theme = light?'light':'dark'; const mt=document.querySelector('meta[name="theme-color"]'); if(mt) mt.setAttribute('content', light?'#ffffff':'#1c1f22'); }
 try{ matchMedia('(prefers-color-scheme: light)').addEventListener('change', ()=>{ if((S.prefs.theme||'auto')==='auto') applyTheme(); }); }catch(e){}
 function okeyDone(key){ try{
   if(key.startsWith('it:')){ const dIso=key.slice(3,13), k=key.slice(14); const sess=turnSession(parse(dIso)); const i=sess?.T.items.find(x=>ikey(x)===k); if(!i || i.program) return null; const g=goalOf(sess.day,i,sess.w); if(g<=0) return null; const e=S.turn[dIso]?.items?.[k];
-    if(i.status==='Versuch') return (e?.done||0)>=g && e?.grades?.[g-1]!=null; return (e?.done||0)>=g; }
+    if(i.status==='Versuch') return (e?.done||0)>=g && e?.grades?.[g-1]!=null && UI.tryEdit?.k!==key; return (e?.done||0)>=g; }
   if(key.startsWith('h:')){ const dIso=key.slice(2,12), k=key.slice(13); const x=homeItems(dIso).find(y=>String(y.k)===k); if(!x) return null; return ((S.home?.[dIso]?.[x.k]?.vals)||[]).reduce((a,b)=>a+(b||0),0)>=x.goal; }
   if(key.startsWith('g:')){ const [,gid,nr]=key.split(':'); const g=PLAN.gym.find(x=>x.id===gid); const it=g?gItems(g).find(x=>String(x.nr)===nr):null; if(!it) return null; return (S.gym[gid]?.items?.[nr]?.sets||[]).filter(x=>x.done).length>=setsOf(g,it); }
   }catch(e){} return null; }
@@ -1022,7 +1037,8 @@ function tEntry(date,k,create){
 }
 function okCount(e){ if(!e) return 0; if(e.seq&&e.seq.length) return e.seq.filter(x=>x===true).length; return e.ok||0; }
 function seqOf(e){ if(!e) return []; if(!e.seq) e.seq=[]; if(!e.seq.length && e.done>0) e.seq=Array(e.done).fill(null); return e.seq; }
-function tryArrays(e){ const q=seqOf(e); e.grades ||= []; e.helps ||= []; while(e.grades.length<q.length) e.grades.push(null); while(e.helps.length<q.length) e.helps.push(null); return q; }
+function tryArrays(e){ const q=seqOf(e); e.grades ||= []; e.helps ||= []; e.tnotes ||= []; while(e.grades.length<q.length) e.grades.push(null); while(e.helps.length<q.length) e.helps.push(null); while(e.tnotes.length<q.length) e.tnotes.push(''); return q; }
+const tryNotesTxt = e => (e?.tnotes||[]).map((t,i)=>t?`V${i+1}: ${t}`:'').filter(Boolean).join(' · ');
 function helpOf(e,n){ return e?.helps?.[n] || e?.hilfe || ''; }
 function tryNoteAvg(e, onlyOk){ const g=(e?.grades||[]).map((v,i)=>({v,ok:e.seq?.[i]})).filter(x=>x.v!=null && (!onlyOk||x.ok===true)); return g.length? g.reduce((a,x)=>a+x.v,0)/g.length : null; }
 function syncTry(e){ e.done=(e.seq||[]).length; e.ok=okCount(e); if(e.grades){ const a=tryNoteAvg(e); e.note = a==null?null:Math.round(a*10)/10; } const hs=(e.helps||[]).filter(Boolean); if(hs.length) e.hilfe=hs[hs.length-1]; }
@@ -1047,7 +1063,10 @@ function groupStats(sess, items){
   let tot=0, done=0, fin=0, cnt=0;
   items.forEach(i=>{ if(i.program || i.extra || isKann(sess,i)) return; const goal=goalOf(sess.day,i,sess.w); if(goal<=0) return; const e=S.turn[sess.date]?.items[ikey(i)]; const d=Math.min(goal,e?.done||0);
     tot+=goal*i.sec; done+=d*i.sec; cnt++; if(d>=goal) fin++; });
-  return {min:tot/60, doneMin:done/60, remMin:(tot-done)/60, pct: tot?done/tot:(cnt?fin/cnt:0), fin, cnt};
+  /* Zusatz: eigene Farbe, relativ zum geplanten Umfang */
+  let xs=0, xn=0; items.forEach(i=>{ if(!i.extra) return; const dn=S.turn[sess.date]?.items[ikey(i)]?.done||0; if(dn>0){ xn++; xs+=dn*i.sec; } });
+  const planAll = tot || sess.items.filter(i=>!i.program && !i.extra && !isKann(sess,i)).reduce((a,i)=>a+Math.max(0,goalOf(sess.day,i,sess.w))*i.sec,0);
+  return {min:tot/60, doneMin:done/60, remMin:(tot-done)/60, pct: tot?done/tot:(cnt?fin/cnt:0), fin, cnt, xp: planAll? xs/planAll : (xn?1:0), xn};
 }
 function sessGroups(sess){
   const order=[]; const map={};
@@ -1057,7 +1076,8 @@ function sessGroups(sess){
 function gymProgress(g){
   const L=S.gym[g.id]; let tot=0, fin=0;
   g.items.forEach(it=>{ const n=setsOf(g,it); tot+=n; fin+=Math.min(n,(L?.items?.[it.nr]?.sets||[]).filter(s=>s.done).length); });
-  return {tot, fin, pct: tot?fin/tot:0};
+  let xf=0; gItems(g).forEach(it=>{ if(it.extra) xf+=(L?.items?.[it.nr]?.sets||[]).filter(s=>s.done).length; });
+  return {tot, fin, pct: tot?fin/tot:0, xf, xp: tot?xf/tot:0};
 }
 function hsExercise(name){ const n = name.toLowerCase(); return PLAN.handstand.exercises.find(x=>{ const k=x.name.split(/[(:]/)[0].trim().toLowerCase(); return n.startsWith(k); }); }
 function itemDone(sess, i){ const g=goalOf(sess.day,i,sess.w); const e=S.turn[sess.date]?.items[ikey(i)]; return g>0 && (e?.done||0)>=g; }
@@ -1077,7 +1097,7 @@ function renderTop(){
   const days = [...Array(7)].map((_,i)=>{ const x=addDays(monday,i); const u=unitsOf(x);
     const tags=u.map(z=>z.kind==='turn'?'T':z.kind==='gym'?'G':'S').join('·');
     const t=u.find(z=>z.kind==='turn'); const gs = t? sessGroups(t.t).map(x=>x.g).filter(g=>!['Einturnen','Kondition'].includes(g)) : [];
-    return `<button type="button" class="day ${iso(x)===iso(d)?'sel':''} ${iso(x)===td?'today':''} ${u.length?'':'free'}" data-act="date" data-v="${iso(x)}" aria-label="${WD[x.getDay()]} ${dm(x)}"><b>${WD[x.getDay()]}</b>${(()=>{ const pc=dayPct(x); return pc==null?`<span class="rg none">${x.getDate()}</span>`:`<span class="rg ${pc>=1?'full':''}" style="--p:${Math.round(pc*100)}">${x.getDate()}</span>`; })()}<i>${tags}</i><span class="dd">${gs.map(g=>`<em style="background:${dcol(g)}" title="${g}"></em>`).join('')}</span></button>`; }).join('');
+    return `<button type="button" class="day ${iso(x)===iso(d)?'sel':''} ${iso(x)===td?'today':''} ${u.length?'':'free'}" data-act="date" data-v="${iso(x)}" aria-label="${WD[x.getDay()]} ${dm(x)}"><b>${WD[x.getDay()]}</b>${(()=>{ const pc=dayPct(x); return pc==null?`<span class="rg none">${x.getDate()}</span>`:(()=>{ const xp=dayXp(x); return `<span class="rg ${pc+xp>=1?'full':''} ${xp>0?'hasx':''} ${pc+xp>1.001?'over':''}" style="${ringVars(pc,xp)}">${x.getDate()}</span>`; })(); })()}<i>${tags}</i><span class="dd">${gs.map(g=>`<em style="background:${dcol(g)}" title="${g}"></em>`).join('')}</span></button>`; }).join('');
   $('#top').innerHTML = `<div class="toprow"><div class="wk">Woche ${wc}<small>${esc(W.range)}</small></div><div class="phase">${esc(W.block)} · ${esc(W.phase)}</div></div>
     ${UI.tab==='training'?`<div class="days"><button type="button" class="arrow" data-act="week" data-v="-1" aria-label="Woche zurück">‹</button>${days}<button type="button" class="arrow" data-act="week" data-v="1" aria-label="Woche vor">›</button></div>`:''}`;
 }
@@ -1251,8 +1271,8 @@ function vTurn(sess, dIso){
   const fn = vFormNote(fkey,false); if(fn && fn.includes('warn')) html += fn;
   if(sess.date!==sess.orig) html += `<div class="note warn small">Verschoben von ${WD[parse(sess.orig).getDay()]} ${dm(parse(sess.orig))}.${twoInRow?' Zwei Turnabende hintereinander: am zweiten den Barren weglassen, falls er am ersten dran war.':''}</div>`;
   html += `<nav class="devnav" aria-label="Geräte">
-    <button type="button" class="dchip all ${UI.dev==='Alle'?'on':''} ${all.cnt>0&&all.fin===all.cnt?'fin':''}" style="--dc:var(--accent)" data-act="dev" data-v="Alle"><span class="tx"><b>Alle</b><small>${all.fin}/${all.cnt}</small></span><span class="pb" style="width:${all.pct*100}%"></span></button>
-    ${groups.map(x=>{ const fin=x.st.cnt>0&&x.st.fin===x.st.cnt; return `<button type="button" class="dchip ${UI.dev===x.g?'on':''} ${fin?'fin':''}" style="--dc:${dcol(x.g)}" data-act="dev" data-v="${x.g}"><span class="ic">${fin?'✓':devIcon(x.g)}</span><span class="tx"><b>${DEV[x.g].label}</b><small>${!x.st.cnt?esc(progLabel(x,sess)):`${x.st.fin}/${x.st.cnt}`}</small></span><span class="pb" style="width:${x.st.pct*100}%"></span></button>`; }).join('')}
+    <button type="button" class="dchip all ${UI.dev==='Alle'?'on':''} ${all.cnt>0&&all.fin===all.cnt?'fin':''}" style="--dc:var(--accent)" data-act="dev" data-v="Alle"><span class="tx"><b>Alle</b><small>${all.fin}/${all.cnt}${all.xn?` <em class="xs">+${all.xn}</em>`:''}</small></span><span class="pb" style="width:${all.pct*100}%"></span>${all.xp>0?`<span class="pbx" style="left:${Math.min(100,all.pct*100)}%;width:${Math.max(0,Math.min(100-all.pct*100, all.xp*100))}%"></span>`:''}</button>
+    ${groups.map(x=>{ const fin=x.st.cnt>0&&x.st.fin===x.st.cnt; return `<button type="button" class="dchip ${UI.dev===x.g?'on':''} ${fin?'fin':''}" style="--dc:${dcol(x.g)}" data-act="dev" data-v="${x.g}"><span class="ic">${fin?'✓':devIcon(x.g)}</span><span class="tx"><b>${DEV[x.g].label}</b><small>${!x.st.cnt?esc(progLabel(x,sess)):`${x.st.fin}/${x.st.cnt}`}</small></span><span class="pb" style="width:${x.st.pct*100}%"></span>${x.st.xp>0?`<span class="pbx" style="left:${Math.min(100,x.st.pct*100)}%;width:${Math.max(0,Math.min(100-x.st.pct*100, x.st.xp*100))}%"></span>`:''}</button>`; }).join('')}
   </nav>`;
   const onG = new Set(groups.map(y=>y.g));
   const pool = UI.showAll ? T.items.filter(i=>onG.has(grpOf(i)) && (!i.program || sess.items.includes(i))) : sess.items;
@@ -1394,11 +1414,12 @@ function vTurnItem(i, sess, dIso, isNow){
     const hil = e?.hilfe || S.lastHilfe[i.name] || '';
     const ed = (UI.tryEdit && UI.tryEdit.k===openKey) ? UI.tryEdit.n : null; const grades=e?.grades||[];
     const avg=tryNoteAvg(e), avgOk=tryNoteAvg(e,true); const vo=seq.filter((x,n)=>helpOf(e,n)==='ohne').length, go=seq.filter((x,n)=>x===true && helpOf(e,n)==='ohne').length;
-    body = `<div class="seq" aria-label="Versuche">${[...Array(slots)].map((_,n)=> n<seq.length? `<button type="button" class="${seq[n]===true?'y':seq[n]===false?'x':'q'} ${ed===n?'sel':''}" data-act="tsel" data-ik="${esc(k)}" data-k="${n}" aria-label="Versuch ${n+1} bearbeiten">${grades[n]!=null?grades[n]:(seq[n]===null?'?':'·')}<i>${esc(HABBR(helpOf(e,n)))}</i></button>` : `<span class="e"></span>`).join('')}</div>
+    body = `<div class="seq" aria-label="Versuche">${[...Array(slots)].map((_,n)=> n<seq.length? `<button type="button" class="${seq[n]===true?'y':seq[n]===false?'x':'q'} ${ed===n?'sel':''}" data-act="tsel" data-ik="${esc(k)}" data-k="${n}" aria-label="Versuch ${n+1} bearbeiten">${e.tnotes?.[n]?'<u class="tn" aria-label="mit Notiz"></u>':''}${grades[n]!=null?grades[n]:(seq[n]===null?'?':'·')}<i>${esc(HABBR(helpOf(e,n)))}</i></button>` : `<span class="e"></span>`).join('')}</div>
       ${ed!=null && ed<seq.length ? `<div class="tryed"><div class="spread"><b>Versuch ${ed+1}</b><button class="btn ghost sm" data-act="tsel" data-ik="${esc(k)}" data-k="${ed}" aria-label="Schließen">✕</button></div>
         <div class="seg full"><button class="${seq[ed]===true?'on':''}" data-act="tres" data-ik="${esc(k)}" data-k="${ed}" data-v="1">✓ gelungen</button><button class="${seq[ed]===false?'on':''}" data-act="tres" data-ik="${esc(k)}" data-k="${ed}" data-v="0">✗ nicht</button></div>
         <div class="lbl">Note <span class="muted">1 sauber … 5 schlecht</span></div><div class="seg full notes">${[1,2,3,4,5].map(n=>`<button class="${grades[ed]==n?'on':''}" data-act="tgrade" data-ik="${esc(k)}" data-k="${ed}" data-v="${n}">${n}</button>`).join('')}</div>
         <div class="lbl">Hilfe bei diesem Versuch</div><div class="chips">${HILFE.map(h=>`<button class="chip ${helpOf(e,ed)===h?'on':''}" data-act="thelp" data-ik="${esc(k)}" data-k="${ed}" data-v="${esc(h)}" data-name="${esc(i.name)}">${esc(h)}</button>`).join('')}</div>
+        <div class="lbl">Notiz zu Versuch ${ed+1}</div><input type="text" id="trn-${esc(k)}-${ed}" data-in="trynote" data-ik="${esc(k)}" data-k="${ed}" value="${esc(e.tnotes?.[ed]||'')}" placeholder="z. B. Hüfte zu früh geöffnet">
         <button class="btn ghost sm" data-act="tdel" data-ik="${esc(k)}" data-k="${ed}">Versuch löschen</button></div>` : (seq.length?`<div class="small muted">Punkt antippen: gelungen/nicht, Note und Hilfe pro Versuch ändern.</div>`:'')}
       <div class="attempts"><button class="abtn yes" data-act="try" data-ik="${esc(k)}" data-v="1">+ ✓ Gelungen</button><button class="abtn no" data-act="try" data-ik="${esc(k)}" data-v="0">+ ✗ Nicht</button><button class="abtn undo" data-act="tryundo" data-ik="${esc(k)}" aria-label="Letzten Versuch löschen">↶</button></div>
       ${seq.length?`<div class="trysum small"><span>Ø Note <b>${avg==null?'–':fmt(Math.round(avg*10)/10)}</b></span><span>gelungene Ø <b>${avgOk==null?'–':fmt(Math.round(avgOk*10)/10)}</b></span><span>ohne Hilfe <b>${go}/${vo}</b></span></div>`:''}
@@ -1415,7 +1436,7 @@ function vTurnItem(i, sess, dIso, isNow){
   }
   const sub = [up.sub, plan && plan.length>1 ? setLabel(plan) : '', hs ? `Stufe ${hsStufe}: ${hs.stages[hsStufe-1]||''}` : '', tTag].filter(Boolean).join(' · ');
   const foot = `<div class="ifoot">
-      <input type="text" id="tn-${esc(k)}" data-in="tnotiz" data-ik="${esc(k)}" value="${esc(e?.notiz||'')}" placeholder="${isTry?'Notiz, z. B. zu früh gelöst':'Notiz zur Übung'}">
+      <input type="text" id="tn-${esc(k)}" data-in="tnotiz" data-ik="${esc(k)}" value="${esc(e?.notiz||'')}" placeholder="${isTry?'Notiz zur Übung allgemein':'Notiz zur Übung'}">
       ${hs?`<div class="row small"><span class="lbl">Stufe</span><div class="seg">${[1,2,3].map(n=>`<button class="${hsStufe==n?'on':''}" data-act="hstufe" data-v="${n}" data-name="${esc(hs.name)}">${n}</button>`).join('')}</div></div>`:''}
       <div class="row small">${!isTry&&done<goal?`<button class="btn sm" data-act="cfull" data-ik="${esc(k)}">✓ Alles geschafft</button>`:''}<button class="btn ghost sm" data-act="toggle" data-v="${esc('d:'+openKey)}">✎ Soll ${fmt(goal)} ändern</button>${e&&(e.done||e.notiz)?`<button class="btn ghost sm" data-act="ireset" data-ik="${esc(k)}">↺ Übung zurücksetzen</button>`:''}${i.extra?`<button class="btn ghost sm danger" data-act="xdel" data-k="turn" data-v="${esc(dIso)}" data-id="${esc(i.xid)}">✕ Zusatzübung entfernen</button>`:''}</div>
     </div>`;
@@ -1608,10 +1629,12 @@ function vGym(g){
   if(nowIt){ const grp=ssGroup(g,nowIt); if(grp){ const mn=Math.min(...grp.map(dn_)); nowIt = grp.find(x=>dn_(x)===mn && dn_(x)<setsOf(g,x)) || nowIt; } }
   const hp=g.header.split(' · '); const est=hp.find(x=>/ca\. \d+ min/.test(x)); const ttl=hp.slice(2).filter(x=>x!==est).join(' · ')||g.header;
   const uTitle = ('Gym '+unitLetter(g)).toUpperCase(); const sub = ttl.replace(/^Einheit [^·]+·\s*/,'');
-  let html = `<div class="sesshead"><div class="ttl"><b>${esc(uTitle)}</b><span>${esc(hp[1]||'')} · ${pr.fin}/${pr.tot} Sätze${L.start&&!L.end?' · läuft seit '+hm(new Date(L.start)):''}${L.start&&L.end?' · '+Math.round((L.end-L.start)/60e3)+' min':''}</span></div>
+  let html = `<div class="sesshead"><div class="ttl"><b>${esc(uTitle)}</b><span>${esc(hp[1]||'')} · ${pr.fin}/${pr.tot} Sätze${pr.xf?` + ${pr.xf} Zusatz`:''}${L.start&&!L.end?' · läuft seit '+hm(new Date(L.start)):''}${L.start&&L.end?' · '+Math.round((L.end-L.start)/60e3)+' min':''}</span></div>
     ${!L.start? (UI.formFor===g.id?'':`<button class="btn primary" data-act="formopen" data-v="${g.id}">▶ Start</button>`) : !L.end?`<button class="btn" data-act="gend" data-v="${g.id}">■ Ende</button>`:`<span class="small muted">beendet</span>`}
     <button class="icon-btn" data-act="menu" aria-label="Weitere Optionen">⋯</button></div>
     ${UI.formFor===g.id?`<div class="card">${vFormPanel(g.id,'gstart')}</div>`:''}
+    ${L.start ? (()=>{ const w=(L.log||[]).find(x=>x.k==='warm'); const sec=w?Math.round((w.t-L.start)/1000):null;
+      return `<button class="warmbtn ${w?'done':''}" data-act="gwarm" data-v="${g.id}" aria-pressed="${!!w}"><span class="ck">${w?'✓':''}</span><span><b>Aufwärmen</b><small>${w?'fertig nach '+mmss(sec)+' · antippen zum Zurücknehmen':(L.end?'nicht erfasst':'läuft seit '+hm(new Date(L.start))+' · abhaken, wenn du fertig bist')}</small></span></button>`; })() : ''}
     ${UI.menu?`<div class="card stack"><p class="small muted">${esc(sub)}${est?' · '+esc(est.replace(/\s*\(Schätzung\)/,'')):''} · Phase ${esc(lt.code)} ${esc(W.phase)} · RIR schwer ${esc(lt.rirZiel)}</p><p class="small muted">Tipp: ✓ übernimmt die Vorgabe (grau). Nur Abweichungen eintippen.</p>`+vMenu([
       {act:'moveopen', v:g.id, label:'Einheit verschieben', sub:'auf einen anderen Tag'},
       {act:'toggle', v:'ghints', label: UI.open.ghints?'Hinweise ausblenden':'Phase und Regeln', sub:`${lt.code} ${W.phase}: was diese Woche gilt`},
@@ -1983,7 +2006,8 @@ function vLog(){
   list.slice(0,lim).forEach(x=>{ const d=parse(x.date); const w=clampWeek(weekOf(d)); if(w!==lastW){ html+=`<div class="subsec">Woche ${w} · ${esc(PLAN.weeks[w-1].phase)}</div>`; lastW=w; }
     const key='log:'+x.kind+':'+x.date+':'+(x.g?.id||x.f?.id||''); const open=UI.open[key];
     let title, sub, pct, body='';
-    if(x.kind==='turn'){ const st=groupStats(x.sess,x.sess.items); pct=st.pct; title='Turnen '+x.sess.day; const D=x.D;
+    let xpc=0;
+    if(x.kind==='turn'){ const st=groupStats(x.sess,x.sess.items); pct=st.pct; xpc=st.xp; title='Turnen '+x.sess.day; const D=x.D;
       let V=0,G=0; x.sess.items.filter(i=>i.status==='Versuch').forEach(i=>{ const e=D.items?.[ikey(i)]; if(e){ V+=e.done||0; G+=okCount(e)||0; } });
       const mm=turnSessMetrics(x.sess, x.date);
       sub=[`${mm.done}/${mm.plan} Ausführungen`, `${mm.mf}/${mm.mc} Muss`, V?`${G}/${V} ✓`:'', mm.avg!=null?'Ø '+fmt(Math.round(mm.avg*10)/10):'', D.start&&D.end?Math.round((D.end-D.start)/60e3)+' min':''].filter(Boolean).join(' · '); pct = mm.plan ? Math.min(1, mm.done/mm.plan) : st.pct;
@@ -1991,10 +2015,11 @@ function vLog(){
         return `<div class="lgdev" style="--dc:${dcol(y.g)}"><div class="lgh"><i></i><b>${DEV[y.g].label}</b><span class="muted">${y.st.fin}/${y.st.cnt}${da?` · ⏱ ${Math.round(da/60)}′ / ${Math.round(y.st.min)}′ Plan`:''}</span></div>${its.map(i=>{ const e=D.items?.[ikey(i)]||{}; const goal=goalOf(x.sess.day,i,x.sess.w); const dn=e.done||0;
           const extra = i.status==='Versuch' ? (dn===0?'':[`${okCount(e)||0}/${dn} ✓`, e.hilfe||'', e.note?'Note '+e.note:''].filter(Boolean).join(' · ')) : (e.rounds?e.rounds.join(' · '):e.inc&&e.inc.length>1?e.inc.join('+'):'' );
           const isec=TTl?.[ikey(i)];
-          return `<div class="lgi ${dn>=goal?'ok':dn>0?'part':'no'}"><span>${esc(shortName(i.name).s)}${isec?` <small>⏱ ${mmss(isec)}</small>`:''}</span><span class="num">${dn}/${goal}${extra?` <small>${esc(extra)}</small>`:''}</span></div>${e.notiz?`<div class="small muted lgn">„${esc(e.notiz)}“</div>`:''}`; }).join('')}</div>`; }).join(''); } }
-    else if(x.kind==='gym'){ const pr=gymProgress(x.g); pct=pr.pct; title='Gym '+unitLetter(x.g); const L=x.L; let vol=0;
+          return `<div class="lgi ${dn>=goal?'ok':dn>0?'part':'no'}"><span>${esc(shortName(i.name).s)}${isec?` <small>⏱ ${mmss(isec)}</small>`:''}</span><span class="num">${dn}/${goal}${extra?` <small>${esc(extra)}</small>`:''}</span></div>${e.notiz?`<div class="small muted lgn">„${esc(e.notiz)}“</div>`:''}${tryNotesTxt(e)?`<div class="small muted lgn">${esc(tryNotesTxt(e))}</div>`:''}`; }).join('')}</div>`; }).join(''); } }
+    else if(x.kind==='gym'){ const pr=gymProgress(x.g); pct=pr.pct; xpc=pr.xp; title='Gym '+unitLetter(x.g); const L=x.L; let vol=0;
       x.g.items.forEach(it=>(L.items?.[it.nr]?.sets||[]).forEach(z=>{ if(z.done&&Number(z.kg)>0&&Number(z.reps)>0) vol+=Number(z.kg)*Number(z.reps); }));
-      sub=[L.start&&L.end?Math.round((L.end-L.start)/60e3)+' min':'', `${pr.fin}/${pr.tot} Sätze`, vol?fmt(Math.round(vol/10)*10)+' kg':''].filter(Boolean).join(' · ');
+      const wl=(L.log||[]).find(z=>z.k==='warm');
+      sub=[L.start&&L.end?Math.round((L.end-L.start)/60e3)+' min':'', wl&&L.start?'Aufwärmen '+mmss((wl.t-L.start)/1000):'', `${pr.fin}/${pr.tot} Sätze`, vol?fmt(Math.round(vol/10)*10)+' kg':''].filter(Boolean).join(' · ');
       if(open){ body = `<div class="lgdev" style="--dc:var(--accent)">${gItems(x.g).map(it=>{ const I=L.items?.[it.nr]; const ds=(I?.sets||[]).filter(z=>z.done); const n=setsOf(x.g,it); const isT=/min/.test(it.reps);
           const txt = isT ? (ds.length?'erledigt':'–') : ds.map(z=>`${z.kg!==''&&z.kg!=null?fmt(Number(z.kg)):'–'}×${z.reps||'?'}${z.rir!==''&&z.rir!=null?'@'+z.rir:''}`).join('  ');
           const gsec2=gymTimes(x.g.id)?.[String(it.nr)];
@@ -2005,7 +2030,7 @@ function vLog(){
       if(open) body = `<div class="lgdev" style="--dc:var(--d-sprung)">${its.map(r=>`<div class="lgi"><span>${esc(r.name)}${r.dev?` <small>${esc(r.dev)}</small>`:''}</span><span class="num">${r.amt?esc(r.amt)+' '+esc(r.unit):''}${r.kg?` <small>@ ${fmt(Number(r.kg))} kg</small>`:''}</span></div>`).join('')}${F.note?`<div class="small muted lgn">${esc(F.note)}</div>`:''}</div>`; }
     else { pct=1; title='Schwimmen'; sub=x.e.note?esc(x.e.note):'erledigt'; }
     html += `<div class="item ${open?'open':'compact'} logitem" style="--dc:${x.kind==='turn'||(x.kind==='free'&&x.f.kind==='turn')?'var(--d-hand)':x.kind==='gym'||(x.kind==='free'&&x.f.kind==='gym')?'var(--accent)':'var(--d-sprung)'}">
-      <button type="button" class="lghead" data-act="toggle" data-v="${esc(key)}"><span class="ld"><b>${WD[d.getDay()]}</b><small>${dm(d)}</small></span><span class="nm">${esc(title)}<small>${sub}</small></span><span class="rg2" style="--p:${Math.round((pct||0)*100)}">${x.kind==='free'?'＋':pct>=1?'✓':Math.round((pct||0)*100)}</span><span class="chev">${open?'▴':'▾'}</span></button>
+      <button type="button" class="lghead" data-act="toggle" data-v="${esc(key)}"><span class="ld"><b>${WD[d.getDay()]}</b><small>${dm(d)}</small></span><span class="nm">${esc(title)}<small>${sub}</small></span><span class="rg2 ${xpc>0?'hasx':''}" style="${ringVars(pct||0,xpc)}">${x.kind==='free'?'＋':pct>=1&&!xpc?'✓':Math.round((pct||0)*100)}${xpc>0?`<em>+${Math.round(xpc*100)}</em>`:''}</span><span class="chev">${open?'▴':'▾'}</span></button>
       ${open?`${body}<div class="row"><button class="btn sm" data-act="date" data-v="${x.date}" data-tab="training">Im Training öffnen ›</button>${delBtn(x.kind+':'+(x.kind==='gym'?x.g.id:x.kind==='free'?x.f.id:x.date))}</div>`:''}</div>`; });
   if(list.length>lim) html += `<button class="btn ghost" style="width:100%" data-act="logmore">Ältere anzeigen (${list.length-lim})</button>`;
   return html;
@@ -2058,7 +2083,7 @@ function logRows(){
       const vo = att ? att.filter(a=>a.h==='ohne').length : (e.hilfe==='ohne'?e.done:0), go = att ? att.filter(a=>a.h==='ohne' && a.ok===true).length : (e.hilfe==='ohne'?(graded(e)?okCount(e):(e.ok||0)):0);
       const grades = att ? att.map(a=>a.g).filter(x=>x!=null) : (e.note!=null?[e.note]:[]);
       const helpsTxt = att && new Set(att.map(a=>a.h)).size>1 ? 'Hilfe je Versuch: '+att.map(a=>HABBR(a.h)||'–').join('·') : '';
-      rows.push({date, day:D.day, item:it, element:it.name, device:it.device, status:it.status, unit:it.unit, versuche:e.done, ok:graded(e)?okCount(e):(e.ok??null), hilfe:e.hilfe, note:(att&&grades.length)?Math.round(grades.reduce((x,y)=>x+y,0)/grades.length*10)/10:e.note, vo, go, grades, notiz:[e.notiz, att&&att.some(a=>a.g!=null)?'Noten: '+att.map(a=>a.g??'–').join('·'):'', helpsTxt, e.rounds?`je Runde: ${e.rounds.join('/')}`:'', e.inc&&e.inc.length>1?`je Satz: ${e.inc.join('/')}`:''].filter(Boolean).join(' · ')}); }); });
+      rows.push({date, day:D.day, item:it, element:it.name, device:it.device, status:it.status, unit:it.unit, versuche:e.done, ok:graded(e)?okCount(e):(e.ok??null), hilfe:e.hilfe, note:(att&&grades.length)?Math.round(grades.reduce((x,y)=>x+y,0)/grades.length*10)/10:e.note, vo, go, grades, notiz:[e.notiz, tryNotesTxt(e), att&&att.some(a=>a.g!=null)?'Noten: '+att.map(a=>a.g??'–').join('·'):'', helpsTxt, e.rounds?`je Runde: ${e.rounds.join('/')}`:'', e.inc&&e.inc.length>1?`je Satz: ${e.inc.join('/')}`:''].filter(Boolean).join(' · ')}); }); });
   return rows.sort((a,b)=>b.date.localeCompare(a.date));
 }
 function elementStats(name){
@@ -2445,7 +2470,7 @@ document.addEventListener('click', ev=>{
   const b = ev.target.closest('[data-act]'); if(!b || b.disabled) return;
   syncIn();
   const a=b.dataset.act, v=b.dataset.v, ik=b.dataset.ik, dIso=iso(UI.date);
-  if(ik && ['inc','dec','cnt','cfull','try','tryundo','dot','tnote','sadj','sfull','sadd','radj','rfull','radd','tgrade','thelp','tres'].includes(a)) UI.touched='it:'+dIso+':'+ik;
+  if(ik && ['inc','dec','cnt','cfull','try','tryundo','dot','tnote','sadj','sfull','sadd','radj','rfull','radd','tgrade','thelp','tres','tsel'].includes(a)) UI.touched='it:'+dIso+':'+ik;
   else if(['hadj','hfull'].includes(a)) UI.touched='h:'+dIso+':'+b.dataset.k;
   else if(b.dataset.g && ['gset','gsets','gtoggle'].includes(a)) UI.touched='g:'+b.dataset.g+':'+b.dataset.nr;
   else if(!['toggle'].includes(a)) UI.touched=null;
@@ -2579,6 +2604,9 @@ document.addEventListener('click', ev=>{
     case 'tend': { const D=S.turn[dIso]; if(D){ D.end=Date.now(); save(); msg='Training beendet: '+Math.round((D.end-D.start)/60e3)+' min'; } break; }
     case 'treset': { const D=S.turn[dIso]; if(D){ D.start=null; D.end=null; save(); } UI.menu=false; break; }
     case 'gstart': { const L=gL(v); L.start=Date.now(); L.end=null; if(!b.dataset.skip) S.form[v]={...UI.formDraft, ts:Date.now()}; UI.formFor=null; save(); break; }
+    case 'gwarm': { const L=gL(v); L.log ||= []; const i=L.log.findIndex(x=>x.k==='warm');
+      if(i>=0){ L.log.splice(i,1); msg='Aufwärmen zurückgenommen'; } else { const t=Date.now(); const first=L.log.filter(x=>x.k!=='warm').map(x=>x.t).sort((a,b)=>a-b)[0]; L.log.push({t: first&&first<t ? first-1 : t, k:'warm'}); msg='Aufwärmen: '+mmss(((first&&first<t?first-1:t)-L.start)/1000); }
+      save(); break; }
     case 'gend': { const L=gL(v); L.end=Date.now(); save(); msg='Einheit beendet: '+Math.round((L.end-L.start)/60e3)+' min'; stopTimer(); break; }
     case 'greset': { const L=gL(v); L.start=null; L.end=null; save(); UI.menu=false; break; }
     case 'moveopen': UI.move = UI.move===v?null:v; UI.menu=false; break;
@@ -2591,12 +2619,12 @@ document.addEventListener('click', ev=>{
     case 'movereset': { const key=b.dataset.key; if(b.dataset.k==='turn'){ const sl=turnSlots().find(s=>s.key===key); if(sl && S.turn[sl.date] && sl.date!==sl.orig){ S.turn[sl.orig]=S.turn[sl.date]; delete S.turn[sl.date]; } delete S.ovr.tmove[key]; } else delete S.ovr.gmove[key]; save(); break; }
     case 'try': { const e=tEntry(dIso,ik,true); const q=tryArrays(e); const it=itemFromKey(ik); if(!e.hilfe && it && S.lastHilfe[it.name]) e.hilfe=S.lastHilfe[it.name];
       q.push(v==='1'); e.grades.push(null); e.helps.push(e.hilfe||null); syncTry(e); UI.tryEdit={k:'it:'+dIso+':'+ik, n:q.length-1}; autoStartTurn(dIso); save(); msg=(v==='1'?'✓ gelungen':'✗ nicht gelungen')+` · Versuch ${q.length}`; try{ navigator.vibrate&&navigator.vibrate(15); }catch(x){} break; }
-    case 'tryundo': { const e=tEntry(dIso,ik,false); if(e){ const q=tryArrays(e); q.pop(); e.grades.pop(); e.helps.pop(); syncTry(e); UI.tryEdit=null; save(); } break; }
+    case 'tryundo': { const e=tEntry(dIso,ik,false); if(e){ const q=tryArrays(e); q.pop(); e.grades.pop(); e.helps.pop(); e.tnotes.pop(); syncTry(e); UI.tryEdit=null; save(); } break; }
     case 'tsel': { const key='it:'+dIso+':'+ik, n=Number(b.dataset.k); UI.tryEdit = (UI.tryEdit && UI.tryEdit.k===key && UI.tryEdit.n===n) ? null : {k:key, n}; break; }
     case 'tres': { const e=tEntry(dIso,ik,true); const q=tryArrays(e); const n=Number(b.dataset.k); q[n] = v==='1'; syncTry(e); save(); break; }
-    case 'tgrade': { const e=tEntry(dIso,ik,true); tryArrays(e); const n=Number(b.dataset.k); e.grades[n] = e.grades[n]==Number(v) ? null : Number(v); syncTry(e); UI.tryEdit=null; save(); msg=`Versuch ${n+1}: Note ${e.grades[n]??'–'}`; break; }
+    case 'tgrade': { const e=tEntry(dIso,ik,true); tryArrays(e); const n=Number(b.dataset.k); e.grades[n] = e.grades[n]==Number(v) ? null : Number(v); syncTry(e); save(); msg=`Versuch ${n+1}: Note ${e.grades[n]??'–'}`; break; }
     case 'thelp': { const e=tEntry(dIso,ik,true); tryArrays(e); const n=Number(b.dataset.k); e.helps[n]=v; S.lastHilfe[b.dataset.name]=v; syncTry(e); save(); break; }
-    case 'tdel': { const e=tEntry(dIso,ik,true); tryArrays(e); const n=Number(b.dataset.k); e.seq.splice(n,1); e.grades.splice(n,1); e.helps.splice(n,1); syncTry(e); UI.tryEdit=null; save(); msg='Versuch gelöscht'; break; }
+    case 'tdel': { const e=tEntry(dIso,ik,true); tryArrays(e); const n=Number(b.dataset.k); e.seq.splice(n,1); e.grades.splice(n,1); e.helps.splice(n,1); e.tnotes.splice(n,1); syncTry(e); UI.tryEdit=null; save(); msg='Versuch gelöscht'; break; }
     case 'dot': { const e=tEntry(dIso,ik,false); if(e){ const q=seqOf(e); const k=Number(b.dataset.k); q[k] = q[k]===null?true:(q[k]===true?false:null); e.ok=okCount(e); save(); } break; }
     case 'tnote': { const e=tEntry(dIso,ik,true); e.note = e.note==v?null:Number(v); save(); break; }
     case 'inc': { const e=tEntry(dIso,ik,true); if(!e.inc) e.inc = e.done>0 ? [e.done] : []; e.inc.push(Number(v)); e.done=e.inc.reduce((x,y)=>x+y,0); delete e.setsDone; autoStartTurn(dIso); save();
@@ -2687,6 +2715,7 @@ document.addEventListener('change', ev=>{
   if(el.id==='impFile'){ const file=el.files[0]; if(file){ const r=new FileReader(); r.onload=()=>{ doImport(r.result); render(); }; r.readAsText(file); } return; }
   if(!f) return; syncIn(); const dIso=iso(UI.date);
   if(f==='tnotiz'){ const e=tEntry(dIso,el.dataset.ik,true); e.notiz=el.value; save(); return; }
+  if(f==='trynote'){ const e=tEntry(dIso,el.dataset.ik,true); tryArrays(e); e.tnotes[Number(el.dataset.k)]=el.value; save(); return; }
   if(f==='statex'){ UI.statEx=el.value; render(); return; }
   if(f==='hilfe'){ const e=tEntry(dIso,el.dataset.ik,true); e.hilfe=el.value; if(el.value) S.lastHilfe[el.dataset.name]=el.value; save(); render(); return; }
   if(f==='swim'){ (S.swim[dIso] ||= {}).note=el.value; }
