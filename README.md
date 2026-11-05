@@ -1,8 +1,29 @@
-# Trainingsplan Wo 1–14 · Version 49
+# Trainingsplan Wo 1–14 · Version 52
 
 Web-App für deinen Trainingsplan (Stand: neue Excel vom 20.10.2026).
 
-## Neu in Version 49
+## Neu in Version 52
+- **Neue Datei vorlage.js – bitte einmal mit hochladen.** Die Excel-Vorlage steckt nicht mehr in index.html, sondern wird erst beim Export geladen. index.html ist dadurch 636 KB statt gut 1 MB (seit v51 lag sie knapp über 1 MB).
+- Gym-Grafik zeigt jeden Satz: durchgezogen = schwerer Satz, gestrichelt = Schnitt der leichteren Sätze, Kreise = einzelne Sätze (z. B. Bankdrücken 1 schwer + 3 leicht)
+- Beschriftung am Linienende: „schwer 93“, „leicht 83“, „e1RM 114“ (oben kg, unten Wdh)
+- Plan-Stand jetzt gepunktet, damit er nicht mit den leichten Sätzen verwechselt wird
+- Pause-Wochen (Wo 10–11, Weihnachten) sind in der Grafik grau hinterlegt – dort gibt es keinen Plan-Stand
+- Beschriftungen dünner
+- Bei normalen Übungen: Linie = bester Satz, Kreise = übrige Sätze; Knopf „Leichte Sätze“ bzw. „Alle Sätze“ blendet sie aus
+- Antippen zeigt alle Sätze der Einheit, z. B. „schwer 92,5×6 → e1RM 114 · leicht 82,5×8, 82,5×7, 82,5×6“
+
+## Aus Version 51
+- Gym-Log: pro Übung „Dieses Training“ und „Letztes“ nebeneinander (kg | Wdh @RIR), Workload und Veränderung in %, Ø kg/Wdh
+- Turnen-Log: bei jeder Übung „zuletzt …“ mit ▲/▼
+- Gym-Grafik: feste Achsen ab 0, die sich beim Ein-/Ausblenden von Linien nicht mehr verschieben
+
+## Aus Version 50
+- Gym-Statistik: Grafik zeigt pro Einheit Gewicht und e1RM (kg, oben) und Wdh (unten, eigener Streifen) des besten Satzes
+- Linien unter der Grafik einzeln ein- und ausblendbar (Gewicht · Wdh · e1RM), gilt für alle Übungen
+- Punkt antippen zeigt Datum, Plan, kg × Wdh und e1RM, ohne die Karte auf- oder zuzuklappen; Antippen anderswo klappt wie gewohnt
+- Große Zahl = letztes e1RM aus deinen Sätzen, der Kraft-Stand steht daneben
+
+## Aus Version 49
 - Einturnen steht wieder zuerst, danach die Geräte in olympischer Reihenfolge (Boden, Pferd, Ringe, Sprung, Barren, Reck), dann Handstand und Kondition
 
 ## Aus Version 48
@@ -110,5 +131,5 @@ Web-App für deinen Trainingsplan (Stand: neue Excel vom 20.10.2026).
 - Export: Excel im Format deines Plans (Turn-Log, Gym Plan, Calc, Status, Stufen, Notizen ausgefüllt) plus Blätter App-Auswertung, App-Turnen, App-Gym
 
 ## Aktualisieren auf GitHub Pages
-Alle Dateien aus diesem Ordner hochladen und die alten ersetzen (auch exceljs.min.js – die wird für den Excel-Export gebraucht).
+Alle Dateien aus diesem Ordner hochladen und die alten ersetzen (auch exceljs.min.js und vorlage.js – beide werden für den Excel-Export gebraucht).
 Deine Einträge bleiben erhalten und werden automatisch auf den neuen Plan übertragen.
