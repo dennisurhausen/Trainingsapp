@@ -584,6 +584,102 @@ th,td{padding-inline:4.5px}
 .warmbtn small{display:block;color:var(--muted);font-size:12px}
 .seq button{position:relative}
 .seq u.tn{position:absolute;top:2px;right:2px;width:6px;height:6px;border-radius:50%;background:var(--warn)}
+.exlist{display:flex;flex-direction:column;gap:6px}
+.exrow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--sunk);border:1px solid transparent;border-radius:10px;padding:8px 10px;color:inherit;font:inherit}
+.exrow.on{border-color:var(--accent)}
+.exrow .nm{flex:1;min-width:0;font-weight:600}
+.exrow .nm small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.exrow .vl{text-align:right;font-size:18px;min-width:52px}
+.exrow .vl small{display:block;font-size:10px;color:var(--muted)}
+.exrow .tag{font-size:10px;vertical-align:middle}
+.exdet{border:1px solid var(--accent);margin:0 0 4px}
+.ktabs button{font-size:12px;padding-left:4px;padding-right:4px}
+.lnk{background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left}
+.seg.pills button{letter-spacing:.03em;padding-left:2px;padding-right:2px;min-width:0}
+.seg.pills button[data-v="over"]{flex:1.55}.seg.pills button[data-v="log"]{flex:.8}
+.ovnav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 8px}
+.ovnav span{flex:1;text-align:center}
+.lsbox .lsb{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:7px;font-weight:800;color:#fff}
+.lsb.ls-A{background:var(--bad)}.lsb.ls-B{background:var(--warn)}.lsb.ls-C{background:var(--ok)}
+.lnk.acc{color:var(--accent);font-size:inherit;text-decoration:underline}
+.kbar{display:flex;gap:8px;margin:4px 0}
+.kbar select{flex:1.3;min-width:0}.kbar input{flex:1;min-width:0}
+.klist{display:flex;flex-direction:column;gap:10px}
+.kcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.kcard.on{border-color:var(--accent)}
+.kcard .kname{flex:1;min-width:0}
+.kcard .ksub .num{font-size:22px}
+.kcard .kchart{display:block;width:100%}
+.kcard{position:relative}
+.kcard.shut{padding-bottom:8px}
+.kcard .kmore{position:absolute;right:10px;bottom:6px;background:none;border:0;color:var(--muted);font-size:14px}
+.kcard .kname{text-align:left}
+.kcard .ksub{display:block;width:100%;text-align:left}
+.kcard .exdet{border:0;margin:6px 0 0;padding:0}
+.star{background:none;border:0;font-size:22px;color:var(--muted);padding:0 4px;line-height:1}
+.star.on{color:var(--warn)}
+.stag{background:color-mix(in srgb,var(--bad) 22%,transparent)!important;color:var(--bad)!important;font-size:10px!important;vertical-align:middle}
+.ovgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ov{background:var(--sunk);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+.ov .num{font-size:22px}
+.ovrow{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:6px 0;color:inherit;font:inherit}
+.ovrow:last-child{border-bottom:0}
+.ovrow .ic{font-size:18px;width:24px;text-align:center}
+.ovrow small{display:block;color:var(--muted);font-size:12px}
+.hlist{display:flex;flex-direction:column;gap:4px}
+.hrow{display:flex;align-items:center;gap:6px;background:var(--sunk);border-radius:8px;padding:4px 6px}
+.hrow .nm{flex:1}.hrow .num{width:20px;text-align:center}
+.elhelp{border-top:1px solid var(--line);padding-top:8px;margin-top:6px}
+.elhelp summary{cursor:pointer;list-style:none}
+.drings{display:flex;flex-wrap:wrap;gap:10px 6px;justify-content:space-around}
+.dring{display:flex;flex-direction:column;align-items:center;gap:2px;width:64px;text-align:center}
+.dring b{font-size:11.5px;font-weight:600}.dring small{font-size:11px;color:var(--muted)}
+.elrow{display:flex;align-items:center;gap:10px;width:100%;text-align:left}
+.elrow .nm{flex:1;min-width:0}.elrow .nm small{display:block;color:var(--muted);font-size:12px}
+.elrow .lsb{display:inline-block;width:12px;height:12px;border-radius:50%;flex:none;font-size:0}
+.eldet{margin-top:8px}
+.nlist{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.setsec{padding:0}
+.setsec>summary{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;list-style:none}
+.setsec>summary::-webkit-details-marker{display:none}
+.setsec>summary .ic{font-size:20px;width:28px;text-align:center}
+.setsec>summary .tx{flex:1;min-width:0}.setsec>summary small{display:block;color:var(--muted);font-size:12px;font-weight:400}
+.setsec>summary .schev{color:var(--muted);transition:transform .2s}.setsec[open]>summary .schev{transform:rotate(180deg)}
+.setsec .setbody{padding:0 14px 14px}
+.setsec .setbody .card{box-shadow:none}
+.kuer .kdev{display:flex;flex-direction:column;gap:4px}
+.kuer .kdl{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+.krow{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:var(--sunk);border:0;border-radius:10px;padding:7px 10px;color:inherit;font:inherit}
+.krow i{width:12px;height:12px;border-radius:50%;flex:none;background:var(--muted)}
+.krow.k-ready i{background:var(--ok)}.krow.k-close i{background:var(--warn)}.krow.k-help i{background:var(--bad)}
+.krow small{display:block;color:var(--muted);font-size:12px}
+.hnext{display:flex;gap:8px;align-items:center;justify-content:space-between}
+.rpecard .rpegrid{display:grid;grid-template-columns:repeat(11,1fr);gap:4px}
+.rpegrid button{border:1px solid var(--line);background:var(--sunk);color:inherit;border-radius:8px;padding:9px 0;font:inherit;font-weight:700}
+.rpegrid button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.lghead .nm .pl{font-size:11.5px}.lghead .nm .xs{color:var(--warn)}
+.nag.a2hs .t small{display:block}
+.cntrow .cnt{font-size:20px;text-align:right;min-width:56px;line-height:1.05}
+.cntrow .cnt small{display:block;font-size:10px;color:var(--muted);font-weight:400}
+.cntrow.zero{opacity:.55}
+.cntrow .eldet .center-h h2{display:none}
+.cntrow .eldet .card{box-shadow:none;border:0;padding:6px 0;background:none}
+.cntrow .tag{font-size:10px}
+.cgh{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:inherit;font:inherit;margin-top:6px}
+.cgh .gdot{width:10px;height:10px;border-radius:50%;flex:none}
+.cgh .t{flex:1;min-width:0}.cgh .t small{display:block;color:var(--muted);font-size:12px}
+.cgrp{display:flex;flex-direction:column;gap:8px}
+.cgrp.shut .frow{display:none}
+.flt.searching .cgrp{display:none}.flt.searching .cgrp.hasmatch{display:flex}
+.flt.searching .frow{display:none}.flt.searching .frow.match{display:block}
+.kuerhead{display:flex;flex-direction:column;gap:6px;width:100%;text-align:left}
+.kuerhead .spread{display:flex;width:100%}
+.kdots{gap:5px;margin:0}.kd{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--muted)}
+.kd.k-ready{background:var(--ok)}.kd.k-close{background:var(--warn)}.kd.k-help{background:var(--bad)}
+.lsdots{display:inline-flex;gap:3px;vertical-align:middle;margin-left:4px}
+.lsd{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.lsd.ls-A{background:var(--bad)}.lsd.ls-B{background:var(--warn)}.lsd.ls-C{background:var(--ok)}
+.hchart .tl{font-size:10px;fill:var(--muted)}
 .addx{width:100%;margin-top:6px;border:1px dashed var(--line);font-size:13px}
 .xform{border:1px solid var(--accent);margin-top:8px}
 .xform .field{flex:1;min-width:0}
@@ -794,7 +890,7 @@ const RTXT = kw => ruleBy(kw).text;
 
 /* ---------- storage ---------- */
 function blank(){
-  return {v:3, turn:{}, gym:{}, swim:{}, calc:{}, stufen:{boden:{},hand:{}}, lernstufe:{}, notes:[], form:{}, lastHilfe:{}, seenIntro:false,
+  return {v:3, helpEx:{}, turn:{}, gym:{}, swim:{}, calc:{}, stufen:{boden:{},hand:{}}, lernstufe:{}, notes:[], form:{}, lastHilfe:{}, seenIntro:false,
           free:[], home:{}, extra:{turn:{}, gym:{}}, swap:{perm:{}, sess:{}}, customEx:[], ovr:{goal:{}, role:{}, tmove:{}, gmove:{}, sets:{}}, prefs:{sound:true, wake:true, notify:true, dipsBW:false, auto:true, theme:'auto', dismissed:{}, adj:true, adjUp:true, speak:false, stretchPause:15}};
 }
 function migrate(s){
@@ -878,6 +974,10 @@ function grpOf(i){
   const g = i.section.split(/[\s·]/)[0]; return DEV[g]?g:(DEV[i.device]?i.device:'Kondition');
 }
 const dcol = g => `var(${DEV[g]?.c||'--d-kond'})`;
+/* Einturnen zuerst, dann Geräte in olympischer Reihenfolge (Boden, Pauschenpferd, Ringe, Sprung, Barren, Reck), danach Handstand, Kondition */
+const DEV_OLY = ['Einturnen','Boden','Pferd','Ringe','Sprung','Barren','Reck','Handstand','Kondition'];
+function devOly(){ return [...DEV_OLY.filter(d=>DEV[d]), ...Object.keys(DEV).filter(d=>!DEV_OLY.includes(d))]; }
+const devRank = d => { const i=devOly().indexOf(d); return i<0?99:i; };
 function goalOf(day, item, w){ const o=S.ovr.goal[`${day}:${ikey(item)}`]; return (o && o[w]!=null) ? o[w] : (item.w[w-1]||0); }
 function isOvr(day,item,w){ const o=S.ovr.goal[`${day}:${ikey(item)}`]; return !!(o && o[w]!=null); }
 function roleOf(item,w){ const ph=phaseIdx(w); const o=S.ovr.role[item.name]; const r = (o && o[ph]!=null) ? o[ph] : (item.roles||[])[ph]; return r && r!=='–' ? r : null; }
@@ -1063,10 +1163,15 @@ function groupStats(sess, items){
   let tot=0, done=0, fin=0, cnt=0;
   items.forEach(i=>{ if(i.program || i.extra || isKann(sess,i)) return; const goal=goalOf(sess.day,i,sess.w); if(goal<=0) return; const e=S.turn[sess.date]?.items[ikey(i)]; const d=Math.min(goal,e?.done||0);
     tot+=goal*i.sec; done+=d*i.sec; cnt++; if(d>=goal) fin++; });
-  /* Zusatz: eigene Farbe, relativ zum geplanten Umfang */
-  let xs=0, xn=0; items.forEach(i=>{ if(!i.extra) return; const dn=S.turn[sess.date]?.items[ikey(i)]?.done||0; if(dn>0){ xn++; xs+=dn*i.sec; } });
-  const planAll = tot || sess.items.filter(i=>!i.program && !i.extra && !isKann(sess,i)).reduce((a,i)=>a+Math.max(0,goalOf(sess.day,i,sess.w))*i.sec,0);
-  return {min:tot/60, doneMin:done/60, remMin:(tot-done)/60, pct: tot?done/tot:(cnt?fin/cnt:0), fin, cnt, xp: planAll? xs/planAll : (xn?1:0), xn};
+  /* Prozent nach Ausführungen (wie im Log): grün = geplante Muss-Ausführungen (gedeckelt), orange = alles darüber hinaus (Zusatz, Kann, mehr als Soll) */
+  let ep=0, ed=0, ex=0, xn=0; const DI=S.turn[sess.date]?.items||{};
+  items.forEach(i=>{ if(i.program) return; const e=DI[ikey(i)]; const dn=execDone(i,e);
+    if(i.extra){ if(dn>0){ xn++; ex+=dn; } return; }
+    const goal=goalOf(sess.day,i,sess.w);
+    if(isKann(sess,i)){ ex+=dn; return; }
+    if(goal<=0){ ex+=dn; return; } const pc=execCount(i,goal); ep+=pc; ed+=Math.min(pc,dn); ex+=Math.max(0,dn-pc); });
+  const base = ep || sess.items.filter(i=>!i.program && !i.extra && !isKann(sess,i)).reduce((a,i)=>a+execCount(i,Math.max(0,goalOf(sess.day,i,sess.w))),0);
+  return {min:tot/60, doneMin:done/60, remMin:(tot-done)/60, pct: ep?ed/ep:(cnt?fin/cnt:0), fin, cnt, xp: base? ex/base : (ex?1:0), xn};
 }
 function sessGroups(sess){
   const order=[]; const map={};
@@ -1153,10 +1258,10 @@ function nextTraining(from){ for(let i=1;i<60;i++){ const x=addDays(from,i); con
 function checkpoints(){
   return [
     {date:'2026-10-25', text:'Woche 1: Dauer jeder Gym-Einheit messen (Einheit starten und beenden).'},
-    {date:'2026-11-15', text:'Ende Wo 4: Rollen prüfen (Tab Status).'},
-    {date:'2026-11-22', text:'Ende Wo 5: Kraft-Stand B eintragen (Tab Kraft).'},
-    {date:'2026-12-13', text:'Ende Wo 8: Rollen prüfen + Kür-Entscheid bis So 13.12.'},
-    {date:'2026-12-20', text:'Ende Wo 9: Kraft-Stand C eintragen (Tab Kraft).'},
+    {date:'2026-11-15', text:'Ende Wo 4: Rollen prüfen (Statistik → Turnen, Rollen unter Einstellungen → Turnen).'},
+    {date:'2026-11-22', text:'Ende Wo 5: Kraft-Stand B eintragen (Einstellungen → Gym: Maximalkraft-Tests).'},
+    {date:'2026-12-13', text:'Ende Wo 8: Rollen prüfen + Kür-Entscheid bis So 13.12. (Kür-Check unter Statistik → Turnen).'},
+    {date:'2026-12-20', text:'Ende Wo 9: Kraft-Stand C eintragen (Einstellungen → Gym: Maximalkraft-Tests).'},
     {date:'2026-12-21', text:'Mo 21.12.: Kür letztmals bestätigen. Nur Sicheres geht in den Wettkampf.'},
     {date:'2027-01-24', text:'So 24.01.: Wettkampf (Annahme).'}
   ];
@@ -1180,7 +1285,7 @@ function vTraining(){
   const notes=[W.note?esc(W.note):'', cp?`<b>${dm(parse(cp.date))}</b> ${esc(cp.text)}`:''].filter(Boolean);
   const nkey = 'n'+[...notes.join('|')].reduce((h,c)=>(h*31+c.charCodeAt(0))|0,7);
   if(notes.length && !S.prefs.dismissed?.[nkey]) out += `<div class="dayinfo ${UI.open.dayinfo?'open':''}"><button type="button" class="dt" data-act="toggle" data-v="dayinfo"><span>ℹ</span><span class="t">${notes.join(' · ')}</span></button><button type="button" class="dx" data-act="dismiss" data-v="${nkey}" aria-label="Hinweis ausblenden">✕</button></div>`;
-  out += vBackupNag();
+  out += vA2hsNag() + vBackupNag();
   if(!units.length){
     out += `<h2>${WD[d.getDay()]}, ${dm(d)}</h2>`;
     const n=nextTraining(d);
@@ -1304,7 +1409,7 @@ function vTurn(sess, dIso){
 
 function finishPanel(kind, key, planMin, D, hasEntries, recap){
   const open = UI.finish===key;
-  if(D.end) return `<details class="card recapcard" ${UI.recap===key?'open':''}><summary class="finrow done"><span>✓ Abgeschlossen · ${Math.round((D.end-D.start)/60e3)} min</span><span class="small">Rückblick</span></summary>${recap?recap():''}<div class="row"><button class="btn ghost sm" data-act="unfinish" data-k="${kind}" data-v="${esc(key)}">wieder öffnen</button></div></details>`;
+  if(D.end) return `<details class="card recapcard" ${UI.recap===key?'open':''}><summary class="finrow done"><span>✓ Abgeschlossen · ${Math.round((D.end-D.start)/60e3)} min${D.rpe!=null?` · Anstrengung ${D.rpe}/10`:''}</span><span class="small">Rückblick</span></summary>${recap?recap():''}${D.rpe!=null?`<div class="row small"><span>Anstrengung <b>${D.rpe}/10</b> × ${sessMin(D)} min = <b>${fmt(sessAU(D)||0)} AU</b></span><button class="btn ghost sm" data-act="rpe" data-k="${kind}" data-v="${esc(key)}" data-n="">ändern</button></div>`:''}<div class="row"><button class="btn ghost sm" data-act="unfinish" data-k="${kind}" data-v="${esc(key)}">wieder öffnen</button></div></details>` + (D.rpe==null ? rpeCard(kind, key, D) : '');
   if(!open) return `<button class="btn big finbtn" data-act="finopen" data-v="${esc(key)}">✓ Training abgeschlossen</button>`;
   const dur = D.start ? Math.max(1,Math.round((Date.now()-D.start)/60e3)) : Math.round(planMin);
   return `<div class="card stack finpanel"><b>Training abschließen</b>
@@ -1318,7 +1423,7 @@ const FUNITS = ['Wdh','Versuche','Sätze','Sek','min'];
 const FKIND = {turn:'Turnen', gym:'Gym', other:'Sonstiges'};
 const FDEV = ['Boden','Sprung','Reck','Pferd','Barren','Ringe','Handstand','Kondition'];
 function freeMin(f){ return Number(f.min)||0; }
-function exNames(){ const set=new Set(); Object.values(PLAN.turnen).forEach(T=>T.items.forEach(i=>{ if(!i.program) set.add(shortName(i.name).s); })); PLAN.gym.forEach(g=>g.items.forEach(it=>set.add(shortName(it.name,40).s))); return [...set].sort((a,b)=>a.localeCompare(b,'de')); }
+function exNames(){ const set=new Set(); Object.values(PLAN.turnen).forEach(T=>T.items.forEach(i=>{ if(!i.program) set.add(shortName(i.name).s); })); (S.customTurn||[]).forEach(c=>set.add(c.n)); PLAN.gym.forEach(g=>g.items.forEach(it=>set.add(shortName(it.name,40).s))); return [...set].sort((a,b)=>a.localeCompare(b,'de')); }
 function freeDraftNew(dIso){ const u=unitsOf(parse(dIso)); return {id:null, date:dIso, kind: u.some(x=>x.kind==='turn')?'turn':u.some(x=>x.kind==='gym')?'gym':'turn', title:'', min:'', note:'', items:[{name:'', amt:'', unit:'Wdh', kg:'', dev:''}]}; }
 function vFreeForm(){ const d=UI.freeDraft; if(!d) return '';
   return `<div class="card stack freeform"><div class="spread"><b>${d.id?'Freies Training bearbeiten':'Freies Training / Zusatzübung'}</b><button class="btn ghost sm" data-act="frcancel">Abbrechen</button></div>
@@ -1369,7 +1474,7 @@ function vExtraForm(){ const d=UI.xDraft; const isGym=d.scope==='gym';
     ${(()=>{ const h=xHistory(d.scope, null, d.key).slice(0,6); return h.length?`<div class="chips">${h.map(x=>`<button class="chip ${d.name===x.name?'on':''}" data-act="xfill" data-name="${esc(x.name)}">${esc(xLabel(x))}</button>`).join('')}</div>`:''; })()}
     <datalist id="xnames">${names.map(n=>`<option value="${esc(n)}">`).join('')}</datalist>
     <input type="text" list="xnames" id="xName" data-xf="name" value="${esc(d.name)}" placeholder="Übung, z. B. ${isGym?'Klimmzug':'Kippe'}">
-    ${!isGym?`<select id="xDev" data-xf="dev">${Object.keys(DEV).map(g=>`<option value="${g}" ${d.dev===g?'selected':''}>${DEV[g].label}</option>`).join('')}</select>`:''}
+    ${!isGym?`<select id="xDev" data-xf="dev">${devOly().map(g=>`<option value="${g}" ${d.dev===g?'selected':''}>${DEV[g].label}</option>`).join('')}</select>`:''}
     <div class="seg full">${T.map(([k,l])=>`<button class="${d.type===k?'on':''}" data-act="xtype" data-v="${k}">${l}</button>`).join('')}</div>
     <div class="row" style="flex-wrap:nowrap">${d.type==='versuch'?'':`<div class="field"><label class="lbl" for="xSets">Sätze</label><input type="number" inputmode="numeric" id="xSets" data-xf="sets" value="${esc(d.sets)}"></div>`}
       <div class="field"><label class="lbl" for="xPer">${d.type==='versuch'?'Versuche':d.type==='sek'?'Sek. pro Satz':'Wdh pro Satz'}</label><input type="number" inputmode="numeric" id="xPer" data-xf="per" value="${esc(d.per)}"></div>
@@ -1418,7 +1523,7 @@ function vTurnItem(i, sess, dIso, isNow){
       ${ed!=null && ed<seq.length ? `<div class="tryed"><div class="spread"><b>Versuch ${ed+1}</b><button class="btn ghost sm" data-act="tsel" data-ik="${esc(k)}" data-k="${ed}" aria-label="Schließen">✕</button></div>
         <div class="seg full"><button class="${seq[ed]===true?'on':''}" data-act="tres" data-ik="${esc(k)}" data-k="${ed}" data-v="1">✓ gelungen</button><button class="${seq[ed]===false?'on':''}" data-act="tres" data-ik="${esc(k)}" data-k="${ed}" data-v="0">✗ nicht</button></div>
         <div class="lbl">Note <span class="muted">1 sauber … 5 schlecht</span></div><div class="seg full notes">${[1,2,3,4,5].map(n=>`<button class="${grades[ed]==n?'on':''}" data-act="tgrade" data-ik="${esc(k)}" data-k="${ed}" data-v="${n}">${n}</button>`).join('')}</div>
-        <div class="lbl">Hilfe bei diesem Versuch</div><div class="chips">${HILFE.map(h=>`<button class="chip ${helpOf(e,ed)===h?'on':''}" data-act="thelp" data-ik="${esc(k)}" data-k="${ed}" data-v="${esc(h)}" data-name="${esc(i.name)}">${esc(h)}</button>`).join('')}</div>
+        <div class="lbl">Hilfe bei diesem Versuch</div><div class="chips">${hilfeFor(i.name).map(h=>`<button class="chip ${helpOf(e,ed)===h?'on':''}" data-act="thelp" data-ik="${esc(k)}" data-k="${ed}" data-v="${esc(h)}" data-name="${esc(i.name)}">${esc(h)}</button>`).join('')}</div>
         <div class="lbl">Notiz zu Versuch ${ed+1}</div><input type="text" id="trn-${esc(k)}-${ed}" data-in="trynote" data-ik="${esc(k)}" data-k="${ed}" value="${esc(e.tnotes?.[ed]||'')}" placeholder="z. B. Hüfte zu früh geöffnet">
         <button class="btn ghost sm" data-act="tdel" data-ik="${esc(k)}" data-k="${ed}">Versuch löschen</button></div>` : (seq.length?`<div class="small muted">Punkt antippen: gelungen/nicht, Note und Hilfe pro Versuch ändern.</div>`:'')}
       <div class="attempts"><button class="abtn yes" data-act="try" data-ik="${esc(k)}" data-v="1">+ ✓ Gelungen</button><button class="abtn no" data-act="try" data-ik="${esc(k)}" data-v="0">+ ✗ Nicht</button><button class="abtn undo" data-act="tryundo" data-ik="${esc(k)}" aria-label="Letzten Versuch löschen">↶</button></div>
@@ -1426,7 +1531,8 @@ function vTurnItem(i, sess, dIso, isNow){
       ${last2?`<div class="note bad small"><b>2 Fehlversuche in Folge – abbrechen.</b> ${esc(RTXT('Abbruch nach 2').split('.').slice(1,2).join('.'))}</div>`:''}
       ${seq.length>goal && goal>0?`<div class="note small">${seq.length-goal} Versuch${seq.length-goal>1?'e':''} mehr als geplant – wird so eingetragen. Die Zahl im Plan ist eine Obergrenze (Regel 10).</div>`:''}
       ${seq.length>=goal && goal>0 && unknown?`<div class="note ok small">Geplante ${goal} Versuche erreicht. Bitte noch gelungen/nicht eintragen (Punkt mit ? antippen).</div>`:''}
-      <div class="row"><label class="lbl" for="hs-${esc(k)}">Hilfe für neue Versuche</label><select id="hs-${esc(k)}" data-in="hilfe" data-ik="${esc(k)}" data-name="${esc(i.name)}"><option value="">wählen</option>${HILFE.map(h=>`<option ${hil===h?'selected':''}>${esc(h)}</option>`).join('')}</select></div>`;
+      ${helpNextNote(i.name, hil, k, dIso)}
+      <div class="row"><label class="lbl" for="hs-${esc(k)}">Hilfe für neue Versuche</label><select id="hs-${esc(k)}" data-in="hilfe" data-ik="${esc(k)}" data-name="${esc(i.name)}"><option value="">wählen</option>${hilfeFor(i.name).map(h=>`<option ${hil===h?'selected':''}>${esc(h)}</option>`).join('')}</select></div>`;
   } else if(plan && plan.length>1){
     body = setRowsUI(i, e, goal, plan, up, isSec);
   } else if(roundSpec(i) && !i.landing){
@@ -1602,13 +1708,6 @@ function vSwapPanel(g, it){ const grp=libGroupOf(it.name); const cur=baseEx(gNam
     <details class="swmore"><summary class="small">Andere Bewegungen</summary>${LIB.filter(x=>x!==grp).map(x=>`<div class="subsec">${esc(x.l)}</div><div class="swlist">${x.ex.map(e=>opt(e[0],e[1])).join('')}</div>`).join('')}</details>
     <div class="row" style="flex-wrap:nowrap"><input type="text" id="swNew" placeholder="Eigene Übung, z. B. Brustpresse Gerät 3"><button class="btn sm" data-act="swcustom" data-g="${g.id}" data-nr="${it.nr}">Hinzufügen</button></div>
     <p class="small muted">Die leichteren Sätze derselben Übung wechseln mit. Neue Übung: Gewicht aus deinem letzten Mal, sonst „testen“.</p></div>`; }
-function vLibrary(){ const used=new Set(); PLAN.gym.forEach(g=>g.items.forEach(it=>used.add(baseEx(gName(g,it)))));
-  const td=iso(today())+'z';
-  return `<div class="subhead"><button class="btn ghost sm" data-act="sub" data-v="">‹ Mehr</button><h2>Übungs-Kartei</h2><span></span></div>
-  <p class="small muted center-h">Alle Gym-Übungen nach Bewegung. Im Training wechselst du über „⇄ Übung wechseln“.</p>
-  ${LIB.map(grp=>{ const ex=[...grp.ex, ...(S.customEx||[]).filter(c=>c.g===grp.id).map(c=>[c.n,c.eq||'eigene',true])];
-    return `<details class="card" ${UI.open['lib:'+grp.id]?'open':''}><summary data-act="toggle" data-v="lib:${grp.id}"><b>${esc(grp.l)}</b> <span class="small muted">${esc(grp.m)}</span></summary><div class="flist" style="margin-top:6px">${ex.map(e=>{ const last=lastUseTxt(e[0], td);
-      return `<div class="lgi"><span>${esc(e[0])} ${used.has(e[0])?'<small class="tag">im Plan</small>':''}<small style="display:block">${esc(e[1])}</small></span><span class="num"><small>${last?esc(last):'–'}</small>${e[2]?` <button class="btn ghost sm" data-act="swdelcustom" data-v="${esc(e[0])}" aria-label="Löschen">✕</button>`:''}</span></div>`; }).join('')}</div></details>`; }).join('')}`; }
 /* ----- Gym ----- */
 function gymBefore(beforeDate){ return PLAN.gym.filter(g=>gDate(g)<beforeDate).sort((a,b)=>gDate(b).localeCompare(gDate(a))); }
 function lastLog(key, beforeDate){
@@ -1714,7 +1813,7 @@ function vGymItem(g, it, isNow){
       <div class="itags">${isNow?'<span class="tag now">jetzt</span>':''}<span class="tag ${n!==planN?'ovr':''}">${n} × ${esc(it.reps)}</span>${it.rir&&it.rir!=='–'?`<span class="tag">RIR ${esc(it.rir)}</span>`:''}${it.pause&&it.pause!=='–'?`<span class="tag">Pause ${esc(it.pause)}</span>`:''}</div></div>
       ${tg!=null&&tg!=='–'?`<div class="goal"><div class="n">${tg==='testen'?'?':fmt(tg)}</div><div class="u">${tg==='testen'?'testen':'Ziel kg'}</div></div>`:''}<span class="chev">▴</span></div>
     ${vAdjNote(g,it,tg)}${swapped?(()=>{ const si=swapInfo(g,it); if(!si) return ''; return `<div class="adjnote off"><span><b>Ziel ${fmt(si.kg)} kg</b>${si.src==='own'?` aus deinem letzten Mal (${dm(parse(si.last.date))}: ${fmt(Number(si.last.x.kg))}×${si.last.x.reps}) mit der Plan-Intensität dieser Woche`:si.src==='est'?` ≈ geschätzt aus deiner Plan-Übung (${esc(shortName(si.orig,28).s)}, Faktor ${fmt(Math.round(si.ratio*100)/100)}). Erster Satz zum Antesten.`:' wie letztes Mal'}<small>${si.pi?`Plan-Intensität ${Math.round(si.pi*100)} % vom geschätzten 1RM · `:''}folgt deiner Plan-Steigerung</small></span></div>`; })():''}
-    ${tg==='testen'?`<div class="hint">${swapped?'Neue Übung: Gewicht so wählen, dass du beim Ziel-RIR landest. Nächstes Mal schlägt die App dein Gewicht von heute vor.':'Gewicht so wählen, dass du beim Ziel-RIR landest. Danach im Tab Kraft übernehmen.'}</div>`:''}
+    ${tg==='testen'?`<div class="hint">${swapped?'Neue Übung: Gewicht so wählen, dass du beim Ziel-RIR landest. Nächstes Mal schlägt die App dein Gewicht von heute vor.':'Gewicht so wählen, dass du beim Ziel-RIR landest. Danach im Einstellungen → Gym: Maximalkraft-Tests übernehmen.'}</div>`:''}
     ${prevTxt?`<div class="hint">${esc(prevTxt)}</div>`:''}${sugg?`<div class="sugg">${esc(sugg)}</div>`:''}
     ${rows}
     ${painUp?`<div class="note warn small">Schmerz steigt (${pl} → ${pain}).${ruleRef('Schmerz:')}</div>`:''}
@@ -1732,11 +1831,11 @@ function turnSessMetrics(sess, dIso){ const D=S.turn[dIso]||{}; let plan=0, done
     done+=execDone(i,e);
     if(i.status==='Versuch' && e){ V+=e.done||0; G+=okCount(e)||0; (e.grades||[]).forEach(x=>{ if(x!=null) gr.push(x); }); if(!e.grades && e.note!=null) gr.push(e.note); } });
   return {plan, done, mc, mf, V, G, avg: gr.length? gr.reduce((a,x)=>a+x,0)/gr.length : null}; }
-function turnWeekMetrics(w){ const m={plan:0, done:0, mc:0, mf:0, V:0, G:0, gsum:0, gn:0, dev:{}};
-  turnSlots().filter(sl=>sl.w===w).forEach(sl=>{ const sess=turnSession(parse(sl.date)); if(!sess) return; const x=turnSessMetrics(sess, sl.date);
+function turnWeekMetrics(w, upto){ const m={plan:0, done:0, mc:0, mf:0, V:0, G:0, gsum:0, gn:0, dev:{}};
+  turnSlots().filter(sl=>sl.w===w && (!upto || sl.date<=upto)).forEach(sl=>{ const sess=turnSession(parse(sl.date)); if(!sess) return; const x=turnSessMetrics(sess, sl.date);
     m.plan+=x.plan; m.done+=x.done; m.mc+=x.mc; m.mf+=x.mf; m.V+=x.V; m.G+=x.G; if(x.avg!=null){ m.gsum+=x.avg; m.gn++; }
     const D=S.turn[sl.date]||{}; sess.items.forEach(i=>{ if(i.program) return; const g=grpOf(i); const o=(m.dev[g] ||= {plan:0, done:0}); const goal=goalOf(sess.day,i,sess.w); if(!isKann(sess,i) && !i.extra) o.plan+=execCount(i,goal); o.done+=execDone(i, D.items?.[ikey(i)]); }); });
-  (S.free||[]).filter(f=>f.kind==='turn' && weekOf(parse(f.date))===w).forEach(f=>(f.items||[]).forEach(r=>{ m.done+=Number(r.amt)||0; }));
+  (S.free||[]).filter(f=>f.kind==='turn' && weekOf(parse(f.date))===w && (!upto || f.date<=upto)).forEach(f=>(f.items||[]).forEach(r=>{ m.done+=Number(r.amt)||0; }));
   m.avg = m.gn? m.gsum/m.gn : null; return m; }
 /* Gym-Load: Summe kg × Wdh. Geplant = Ziel-kg × Sätze × mittlere Wdh (nur Übungen mit Zielgewicht) */
 function gymLoadOf(g){ const L=S.gym[g.id]; let plan=0, done=0;
@@ -1793,9 +1892,9 @@ function sparkBars(rows){ const r=rows.slice(-10); if(!r.length) return '<span c
   return `<svg class="spk" viewBox="0 0 ${W} ${H}" aria-hidden="true">${r.map((x,i)=>{ const X=W-r.length*(bw+2)+i*(bw+2); const hp=(x.plan||0)/max*(H-2), hd=Math.min(x.done||0,max)/max*(H-2);
     return `<rect x="${X}" y="${H-hp}" width="${bw}" height="${hp}" rx="1.5" fill="var(--sunk)"/><rect x="${X}" y="${H-hd}" width="${bw}" height="${hd}" rx="1.5" fill="${x.ok!=null&&x.done?'var(--ok)':'var(--accent)'}"/>`; }).join('')}</svg>`; }
 function trendTag(a,b,unit=''){ if(a==null||b==null) return ''; const d=b-a; const r=Math.abs(d)<0.5?'→':d>0?'↑':'↓'; const c=r==='↑'?'var(--ok)':r==='↓'?'var(--warn)':'var(--muted)'; return `<span class="trd" style="color:${c}">${r}${r==='→'?'':` ${d>0?'+':''}${fmt(Math.round(d*10)/10)}${unit}`}</span>`; }
-function vExerciseStats(){
-  const f=UI.exF||'gym'; const o=statOptions(); const td=iso(today());
-  let html = `<div class="seg full" style="margin-bottom:4px">${[['gym','Gym'],['turn','Turnen']].map(([k,l])=>`<button class="${f===k?'on':''}" data-act="exf" data-v="${k}">${l}</button>`).join('')}</div>`;
+function vExerciseStats(force){
+  const f=force||UI.exF||'gym'; const o=statOptions(); const td=iso(today());
+  let html = force ? '' : `<div class="seg full" style="margin-bottom:4px">${[['gym','Gym'],['turn','Turnen']].map(([k,l])=>`<button class="${f===k?'on':''}" data-act="exf" data-v="${k}">${l}</button>`).join('')}</div>`;
   const card=(sel, title, sub, right, dc)=>{ const open=UI.exOpen===sel;
     return `<div class="item ${open?'open':'compact'} logitem exitem" style="--dc:${dc}"><button type="button" class="lghead" data-act="exopen" data-v="${esc(sel)}"><span class="nm">${esc(title)}<small>${sub}</small></span>${right}<span class="chev">${open?'▴':'▾'}</span></button>${open?`<div class="exdet">${exDetail(sel)}</div>`:''}</div>`; };
   const empty=[];
@@ -1812,7 +1911,7 @@ function vExerciseStats(){
       if(part) html += `<div class="subsec">${lbl[u]}</div>${part}`; });
     html += `<p class="small muted">Linie = ${'geschätztes 1RM (bzw. Gewicht)'} pro Einheit · Pfeil = Veränderung seit dem ersten Eintrag.</p>`;
   } else {
-    Object.keys(DEV).filter(d=>o.turn[d]).forEach(d=>{ let part='';
+    devOly().filter(d=>o.turn[d]).forEach(d=>{ let part='';
       [...o.turn[d]].forEach(name=>{ const pts=statSeriesTurn(name); const past=pts.filter(p=>p.past); const logged=pts.filter(p=>p.done>0);
         if(!logged.length){ empty.push({sel:'t:'+name, n:name, sub:''}); return; }
         const last=logged[logged.length-1]; const isTry=last.item.status==='Versuch'; const sumP=past.reduce((a,p)=>a+p.plan,0), sumD=past.reduce((a,p)=>a+p.done,0);
@@ -1898,13 +1997,12 @@ function exDetail(sel){
   return html;
 }
 function vStats(){
-  const t=UI.statTab||'log';
-  let html = `<div class="seg full pills" role="tablist">${[['log','Log'],['ex','Übungen'],['status','Status'],['weeks','Wochen'],['kraft','Kraft']].map(([k,l])=>`<button class="${t===k?'on':''}" data-act="stattab" data-v="${k}">${l}</button>`).join('')}</div>`;
-  html += `<h2 class="center-h">${{log:'Trainingslog',ex:'Übungen',status:'Lern-Elemente',weeks:'Wochen',kraft:'Kraft-Stände'}[t]}</h2>`;
-  if(t==='ex') html += vExerciseStats();
-  if(t==='weeks') html += vWeeks();
+  let t=UI.statTab||'woche'; if(t==='ex'||t==='status') t='turn'; if(t==='over'||t==='weeks') t='woche';
+  let html = `<div class="seg full pills" role="tablist">${[['woche','Woche'],['turn','Turnen'],['kraft','Gym'],['log','Log']].map(([k,l])=>`<button class="${t===k?'on':''}" data-act="stattab" data-v="${k}">${l}</button>`).join('')}</div>`;
+  html += `<h2 class="center-h">${{log:'Trainingslog',woche:'Woche',turn:'Turnen',kraft:'Gym'}[t]}</h2>`;
+  if(t==='woche') html += vWoche();
+  if(t==='turn'){ const ts=UI.turnSub==='all'?'all':'el'; html += `<div class="seg full" style="margin-bottom:8px">${[['el','Lern-Elemente'],['all','Alle Übungen · wie oft']].map(([k,l])=>`<button class="${ts===k?'on':''}" data-act="turnsub" data-v="${k}">${l}</button>`).join('')}</div>`; html += ts==='all' ? vTurnCounts() : vTurnStats(); }
   if(t==='log') html += vLog();
-  if(t==='status') html += vStatus();
   if(t==='kraft') html += vKraft();
   return html;
 }
@@ -1968,11 +2066,11 @@ function vCycle(){
     segs(arr).forEach(sg=>{ const bx=L+sg.s*cwid+1, bwid=sg.n*cwid-2; const full=txtf(sg.v,true), ab=txtf(sg.v,false); const t = full.length*4.6 < bwid ? full : ab.length*4.6<bwid ? ab : '';
       o += `<rect x="${bx}" y="${by}" width="${bwid}" height="${h}" rx="3" fill="${colf(sg.v)}"/>${t?`<text x="${bx+bwid/2}" y="${by+h/2+3}" text-anchor="middle" class="cy-bt">${esc(t)}</text>`:''}`; });
     by += h+3; return o; };
-  g += band('Makro', D.map(()=> 'M'), ()=>'color-mix(in srgb,var(--accent) 55%,var(--surface2))', ()=> 'Vorbereitung Wettkampf 24.01.');
-  g += band('Meso', D.map(d=> d.W.phase==='Pause'?'Pause':d.W.block), v=> v==='Pause'?'var(--sunk)': v==='Block 1'?'color-mix(in srgb,var(--d-reck) 70%,var(--surface2))':'color-mix(in srgb,var(--d-barren) 70%,var(--surface2))', (v,f)=> v==='Pause'?(f?'Pause':'P'):v);
-  g += band('Mikro', D.map(d=>d.W.phase), v=>PHASECOL[v]||'var(--sunk)', (v,f)=> f?v:(PHASEABBR[v]||v));
-  if(mode!=='turn') g += band('Kraft', D.map(d=>(d.state&&d.state!=='—')?d.state:'–'), v=> v==='–'?'var(--sunk)':'color-mix(in srgb,var(--accent) '+({A:35,B:55,C:75}[v]||40)+'%,var(--surface2))', (v,f)=> v==='–'?'':(f?'Stand '+v:v));
-  if(mode!=='gym') g += band('Rollen', D.map(d=>phaseIdx(d.w)), v=>'color-mix(in srgb,var(--d-hand) '+(35+v*20)+'%,var(--surface2))', (v,f)=> 'Wo '+['1–4','5–8','9–14'][v]);
+  if(UI.cycAll) g += band('Makro', D.map(()=> 'M'), ()=>'color-mix(in srgb,var(--accent) 55%,var(--surface2))', ()=> 'Vorbereitung Wettkampf 24.01.');
+  g += band('Block', D.map(d=> d.W.phase==='Pause'?'Pause':d.W.block), v=> v==='Pause'?'var(--sunk)': v==='Block 1'?'color-mix(in srgb,var(--d-reck) 70%,var(--surface2))':'color-mix(in srgb,var(--d-barren) 70%,var(--surface2))', (v,f)=> v==='Pause'?(f?'Pause':'P'):v);
+  if(UI.cycAll) g += band('Phase', D.map(d=>d.W.phase), v=>PHASECOL[v]||'var(--sunk)', (v,f)=> f?v:(PHASEABBR[v]||v));
+  if(UI.cycAll && mode!=='turn') g += band('Kraft', D.map(d=>(d.state&&d.state!=='—')?d.state:'–'), v=> v==='–'?'var(--sunk)':'color-mix(in srgb,var(--accent) '+({A:35,B:55,C:75}[v]||40)+'%,var(--surface2))', (v,f)=> v==='–'?'':(f?'Stand '+v:v));
+  if(UI.cycAll && mode!=='gym') g += band('Rollen', D.map(d=>phaseIdx(d.w)), v=>'color-mix(in srgb,var(--d-hand) '+(35+v*20)+'%,var(--surface2))', (v,f)=> 'Wo '+['1–4','5–8','9–14'][v]);
   // Wochennummern + Tippflächen
   g += D.map((d,k)=>`<text x="${x(k)}" y="${by+9}" text-anchor="middle" class="cy-ax" ${d.w===cw?'fill="var(--accent)" font-weight="700"':''}>${d.w}</text>`).join('');
   const Ht = by+14;
@@ -1982,7 +2080,8 @@ function vCycle(){
   const h1 = v => fmt(Math.round(v*10)/10);
   return `<div class="card cyc">
     <div class="spread"><b>Zyklen</b><div class="seg">${[['turn','Turnen'],['gym','Gym'],['komb','Kombiniert']].map(([k,l])=>`<button class="${mode===k?'on':''}" data-act="cyc" data-v="${k}">${l}</button>`).join('')}</div></div>
-    <svg viewBox="0 0 ${Wd} ${Ht}" width="100%" role="img" aria-label="Belastung pro Woche mit Makro-, Meso- und Mikrozyklus">${g}</svg>
+    <svg viewBox="0 0 ${Wd} ${Ht}" width="100%" role="img" aria-label="Belastung pro Woche mit Blöcken">${g}</svg>
+    <button class="btn ghost sm" data-act="cycall">${UI.cycAll?'▴ Weniger anzeigen':'▾ Mehr: Phasen, Kraft-Stand, Rollen'}</button>
     <div class="legend">${mode!=='gym'?'<span><i style="--c:var(--d-hand)"></i>Turnen</span>':''}${mode!=='turn'?'<span><i style="--c:var(--accent)"></i>Gym</span>':''}<span><i style="--c:var(--line)"></i>hell = geplant, kräftig = gemacht</span><span>┄ Trend geplant · ─ Trend gemacht</span>${mode==='gym'?'<span><i style="--c:var(--warn)"></i>% 1RM schwerer Satz</span>':''}${mode==='turn'?'<span><i style="--c:var(--ok)"></i>Versuche gelungen %</span>':''}</div>
     <p class="small muted">${{turn:'Balken = Ausführungen (Wdh, Versuche, Elemente, Sätze) der Muss-Übungen.', gym:'Balken = Wochen-Load in Tonnen (kg × Wdh), Linie = % 1RM des schweren Satzes.', komb:'Balken = % vom Spitzenwert der Planung (Turnen: Ausführungen, Gym: Load), so sind beide vergleichbar.'}[mode]} Woche antippen: darunter erscheint ihr Wochenplan.</p></div>`;
 }
@@ -2010,7 +2109,7 @@ function vLog(){
     if(x.kind==='turn'){ const st=groupStats(x.sess,x.sess.items); pct=st.pct; xpc=st.xp; title='Turnen '+x.sess.day; const D=x.D;
       let V=0,G=0; x.sess.items.filter(i=>i.status==='Versuch').forEach(i=>{ const e=D.items?.[ikey(i)]; if(e){ V+=e.done||0; G+=okCount(e)||0; } });
       const mm=turnSessMetrics(x.sess, x.date);
-      sub=[`${mm.done}/${mm.plan} Ausführungen`, `${mm.mf}/${mm.mc} Muss`, V?`${G}/${V} ✓`:'', mm.avg!=null?'Ø '+fmt(Math.round(mm.avg*10)/10):'', D.start&&D.end?Math.round((D.end-D.start)/60e3)+' min':''].filter(Boolean).join(' · '); pct = mm.plan ? Math.min(1, mm.done/mm.plan) : st.pct;
+      sub=[`${mm.done}/${mm.plan} Ausführungen`, `${mm.mf}/${mm.mc} Muss`, V?`${G}/${V} ✓`:'', mm.avg!=null?'Ø '+fmt(Math.round(mm.avg*10)/10):'', D.start&&D.end?Math.round((D.end-D.start)/60e3)+' min':''].filter(Boolean).join(' · '); /* gleiche Rechnung wie die Kreise oben */
       if(open){ const TTl=turnTimes(x.date); body = sessGroups(x.sess).filter(y=>y.st.cnt>0).map(y=>{ const its=x.sess.items.filter(i=>grpOf(i)===y.g && !i.program && goalOf(x.sess.day,i,x.sess.w)>0); const da=devActual(x.sess,y.g,TTl);
         return `<div class="lgdev" style="--dc:${dcol(y.g)}"><div class="lgh"><i></i><b>${DEV[y.g].label}</b><span class="muted">${y.st.fin}/${y.st.cnt}${da?` · ⏱ ${Math.round(da/60)}′ / ${Math.round(y.st.min)}′ Plan`:''}</span></div>${its.map(i=>{ const e=D.items?.[ikey(i)]||{}; const goal=goalOf(x.sess.day,i,x.sess.w); const dn=e.done||0;
           const extra = i.status==='Versuch' ? (dn===0?'':[`${okCount(e)||0}/${dn} ✓`, e.hilfe||'', e.note?'Note '+e.note:''].filter(Boolean).join(' · ')) : (e.rounds?e.rounds.join(' · '):e.inc&&e.inc.length>1?e.inc.join('+'):'' );
@@ -2030,7 +2129,7 @@ function vLog(){
       if(open) body = `<div class="lgdev" style="--dc:var(--d-sprung)">${its.map(r=>`<div class="lgi"><span>${esc(r.name)}${r.dev?` <small>${esc(r.dev)}</small>`:''}</span><span class="num">${r.amt?esc(r.amt)+' '+esc(r.unit):''}${r.kg?` <small>@ ${fmt(Number(r.kg))} kg</small>`:''}</span></div>`).join('')}${F.note?`<div class="small muted lgn">${esc(F.note)}</div>`:''}</div>`; }
     else { pct=1; title='Schwimmen'; sub=x.e.note?esc(x.e.note):'erledigt'; }
     html += `<div class="item ${open?'open':'compact'} logitem" style="--dc:${x.kind==='turn'||(x.kind==='free'&&x.f.kind==='turn')?'var(--d-hand)':x.kind==='gym'||(x.kind==='free'&&x.f.kind==='gym')?'var(--accent)':'var(--d-sprung)'}">
-      <button type="button" class="lghead" data-act="toggle" data-v="${esc(key)}"><span class="ld"><b>${WD[d.getDay()]}</b><small>${dm(d)}</small></span><span class="nm">${esc(title)}<small>${sub}</small></span><span class="rg2 ${xpc>0?'hasx':''}" style="${ringVars(pct||0,xpc)}">${x.kind==='free'?'＋':pct>=1&&!xpc?'✓':Math.round((pct||0)*100)}${xpc>0?`<em>+${Math.round(xpc*100)}</em>`:''}</span><span class="chev">${open?'▴':'▾'}</span></button>
+      <button type="button" class="lghead" data-act="toggle" data-v="${esc(key)}"><span class="ld"><b>${WD[d.getDay()]}</b><small>${dm(d)}</small></span><span class="nm">${esc(title)}<small>${sub}${(x.kind==='turn'||x.kind==='gym')?`<br><span class="pl">${Math.round((pct||0)*100)} % vom Plan${xpc>0?` · <span class="xs">+${Math.round(xpc*100)} % extra</span>`:''}${(x.D||x.L)?.rpe!=null?` · Anstrengung ${(x.D||x.L).rpe}/10`:''}</span>`:''}</small></span><span class="rg2" style="${ringVars(pct||0,xpc)}">${x.kind==='free'?'＋':pct>=1?'✓':Math.round((pct||0)*100)}</span><span class="chev">${open?'▴':'▾'}</span></button>
       ${open?`${body}<div class="row"><button class="btn sm" data-act="date" data-v="${x.date}" data-tab="training">Im Training öffnen ›</button>${delBtn(x.kind+':'+(x.kind==='gym'?x.g.id:x.kind==='free'?x.f.id:x.date))}</div>`:''}</div>`; });
   if(list.length>lim) html += `<button class="btn ghost" style="width:100%" data-act="logmore">Ältere anzeigen (${list.length-lim})</button>`;
   return html;
@@ -2061,16 +2160,20 @@ function vWeekAgenda(w, cw){
                      : `<div class="agday free ${dI===td?'today':''}">${head}<span class="us muted small">frei</span></div>`; }
   return html + `</div></div>`;
 }
+/* geplante Stunden: Turnen (Plan-Zeit „Muss“) + Gym (Schätzung aus der Einheit) */
+function planHours(w){ let m=0; turnSlots().filter(sl=>sl.w===w).forEach(sl=>{ const s=turnSession(parse(sl.date)); if(s) m+=turnPlanMin(s); });
+  PLAN.gym.forEach(g=>{ if(parseInt(g.code.slice(1))!==w) return; const mm=g.header.match(/ca\. (\d+)(?:\s*[–-]\s*(\d+))?\s*min/); m += mm ? (mm[2]?(+mm[1]+ +mm[2])/2:+mm[1]) : (ESTIMATE[unitLetter(g)]||90); });
+  return m/60; }
 function vCalendar(sel, cw){
   const D=cycleData(); const td=iso(today());
-  let html = `<h3>14 Wochen</h3><div class="card cal"><div class="calrow calhead"><span></span>${['Mo','Di','Mi','Do','Fr','Sa','So'].map(x=>`<span>${x}</span>`).join('')}<span>h</span></div>`;
+  let html = `<h3>14 Wochen</h3><div class="card cal"><div class="calrow calhead"><span></span>${['Mo','Di','Mi','Do','Fr','Sa','So'].map(x=>`<span>${x}</span>`).join('')}<span>Std.</span></div>`;
   PLAN.weeks.forEach((W,k)=>{ const mon=addDays(START,k*7);
     const cells=[...Array(7)].map((_,i)=>{ const d=addDays(mon,i); const dI=iso(d); const u=unitsOf(d); if(!u.length) return `<span class="cc ${dI===td?'today':''}"></span>`;
       const p=dayPct(d)||0; const past=dI<td; const st = p>=1?'done':p>0?'part':past?'miss':'';
       return `<span class="cc has ${st} ${dI===td?'today':''}">${u.map(x=>`<i class="k${x.kind[0]}">${x.kind==='turn'?'T':x.kind==='gym'?'G':'S'}</i>`).join('')}</span>`; }).join('');
-    const h=D[k].tPlan+D[k].gPlan;
+    const h=planHours(W.wo);
     html += `<button type="button" class="calrow ${W.wo===sel?'sel':''} ${W.wo===cw?'cur':''}" data-act="cycw" data-v="${W.wo}" style="--pc:${PHASECOL[W.phase]||'var(--sunk)'}"><span class="wn">${W.wo}</span>${cells}<span class="hh num">${h?fmt(Math.round(h*10)/10):'–'}</span></button>`; });
-  html += `<div class="legend" style="margin-top:6px"><span><i style="--c:var(--d-hand)"></i>T Turnen</span><span><i style="--c:var(--accent)"></i>G Gym</span><span><i style="--c:var(--d-sprung)"></i>S Schwimmen</span><span><i style="--c:var(--ok)"></i>erledigt</span><span><i style="--c:var(--bad)"></i>verpasst</span></div><p class="small muted">Linker Rand = Phase. h = geplante Stunden. Antippen zeigt die Woche oben.</p></div>`;
+  html += `<div class="legend" style="margin-top:6px"><span><i style="--c:var(--d-hand)"></i>T Turnen</span><span><i style="--c:var(--accent)"></i>G Gym</span><span><i style="--c:var(--d-sprung)"></i>S Schwimmen</span><span><i style="--c:var(--ok)"></i>erledigt</span><span><i style="--c:var(--bad)"></i>verpasst</span></div><p class="small muted">Linker Rand = Phase. Std. = geplante Stunden Turnen + Gym. Antippen zeigt die Woche oben.</p></div>`;
   return html;
 }
 
@@ -2083,9 +2186,22 @@ function logRows(){
       const vo = att ? att.filter(a=>a.h==='ohne').length : (e.hilfe==='ohne'?e.done:0), go = att ? att.filter(a=>a.h==='ohne' && a.ok===true).length : (e.hilfe==='ohne'?(graded(e)?okCount(e):(e.ok||0)):0);
       const grades = att ? att.map(a=>a.g).filter(x=>x!=null) : (e.note!=null?[e.note]:[]);
       const helpsTxt = att && new Set(att.map(a=>a.h)).size>1 ? 'Hilfe je Versuch: '+att.map(a=>HABBR(a.h)||'–').join('·') : '';
-      rows.push({date, day:D.day, item:it, element:it.name, device:it.device, status:it.status, unit:it.unit, versuche:e.done, ok:graded(e)?okCount(e):(e.ok??null), hilfe:e.hilfe, note:(att&&grades.length)?Math.round(grades.reduce((x,y)=>x+y,0)/grades.length*10)/10:e.note, vo, go, grades, notiz:[e.notiz, tryNotesTxt(e), att&&att.some(a=>a.g!=null)?'Noten: '+att.map(a=>a.g??'–').join('·'):'', helpsTxt, e.rounds?`je Runde: ${e.rounds.join('/')}`:'', e.inc&&e.inc.length>1?`je Satz: ${e.inc.join('/')}`:''].filter(Boolean).join(' · ')}); }); });
+      rows.push({att, tnotes:e.tnotes||[], notizRaw:e.notiz||'', date, day:D.day, item:it, element:it.name, device:it.device, status:it.status, unit:it.unit, versuche:e.done, ok:graded(e)?okCount(e):(e.ok??null), hilfe:e.hilfe, note:(att&&grades.length)?Math.round(grades.reduce((x,y)=>x+y,0)/grades.length*10)/10:e.note, vo, go, grades, notiz:[e.notiz, tryNotesTxt(e), att&&att.some(a=>a.g!=null)?'Noten: '+att.map(a=>a.g??'–').join('·'):'', helpsTxt, e.rounds?`je Runde: ${e.rounds.join('/')}`:'', e.inc&&e.inc.length>1?`je Satz: ${e.inc.join('/')}`:''].filter(Boolean).join(' · ')}); }); });
   return rows.sort((a,b)=>b.date.localeCompare(a.date));
 }
+/* Lernstufe automatisch aus Versuchen, Erfolg, Hilfe-Stufe (Reihenfolge aus den Einstellungen) und Note */
+function lsAuto(name, refIso){ const ref=refIso||iso(today()); const all=logRows().filter(x=>x.element===name && x.status==='Versuch' && x.date<=ref);
+  let rows=all.filter(x=>x.date>=iso(addDays(parse(ref),-14))); let span=14; if(rows.reduce((a,x)=>a+x.versuche,0)<4){ rows=all.filter(x=>x.date>=iso(addDays(parse(ref),-28))); span=28; }
+  const lvl=h=>{ const v=helpLvl(h,name); return v==null?.7:v; };
+  let n=0, ok=0, okO=0, sc=0; const gr=[];
+  rows.forEach(r=>{ if(r.att){ r.att.forEach(a=>{ if(a.ok==null) return; n++; if(a.ok){ ok++; sc+=lvl(a.h); if(a.h==='ohne') okO++; } if(a.g!=null) gr.push(Number(a.g)); }); }
+    else if(r.ok!=null){ n+=r.versuche; ok+=r.ok; sc+=r.ok*lvl(r.hilfe); if(r.hilfe==='ohne') okO+=r.ok; if(r.note!=null) gr.push(Number(r.note)); } });
+  if(n<4) return {enough:false, n, span};
+  const score=sc/n, qO=okO/n, avg=gr.length?gr.reduce((a,b)=>a+b,0)/gr.length:null; const cd=canDo(name, ref);
+  /* C = sicher ohne Hilfe + Note ok; B = sicher mit Hilfe aus der leichteren Hälfte der Liste ODER schon ohne Hilfe gelungen; sonst A */
+  let ls = cd.best && cd.best.h==='ohne' && (avg==null||avg<=2.5) ? 'C' : ((cd.best && cd.best.lv>=.5) || okO>0 || (cd.best && cd.best.h==='ohne')) ? 'B' : 'A';
+  return {enough:true, ls, n, ok, okO, score, avg, span, can:cd}; }
+const lsOf = n => { const a=lsAuto(n); return a.enough ? a.ls : (S.lernstufe[n]||'A'); };
 function elementStats(name){
   const from = iso(addDays(today(),-14));
   const r = logRows().filter(x=>x.element===name && x.date>=from);
@@ -2114,15 +2230,20 @@ function elementWeekly(name){ const rows=logRows().filter(x=>x.element===name); 
   rows.forEach(x=>{ const w=clampWeek(weekOf(parse(x.date))); const o=(by[w] ||= {V:0,G:0,GO:0,U:0}); o.V+=x.versuche; if(x.ok!=null){ o.G+=x.ok; o.GO+=(x.go||0); } else o.U+=x.versuche; });
   return Object.entries(by).map(([w,o])=>({w:Number(w), ...o})).sort((a,b)=>a.w-b.w); }
 function vStatusDetail(x, w, ph){
-  const st=elementStats(x.element); const ls=S.lernstufe[x.element]||'A'; const r=currentRole(x.element,w);
+  const st=elementStats(x.element); const la=lsAuto(x.element); const ls=lsOf(x.element); const r=currentRole(x.element,w);
   const wk=elementWeekly(x.element).filter(o=>o.V-o.U>0);
   const ser=[{name:'gelungen',color:'var(--ok)',pts:wk.map(o=>({x:o.w+0.5,y:Math.round(o.G/(o.V-o.U)*100),tip:`Wo ${o.w}: ${o.G}/${o.V-o.U} gelungen`}))},{name:'ohne Hilfe',color:'var(--accent)',pts:wk.map(o=>({x:o.w+0.5,y:Math.round(o.GO/(o.V-o.U)*100),tip:`Wo ${o.w}: ${o.GO} ohne Hilfe gelungen`}))}];
   return `<div class="card stack stdetail"><div class="spread"><b>${esc(x.element)}</b><button class="btn ghost sm" data-act="stopen" data-v="${esc(x.element)}">✕</button></div>
     <div class="stats"><div class="stat"><b class="num">${st.G}/${st.V}</b><span>gelungen 14 T.${st.U?` · ${st.U} offen`:''}</span></div><div class="stat"><b class="num">${pct(st.QO)}</b><span>ohne Hilfe</span></div><div class="stat"><b class="num">${st.K}</b><span>Einheiten</span></div><div class="stat"><b class="num">${st.avg==null?'–':fmt(Math.round(st.avg*10)/10)}</b><span>Ø Note</span></div></div>
     ${wk.length?`<div class="lbl">Verlauf pro Woche (%)</div>${lineChart(ser,{y0:0,y1:100,yticks:[0,50,100],label:'Quote pro Woche',h:130})}<div class="legend"><span><i style="--c:var(--ok)"></i>gelungen</span><span><i style="--c:var(--accent)"></i>davon ohne Hilfe</span></div>`:'<p class="small muted">Noch keine bewerteten Versuche. Im Training bei Versuchen ✓/✗ tippen und Hilfe wählen.</p>'}
+    ${helpChart(x.element)}${tryNotesList(x.element)}
     ${logRows().some(y=>y.element===x.element)?`<div class="lbl">Letzte Einheiten</div>${sessionBars(x.element)}<div class="legend"><span><i style="--c:var(--ok)"></i>gelungen</span><span><i style="--c:var(--bad)"></i>nicht</span><span><i style="--c:var(--warn)"></i>nicht bewertet</span></div>`:''}
     ${st.amp[0]==='g' && (r||'').startsWith('S') ? `<div class="note ok small">Grün als Schwerpunkt: Rolle auf „–“ setzen und das nächste U-Element zum Schwerpunkt machen.</div>`:''}
-    <div class="row small"><span class="lbl">Lernstufe</span><div class="seg">${['A','B','C'].map(l=>`<button class="${ls===l?'on':''}" data-act="ls" data-name="${esc(x.element)}" data-v="${l}">${l}</button>`).join('')}</div><span class="muted">${{A:'neu, nur mit Hilfe',B:'klappt manchmal alleine',C:'fast sicher'}[ls]}</span></div>
+    <div class="lsbox"><div class="row small"><span class="lbl">Lernstufe</span><b class="lsb ls-${ls}">${ls}</b><span>${{A:'neu, meist mit Hilfe',B:'klappt teils alleine',C:'fast sicher'}[ls]}</span><span class="muted">· automatisch</span></div>
+      <p class="small"><b>${esc(canTxt(canDo(x.element)))}</b></p>
+      <p class="small muted">${la.enough?`Letzte ${la.span} Tage: ${la.n} Versuche, ${la.ok} gelungen, davon ${la.okO} ohne Hilfe${la.avg!=null?' · Ø Note '+fmt(Math.round(la.avg*10)/10):''} · Selbstständigkeit ${Math.round(la.score*100)} %`:`Noch zu wenig Versuche (${la.n} in 28 Tagen, ab 4 rechnet die App). Bis dahin gilt die Stufe aus dem Plan.`}</p>
+      <details class="small"><summary class="muted">Wie wird gerechnet?</summary><p class="muted">„Kann es mit …“ = die schwierigste Hilfe-Stufe (nach der Reihenfolge dieses Elements), bei der in den letzten 28 Tagen mind. 3 Versuche gemacht wurden und mind. 70 % gelungen sind. <b>C</b>: kann es ohne Hilfe und Ø Note ≤ 2,5. <b>B</b>: kann es mit einer Hilfe aus der unteren Hälfte der Liste (wenig Hilfe) oder ist schon einmal ohne Hilfe gelungen. Sonst <b>A</b>. Die Selbstständigkeit gewichtet jeden gelungenen Versuch nach Hilfe-Stufe („ohne“ = 100 %).</p></details>
+      ${vElHelp(x.element)}</div>
     <div class="row small"><span class="lbl">Rolle Wo ${['1–4','5–8','9–14'][ph]}</span><div class="seg">${['–','S','U','K'].map(l=>{ const on = l==='S' ? (r||'').startsWith('S') : (r||'–')===l; return `<button class="${on?'on':''}" data-act="role" data-name="${esc(x.element)}" data-ph="${ph}" data-v="${l}">${l}</button>`; }).join('')}</div></div>
     ${[4,5,8,9].includes(w)?ruleRef('Rollen prüfen'):''}</div>`; }
 function vStatus(){
@@ -2138,7 +2259,7 @@ function vStatus(){
     return `<div class="subsec" ${color?`style="color:${color}"`:''}>${title}</div><div class="stgrid">${list.map(tile).join('')}</div>${det?vStatusDetail(det,w,ph):''}`; };
   html += block(`Schwerpunkte Wo ${['1–4','5–8','9–14'][ph]}`, focus, 'var(--accent)');
   const groups={}; PLAN.status.forEach(x=>{ if(focus.includes(x)) return; const g=DEV[x.device]?x.device:'Kondition'; (groups[g] ||= []).push(x); });
-  Object.keys(DEV).filter(g=>groups[g]).forEach(g=>{ html += block(DEV[g].label, groups[g], dcol(g)); });
+  devOly().filter(g=>groups[g]).forEach(g=>{ html += block(DEV[g].label, groups[g], dcol(g)); });
   const rows = logRows().filter(r=>r.status==='Versuch');
   html += `<details class="card" style="margin-top:8px"><summary><b>Turn-Log (${rows.length} Einträge)</b></summary>${rows.length?`<div class="tablewrap" style="margin-top:8px"><table><thead><tr><th>Datum</th><th>Element</th><th class="n">Vers.</th><th class="n">gel.</th><th>Hilfe</th><th class="n">Note</th></tr></thead><tbody>${rows.slice(0,80).map(r=>`<tr><td><button class="btn ghost sm" style="padding:2px 4px" data-act="date" data-v="${r.date}" data-tab="training">${r.day} ${dm(parse(r.date))}</button></td><td>${esc(r.element)}</td><td class="n">${r.versuche}</td><td class="n">${r.ok??'–'}</td><td>${esc(r.hilfe||'')}</td><td class="n">${r.note||''}</td></tr>`).join('')}</tbody></table></div>`:'<p class="muted" style="margin-top:8px">Noch keine Einträge.</p>'}</details>`;
   return html;
@@ -2151,33 +2272,450 @@ function bestFromLog(c){
     (S.gym[g.id]?.items?.[it.nr]?.sets||[]).forEach(s=>{ if(!s.done||s.kg===''||!s.reps||s.rir===''||s.rir==null) return; const r={nr:c.nr,kg:Number(s.kg),reps:Number(s.reps),rir:Number(s.rir)}; const v=e1(r); if(!best||v>best.v) best={...r,v,date:gDate(g)}; }); }); });
   return best;
 }
-function vKraft(){
-  const w=clampWeek(weekOf(today())); const stNow = PLAN.ltStates[w-1] || 'C';
-  const main = PLAN.calc.filter(c=>[1,2,3].includes(c.nr));
-  const due = (w===5||w===6) ? 'B' : (w>=9 && w<=12) ? 'C' : null;
-  let html = `<h3>Kraft-Verlauf Hauptübungen</h3>${due?`<div class="note warn small">Jetzt Stand ${due} eintragen: bei jeder Übung unten „→ ${due}“ tippen, um deinen besten Satz zu übernehmen.</div>`:''}
-  <div class="card stack"><div class="mult">${main.map(c=>{ const pts=e1Series(c);
-    return `<div><div class="spread"><b>${esc(c.name)}</b><span class="num" style="font-size:20px">${fmt(Math.round(e1rm(c.nr,stNow)||0))}</span></div>${lineChart([{name:c.name,color:'var(--accent)',pts}],{step:e1Step(c),label:c.name+' e1RM',h:140,endLabel:true})}${pts.length?'':`<p class="small muted">Noch keine schweren Sätze geloggt.</p>`}</div>`; }).join('')}</div>
-    <div class="legend"><span><i style="--c:var(--accent)"></i>e1RM aus deinen Sätzen</span><span><i class="dash"></i>Plan-Stand A · B · C</span></div></div>
-  <h3>Stände pro Übung</h3><p class="muted small">Stand A gilt Wo 1–5, B Wo 6–9, C Wo 12–14. Alle Ziel-kg rechnen sich daraus. Übung antippen zum Bearbeiten.</p>
-  <div class="card small row" style="flex-wrap:nowrap"><button type="button" class="prefrow" data-act="pref" data-v="dipsBW" style="flex:1;padding:4px 6px"><span><b>Körpergewicht bei Dips einrechnen</b><small>${S.prefs.dipsBW?'an: e1RM = (Zusatz + Körpergewicht) × …':'aus: e1RM nur aus dem Zusatzgewicht'}</small></span><span class="sw ${S.prefs.dipsBW?'on':''}"><i></i></span></button><input type="number" id="bw" data-in="bw" value="${PLAN.bodyweight}" inputmode="decimal" style="max-width:90px"><span>kg</span></div>`;
-  PLAN.calc.forEach(c=>{
-    const best=bestFromLog(c); const cur=e1rm(c.nr,stNow); const pts=e1Series(c);
-    html += `<details class="card el"><summary><span class="spread" style="display:inline-flex;width:calc(100% - 20px)"><span class="iname">${esc(c.name)}</span><span class="num" style="font-size:20px">${cur==null?'testen':fmt(Math.round(cur))+' kg'}</span></span></summary>
-    <div class="stack" style="margin-top:8px"><div class="small muted">Einheit ${esc(c.unit)}${kgCounts(c.nr)&&cur!=null?` · e1RM = Gesamtlast (${fmt(PLAN.bodyweight)} kg Körper + Zusatz). Zusatz-1RM ≈ <b>${fmt(Math.round(cur-PLAN.bodyweight))} kg</b>`:''}</div>
-    ${!main.includes(c) && pts.length>=2 ? lineChart([{name:c.name,color:'var(--accent)',pts}],{step:e1Step(c),label:c.name,h:110,endLabel:true}) : ''}
+/* Grundname einer Übung: ohne „– schwerer Satz“, „· Hinweis“; bei Supersätzen der Teil nach ①② */
+function exBase(n){ n=String(n||''); const m=n.match(/[①②③④⑤⑥⑦⑧⑨]\s*(.+)$/); if(m) return m[1].split(' · ')[0].trim(); return exKey(n).split(' – ')[0].trim(); }
+const calcOf = base => PLAN.calc.find(c=>c.name===base) || null;
+const isHoldIt = it => /\d\s*s$/.test(String(it.reps||'').trim());
+/* Katalog aller Gym-Übungen: Plan (nach Einheit), getauschte Alternativen und Zusatzübungen, jeweils mit Verlauf */
+function exCatalog(){ const M=new Map(); const get=(b)=>{ if(!M.has(b)) M.set(b,{base:b, letters:new Set(), planned:false, alt:false, hold:false, sess:[]}); return M.get(b); };
+  PLAN.gym.slice().sort((a,b)=>gDate(a).localeCompare(gDate(b))).forEach(g=>{ const L=unitLetter(g); const per={};
+    gItems(g).forEach(it=>{ const sw=!it.extra && isSwapped(g,it); const nm = it.extra ? it.name : gName(g,it); const b=exBase(nm); const o=get(b);
+      if(!it.extra && !sw){ o.planned=true; if(/^[ABC]$/.test(L)) o.letters.add(L); } else o.alt=true; if(isHoldIt(it)) o.hold=true; const timed=/min/.test(String(it.reps||'')); if(timed) o.timed=true;
+      const sets=(S.gym[g.id]?.items?.[it.nr]?.sets||[]).filter(s=>s.done && (Number(s.kg)>0 || Number(s.reps)>0)); if(!sets.length) return;
+      const c=calcOf(b); const rirP=Number(String(it.rir||'').match(/\d+/)?.[0]??2);
+      const x=(per[b] ||= {date:gDate(g), gid:g.id, L, sets:[], e1:null, top:null, reps:0, vol:0, alt:sw||!!it.extra});
+      if(!it.extra && !sw){ const tg=target(it,true); if(typeof tg==='number' && tg>0) x.planKg=Math.max(x.planKg||0, tg); }
+      sets.forEach(s=>{ const kg=Number(s.kg)||0, r=Number(s.reps)||0; x.sets.push({kg,r}); x.vol+=kg*r; x.reps=Math.max(x.reps,r);
+        if(kg>0 && r>0 && !isHoldIt(it) && !timed){ const v=e1({nr:c?.nr, kg, reps:r, rir:(s.rir===''||s.rir==null)?rirP:Number(s.rir)}); if(x.e1==null||v>x.e1){ x.e1=v; x.top={kg,r}; } } }); });
+    Object.entries(per).forEach(([b,x])=>get(b).sess.push(x)); });
+  return [...M.values()]; }
+const exMetric = o => o.sess.some(x=>x.e1!=null) ? 'e1' : (o.hold?'sek':'wdh');
+const exVal = (o,x) => exMetric(o)==='e1' ? x.e1 : x.reps;
+function exUnit(o){ return {e1:'kg e1RM', sek:'s', wdh:'Wdh'}[exMetric(o)]; }
+const mainList = () => Array.isArray(S.prefs.mainEx) ? S.prefs.mainEx : PLAN.calc.filter(c=>[1,2,3].includes(c.nr)).map(c=>c.name);
+function exChart(o, h){ const c=calcOf(o.base); const m=exMetric(o); const pts=o.sess.filter(x=>exVal(o,x)!=null).map(x=>({x:weekX(x.date), y:Math.round(exVal(o,x)*10)/10, tip:`${dm(parse(x.date))} ${x.L}${x.alt?' (Alternative)':''}: ${x.top?fmt(x.top.kg)+' kg × '+x.top.r+' → '+fmt(Math.round(x.e1))+' kg':x.reps+' '+(m==='sek'?'s':'Wdh')}`}));
+  if(!pts.length) return `<p class="small muted">Noch keine Sätze geloggt.</p>`;
+  return lineChart([{name:o.base,color:'var(--accent)',pts}],{step:c&&m==='e1'?e1Step(c):null,label:o.base,h:h||140,endLabel:true}); }
+function calcBody(c){ const stNow = PLAN.ltStates[clampWeek(weekOf(today()))-1] || 'C'; const best=bestFromLog(c); const cur=e1rm(c.nr,stNow); const w=clampWeek(weekOf(today())); const due = (w===5||w===6) ? 'B' : (w>=9 && w<=12) ? 'C' : null;
+  return `<div class="lbl">Stände (gelten für die Ziel-kg)</div><div class="small muted">Aktuell ${cur==null?'noch nicht getestet':e1Txt(c.nr,cur)} · Einheit ${esc(c.unit)}${kgCounts(c.nr)&&cur!=null?` · Zusatz-1RM ≈ <b>${fmt(Math.round(cur-PLAN.bodyweight))} kg</b>`:''}</div>
     ${['A','B','C'].map(st=>{ const t=calcTest(c.nr,st)||{}; const v=e1(t.kg!=null?t:null);
       return `<div class="row small" style="flex-wrap:nowrap"><span class="lbl" style="width:56px">Stand ${st}</span><div class="mini" style="flex:1">
       <input type="number" inputmode="decimal" id="c-${c.nr}-${st}-kg" data-in="calc" data-nr="${c.nr}" data-st="${st}" data-f="kg" value="${esc(t.kg??'')}" placeholder="kg" aria-label="kg">
       <input type="number" inputmode="numeric" id="c-${c.nr}-${st}-reps" data-in="calc" data-nr="${c.nr}" data-st="${st}" data-f="reps" value="${esc(t.reps??'')}" placeholder="Wdh" aria-label="Wdh">
       <input type="number" inputmode="numeric" id="c-${c.nr}-${st}-rir" data-in="calc" data-nr="${c.nr}" data-st="${st}" data-f="rir" value="${esc(t.rir??'')}" placeholder="RIR" aria-label="RIR"></div>
       <span class="num" style="width:44px;text-align:right">${v==null?'':fmt(Math.round(v))}</span></div>`; }).join('')}
-    ${best?`<div class="row small"><span class="muted">Bester Satz (14 Tage): ${fmt(best.kg)} kg × ${best.reps} @ RIR ${best.rir} → <b>${e1Txt(c.nr,best.v)}</b></span>${['A','B','C'].map(st=>`<button class="btn sm ${st===due?'primary':''}" data-act="takebest" data-nr="${c.nr}" data-st="${st}">→ ${st}</button>`).join('')}</div>`:''}
-    </div></details>`;
-  });
-  html += `${PLAN.calcNotes.map(n=>`<p class="small muted">${esc(n)}</p>`).join('')}`;
+    ${best?`<div class="row small"><span class="muted">Bester Satz (14 Tage): ${fmt(best.kg)} kg × ${best.reps} @ RIR ${best.rir} → <b>${e1Txt(c.nr,best.v)}</b></span>${['A','B','C'].map(st=>`<button class="btn sm ${st===due?'primary':''}" data-act="takebest" data-nr="${c.nr}" data-st="${st}">→ ${st}</button>`).join('')}</div>`:''}`; }
+/* Suche filtert direkt im DOM (kein Neuzeichnen, Tastatur bleibt offen) */
+/* ===== v37: Hilfen-Reihenfolge, Übersicht, Kraft-Grafiken, Stagnation ===== */
+const HILFE_DEF = ['Partner','Grube','Weichboden','Trampolin','Doppelmini','Matte','Gummiband','Kasten / Erhöhung','Sprungbrett','Wand','ohne'];
+/* Reihenfolge: viel Hilfe (leicht) → wenig Hilfe (schwer), „ohne“ immer zuletzt */
+function hilfeList(){ const o=Array.isArray(S?.prefs?.helpOrder)?S.prefs.helpOrder.slice():HILFE_DEF.slice(); [...HILFE, ...(S?.prefs?.helpCustom||[])].forEach(h=>{ if(!o.includes(h)) o.splice(Math.max(0,o.length-1),0,h); }); const i=o.indexOf('ohne'); if(i>=0) o.splice(i,1); o.push('ohne'); return o; }
+/* Hilfen pro Element: Vorschlag je nach Element, anpassbar. Reihenfolge = viel Hilfe → ohne */
+const HELP_PRESET = [
+  [/^Kippe in Handstand/, ['Partner','Matte','ohne']],
+  [/^Überkehren/, ['Partner','Weichboden','ohne']],
+  [/^Salto-Abgang/, ['Partner','Grube','Weichboden','ohne']],
+  [/^Riesenfelge/, ['Partner','ohne']],
+  [/^Freie Felge/, ['Partner','ohne']],
+  [/^Strecksalto/, ['Partner','Trampolin','Doppelmini','Grube','Weichboden','ohne']],
+  [/^Spagat zu Schweizer/, ['Partner','ohne']],
+  [/^(Übergrätschen|Unterschwung)/, ['Partner','Matte','ohne']],
+  [/^Wanderflanke/, ['Pilz','Partner','ohne']],
+  [/^Japaner/, ['Partner','Kasten / Erhöhung','Wand','ohne']],
+  [/^Handstand \(Ringe\)/, ['Partner','Wand','ohne']],
+  [/^Kreuzhang/, ['Partner','Gummiband stark','Gummiband leicht','ohne']] ];
+function helpPreset(name){ const m=HELP_PRESET.find(([re])=>re.test(name||'')); return m?m[1].slice():null; }
+function hilfeFor(name){ let l = (name && Array.isArray(S?.helpEx?.[name])) ? S.helpEx[name].slice() : (name && helpPreset(name)) || hilfeList(); l=l.filter(h=>h!=='ohne'); l.push('ohne'); return l; }
+const helpRank = (h, name) => { const l=hilfeFor(name); const i=l.indexOf(h); return i<0?null:i; };
+const helpLvl = (h, name) => { if(!h) return null; const l=hilfeFor(name); const i=l.indexOf(h); if(i>=0) return l.length>1?i/(l.length-1):1; const g=hilfeList(); const j=g.indexOf(h); return j<0?.5:j/(g.length-1); };
+/* „Kann es“: schwierigste Stufe mit mind. 70 % Erfolg bei mind. 3 Versuchen (letzte 28 Tage) */
+function canDo(name, refIso){ const ref=refIso||iso(today()); const from=iso(addDays(parse(ref),-28)); const by={};
+  logRows().filter(x=>x.element===name && x.date>=from && x.date<=ref).forEach(r=>{ if(r.att) r.att.forEach(a=>{ if(a.ok==null||!a.h) return; const o=(by[a.h] ||= {n:0,ok:0}); o.n++; if(a.ok) o.ok++; }); else if(r.ok!=null && r.hilfe){ const o=(by[r.hilfe] ||= {n:0,ok:0}); o.n+=r.versuche; o.ok+=r.ok; } });
+  const L=hilfeFor(name); let best=null, near=null;
+  Object.entries(by).forEach(([h,o])=>{ const lv=helpLvl(h,name); const q=o.ok/o.n; if(o.n>=3 && q>=.7){ if(!best||lv>best.lv) best={h,lv,...o}; } else if(o.ok>0){ if(!near||lv>near.lv) near={h,lv,...o}; } });
+  return {best, near, by, L}; }
+function canTxt(c){ if(c.best) return c.best.h==='ohne' ? `Kann es ohne Hilfe (${c.best.ok}/${c.best.n})` : `Kann es mit ${c.best.h} (${c.best.ok}/${c.best.n})`; if(c.near) return `Noch nicht sicher · gelungen mit ${c.near.h} (${c.near.ok}/${c.near.n})`; return 'Noch nicht sicher'; }
+function vElHelp(name){ const l=hilfeFor(name); const own=Array.isArray(S.helpEx?.[name]); const pool=[...new Set([...hilfeList(), 'Pilz','Gummiband stark','Gummiband leicht'])].filter(h=>!l.includes(h));
+  return `<details class="elhelp" ${UI.elHelpOpen===name?'open':''}><summary class="small"><b>Hilfen für dieses Element</b> <span class="muted">(${l.length-1} + ohne${own?' · angepasst':''})</span></summary>
+    <p class="small muted">Oben = am meisten Hilfe. Nur diese Hilfen erscheinen beim Eintragen der Versuche.</p>
+    <div class="hlist">${l.map((h,i)=>`<div class="hrow"><span class="num muted">${i+1}</span><span class="nm">${esc(h)}</span>${h==='ohne'?'':`<button class="pm" data-act="hxmove" data-name="${esc(name)}" data-v="${esc(h)}" data-k="-1" ${i===0?'disabled':''} aria-label="nach oben">↑</button><button class="pm" data-act="hxmove" data-name="${esc(name)}" data-v="${esc(h)}" data-k="1" ${i>=l.length-2?'disabled':''} aria-label="nach unten">↓</button><button class="pm" data-act="hxdel" data-name="${esc(name)}" data-v="${esc(h)}" aria-label="${esc(h)} entfernen">✕</button>`}</div>`).join('')}</div>
+    ${pool.length?`<div class="lbl">Hinzufügen</div><div class="chips">${pool.map(h=>`<button class="chip" data-act="hxadd" data-name="${esc(name)}" data-v="${esc(h)}">＋ ${esc(h)}</button>`).join('')}</div>`:''}
+    <div class="row" style="flex-wrap:nowrap"><input type="text" id="hxnew" placeholder="Eigene Hilfe" style="flex:1"><button class="btn ghost sm" data-act="hxnew" data-name="${esc(name)}">Hinzufügen</button></div>
+    ${own?`<button class="btn ghost sm" data-act="hxreset" data-name="${esc(name)}">Vorschlag wiederherstellen</button>`:''}</details>`; }
+function vHelpPrefs(){ const l=hilfeList();
+  return `<div class="card stack" id="helpprefs"><b>Hilfen: Vorlage</b><p class="small muted">Alle Hilfen, die du auswählen kannst. Welche Hilfen ein Element hat und in welcher Reihenfolge, stellst du im Element ein (Statistik → Turnen → Element antippen). Diese Liste gilt nur für Elemente ohne eigene Einstellung.</p>
+    <div class="hlist">${l.map((h,i)=>`<div class="hrow"><span class="num muted">${i+1}</span><span class="nm">${esc(h)}</span>${h==='ohne'?'':`<button class="pm" data-act="hmove" data-v="${esc(h)}" data-k="-1" ${i===0?'disabled':''} aria-label="${esc(h)} nach oben">↑</button><button class="pm" data-act="hmove" data-v="${esc(h)}" data-k="1" ${i>=l.length-2?'disabled':''} aria-label="${esc(h)} nach unten">↓</button>`}${(S.prefs.helpCustom||[]).includes(h)?`<button class="pm" data-act="hdel" data-v="${esc(h)}" aria-label="${esc(h)} entfernen">✕</button>`:''}</div>`).join('')}</div>
+    <div class="row" style="flex-wrap:nowrap"><input type="text" id="hnew" placeholder="Eigene Hilfe, z. B. Longe" style="flex:1"><button class="btn ghost sm" data-act="hadd">Hinzufügen</button></div>
+    ${Array.isArray(S.prefs.helpOrder)?`<button class="btn ghost sm" data-act="hreset">Standard-Reihenfolge</button>`:''}</div>`; }
+
+/* Gym-Stagnation: 3 letzte Einheiten ohne neuen Bestwert (mind. 4 Einheiten) */
+/* Reihenfolge wie im Plan: Einheit dieses Buchstabens, die heute am nächsten liegt, dann die übrigen */
+function planOrder(L){ const td=iso(today()); const gs=PLAN.gym.filter(g=>unitLetter(g)===L).sort((a,b)=>gDate(a).localeCompare(gDate(b))); if(!gs.length) return new Map();
+  const past=gs.filter(g=>gDate(g)<=td); const ref=past.length?past[past.length-1]:gs[0]; const ord=new Map(); let k=0;
+  [ref, ...gs.filter(g=>g!==ref).reverse()].forEach(g=>gItems(g).forEach(it=>{ const b=exBase(it.extra?it.name:gName(g,it)); if(!ord.has(b)) ord.set(b, k++); })); return ord; }
+function kCard(o, show, always){ const vals=o.sess.map(x=>exVal(o,x)).filter(v=>v!=null); const c=calcOf(o.base); const stNow=PLAN.ltStates[clampWeek(weekOf(today()))-1]||'C';
+  const cur = c&&exMetric(o)==='e1' ? e1rm(c.nr,stNow) : vals[vals.length-1]; const first=vals[0], last=vals[vals.length-1]; const tr=vals.length>=2&&first?(last-first)/first:null;
+  const isMain=mainList().includes(o.base); const st=stagOf(o); const full = always==='full'; const det = full || !!UI.kopen?.[o.base]; const open = det; const showChart = det || always==='chart'; const tabs=['A','B','C'].filter(t=>o.letters.has(t)).concat(o.alt?['alt']:[]).join(' ');
+  return `<div class="kcard ${open?'on':'shut'}" data-name="${esc(o.base.toLowerCase())}" data-tabs="${tabs}" ${show?'':'hidden'}>
+    <div class="spread"><button class="lnk kname" data-act="${full?'':'kopen'}" data-v="${esc(o.base)}" aria-expanded="${open}"><b>${esc(o.base)}</b>${o.alt&&!o.planned?' <span class="tag xtag">Alt.</span>':''}${st?' <span class="tag stag">stagniert</span>':''}</button>
+      <button class="star ${isMain?'on':''}" data-act="kmain" data-v="${esc(o.base)}" aria-pressed="${isMain}" aria-label="${isMain?'Keine Hauptübung mehr':'Als Hauptübung'}">${isMain?'★':'☆'}</button></div>
+    <button class="lnk ksub" ${full?'tabindex="-1"':''} data-act="${full?'':'kopen'}" data-v="${esc(o.base)}"><span class="num">${cur==null?'–':fmt(Math.round(cur))}</span> <small>${o.sess.length?exUnit(o):''}</small>${tr!=null?` <span class="small ${tr>0?'ok':tr<0?'bad':'muted'}">${tr>0?'▲ +':tr<0?'▼ ':'= '}${Math.round(tr*100)} %</span>`:''}<span class="small muted"> · ${o.sess.length} Einheit${o.sess.length===1?'':'en'}${o.planned?' · Plan '+[...o.letters].sort().join('+'):''}</span></button>
+    ${showChart?`<button class="lnk kchart" ${full?'tabindex="-1"':''} data-act="${full?'':'kopen'}" data-v="${esc(o.base)}" aria-label="Details">${exChart(o,130)}</button>`:''}${det?kexDetail(o):''}${full?'':`<button class="kmore" data-act="kopen" data-v="${esc(o.base)}" aria-label="${open?'Zuklappen':'Aufklappen'}">${open?'▴':'▾'}</button>`}</div>`; }
+function kexDetail(o){ const m=exMetric(o); const c=calcOf(o.base);
+  const vals=o.sess.map(x=>exVal(o,x)).filter(v=>v!=null); const pr=vals.length?Math.max(...vals):null; const prS=o.sess.find(x=>exVal(o,x)===pr); const st=stagOf(o);
+  return `<div class="stack exdet">${st?`<div class="note warn small">${esc(st.tip)}</div>`:''}
+    <div class="small">Bestwert <b>${pr==null?'–':fmt(Math.round(pr))} ${exUnit(o)}</b>${prS?` am ${dm(parse(prS.date))}${prS.top?` (${fmt(prS.top.kg)} kg × ${prS.top.r})`:''}`:''}</div>
+    ${o.sess.some(x=>x.vol>0)&&o.sess.length>=2?`<div class="lbl">Volumen pro Einheit (kg × Wdh)</div>${spark(o.sess.map(x=>x.vol||null),{c:'var(--warn)'})}`:''}
+    ${o.sess.length?`<div class="lbl">Letzte Einheiten</div><div class="ttab">${o.sess.slice(-6).reverse().map(x=>`<div class="tr g2"><span>${dm(parse(x.date))} · ${esc(x.L)}${x.alt?' <span class="tag xtag">Alt.</span>':''}</span><span class="num small">${x.sets.map(s=>s.kg>0?`${fmt(s.kg)}×${s.r}`:`${s.r}${o.hold?' s':''}`).join(' · ')}</span></div>`).join('')}</div>`:''}
+    ${c?`<button class="lnk acc small" data-act="calcset" data-v="${c.nr}">Kraft-Stand bearbeiten ›</button>`:''}</div>`; }
+function vKraft(){
+  const w=clampWeek(weekOf(today())); const due = (w===5||w===6) ? 'B' : (w>=9 && w<=12) ? 'C' : null;
+  const cat=exCatalog().filter(o=>o.planned||o.sess.length); const byB=new Map(cat.map(o=>[o.base,o]));
+  const kv=UI.kview||'main'; const mains=mainList();
+  const showIn=o=> kv==='main' ? mains.includes(o.base) : kv==='all' ? true : kv==='alt' ? o.alt : kv.startsWith('ex:') ? o.base===kv.slice(3) : o.letters.has(kv);
+  const opt=(v,l)=>`<option value="${esc(v)}" ${kv===v?'selected':''}>${esc(l)}</option>`;
+  const alpha=cat.slice().sort((a,b)=>a.base.localeCompare(b.base,'de'));
+  const po=/^[ABC]$/.test(kv)?planOrder(kv):null; const sorted = po ? cat.slice().sort((a,b)=>(po.has(a.base)?po.get(a.base):999)-(po.has(b.base)?po.get(b.base):999) || a.base.localeCompare(b.base,'de')) : alpha;
+  let html = `${due?`<div class="note warn small">Jetzt Stand ${due} eintragen: <button class="lnk acc" data-act="calcset" data-v="">Einstellungen → Gym: Maximalkraft-Tests ›</button></div>`:''}
+  <div class="kbar"><select id="kview" data-in="kview" aria-label="Ansicht wählen">
+      <optgroup label="Ansicht">${opt('main','★ Hauptübungen ('+mains.length+')')}${opt('A','Plan A · Mittwoch')}${opt('B','Plan B · Freitag')}${opt('C','Plan C · Donnerstag')}${opt('alt','Alternativen & Zusatz')}${opt('all','Alle Übungen')}</optgroup>
+      <optgroup label="Einzelne Übung">${alpha.map(o=>opt('ex:'+o.base,o.base)).join('')}</optgroup></select>
+    <input type="search" id="kq" data-in="kq" placeholder="Suchen …" value="${esc(UI.kq||'')}" autocomplete="off"></div>
+  <p class="small muted">${kv==='main'?'Grafik antippen für Bestwert und letzte Sätze. ☆ = Hauptübung.':'Übung antippen zum Aufklappen. ☆ = Hauptübung.'}</p>
+  <div class="klist">${sorted.map(o=>kCard(o, showIn(o), kv==='ex:'+o.base ? 'full' : kv==='main' ? 'chart' : '')).join('')}</div><p class="small muted kqnone" hidden>Keine Übung gefunden.</p>
+  ${kv==='main'&&!mains.length?'<p class="small muted">Noch keine Hauptübung markiert. Wähle oben „Alle Übungen“ und tippe auf ☆.</p>':''}
+  <div class="legend"><span><i style="--c:var(--accent)"></i>e1RM aus deinen Sätzen (ohne Gewicht: Wdh bzw. Sek.)</span><span><i class="dash"></i>Plan-Stand A · B · C</span></div>
+  ${PLAN.calcNotes.map(n=>`<p class="small muted">${esc(n)}</p>`).join('')}`;
+  setTimeout(kFilter,0);
   return html;
 }
+function kFilter(){ const box=document.querySelector('.klist'); if(!box) return; const q=(UI.kq||'').trim().toLowerCase(); if(!q && !box.dataset.searched) return; box.dataset.searched=q?'1':'';
+  let n=0; box.querySelectorAll('.kcard').forEach(r=>{ if(r.dataset.base0==null) r.dataset.base0=r.hidden?'1':'0'; const ok = q ? r.dataset.name.includes(q) : r.dataset.base0==='0'; r.hidden=!ok; if(ok) n++; });
+  const none=document.querySelector('.kqnone'); if(none) none.hidden=n>0||!q; }
+
+/* ----- Element-Verlauf: Hilfe-Stufe pro Einheit ----- */
+function helpChart(name){ const rows=logRows().filter(x=>x.element===name && x.att).slice(0,12).reverse(); if(!rows.length) return '';
+  const L=hilfeFor(name); const used=new Set(); rows.forEach(r=>r.att.forEach(a=>{ if(a.h) used.add(a.h); })); if(!used.size) return ''; [...used].forEach(h=>{ if(!L.includes(h)) L.splice(Math.max(0,L.length-1),0,h); });
+  const lv=L.filter(h=>used.has(h)); const W=340, rowH=20, T=8, Lw=92, H=T+lv.length*rowH+18; const iw=W-Lw-10; const X=i=>Lw+(rows.length<=1?iw/2:i*iw/(rows.length-1)); const Y=h=>T+lv.indexOf(h)*rowH+rowH/2;
+  let g=lv.map(h=>`<text x="${Lw-6}" y="${Y(h)+4}" text-anchor="end" class="tl">${esc(shortName(h,12).s)}</text><line x1="${Lw}" x2="${W-10}" y1="${Y(h)}" y2="${Y(h)}" stroke="var(--line)"/>`).join('');
+  const best=rows.map(r=>{ const ok=r.att.filter(a=>a.ok===true&&a.h&&lv.includes(a.h)); return ok.length? ok.reduce((m,a)=>(lv.indexOf(a.h)>lv.indexOf(m))?a.h:m, ok[0].h) : null; });
+  rows.forEach((r,i)=>{ const hs=[...new Set(r.att.map(a=>a.h).filter(h=>lv.includes(h)))]; hs.forEach(h=>{ g+=`<circle cx="${X(i)}" cy="${Y(h)}" r="4" fill="none" stroke="var(--muted)" stroke-width="1.5"/>`; }); const stepL=Math.ceil(rows.length/5); if(i%stepL===0 || i===rows.length-1) g+=`<text x="${X(i)}" y="${H-4}" text-anchor="middle" class="tl">${dm(parse(r.date)).slice(0,5)}</text>`; });
+  const pts=best.map((h,i)=>h?[X(i),Y(h)]:null); let path=''; pts.forEach((p,k)=>{ if(!p) return; path+=(path?'L':'M')+p[0]+','+p[1]; });
+  g+=`<path d="${path}" fill="none" stroke="var(--ok)" stroke-width="2"/>`+pts.filter(Boolean).map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="var(--ok)"/>`).join('');
+  return `<div class="lbl">Hilfe-Stufe pro Einheit</div><svg class="chart hchart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Hilfe-Stufen">${g}</svg>
+    <div class="legend"><span><i style="--c:var(--ok)"></i>schwierigste gelungene Stufe</span><span><i style="--c:var(--muted)"></i>versucht</span></div><p class="small muted">Weiter unten = weniger Hilfe. Hilfen und Reihenfolge: Mehr → Einstellungen → Turn-Elemente.</p>`; }
+function tryNotesList(name){ const rows=logRows().filter(x=>x.element===name); const out=[];
+  rows.forEach(r=>{ (r.tnotes||[]).forEach((t,i)=>{ if(t) out.push({d:r.date, t:`V${i+1}${r.att?.[i]?.h?' ('+r.att[i].h+')':''}: ${t}`}); }); if(r.notizRaw) out.push({d:r.date, t:r.notizRaw}); });
+  if(!out.length) return ''; return `<div class="lbl">Notizen</div><div class="nlist">${out.slice(0,12).map(x=>`<div><span class="muted">${dm(parse(x.d))}</span> ${esc(x.t)}</div>`).join('')}</div>`; }
+
+/* ----- Übersicht ----- */
+function vOverview(){
+  const wNow=clampWeek(weekOf(today())); const w=Math.min(UI.ovW||wNow, 14); const wEnd=iso(addDays(START, w*7-1)); const td = w<wNow ? wEnd : iso(today()); const refD=parse(td); const wd=refD.getDay();
+  const wnav=`<div class="ovnav"><button class="pm" data-act="ovw" data-v="-1" ${w<=1?'disabled':''} aria-label="Vorige Woche">‹</button><span><b>Woche ${w}</b> · ${esc(PLAN.weeks[w-1].phase)}${w===wNow?' · aktuell':''}</span><button class="pm" data-act="ovw" data-v="1" ${w>=wNow?'disabled':''} aria-label="Nächste Woche">›</button></div>`;
+  const cmp=(a,b,suf='')=> a==null||b==null ? '' : `<span class="small ${a>b?'ok':a<b?'bad':'muted'}">${a>b?'▲':a<b?'▼':'='} ${suf==='%'?Math.abs(Math.round((a-b)*100))+' Pkt.':fmt(Math.abs(Math.round((a-b)*10)/10))+suf} zur Vorwoche</span>`;
+  const tw=turnWeekMetrics(w), tp=w>1?turnWeekMetrics(w-1):null; const gp=weekProgress('gym'); const g0=gp[w-1], g1=w>1?gp[w-2]:null;
+  const q=m=> m&&m.mc? m.mf/m.mc : null; const av=m=> m&&m.gn? m.gsum/m.gn : null;
+  let html = `${wnav}<div class="card stack"><div class="spread"><b>Woche ${w} im Vergleich zur Vorwoche</b><span class="small muted">${w<wNow?'abgeschlossen':'läuft noch'}</span></div>
+    <div class="ovgrid">
+      <div class="ov"><span class="lbl">Turnen Muss</span><b class="num">${tw.mc?tw.mf+'/'+tw.mc:'–'}</b>${cmp(q(tw),q(tp),'%')}</div>
+      <div class="ov"><span class="lbl">Ausführungen</span><b class="num">${tw.plan?Math.round(tw.done/tw.plan*100)+' %':'–'}</b><span class="small muted">${tw.done}/${tw.plan}</span></div>
+      <div class="ov"><span class="lbl">Gym-Load</span><b class="num">${fmt(g0.done)} t</b>${g1?cmp(g0.done,g1.done,' t'):''}<span class="small muted">Plan ${fmt(g0.plan)} t</span></div>
+      <div class="ov"><span class="lbl">Ø Note</span><b class="num">${av(tw)==null?'–':fmt(Math.round(av(tw)*10)/10)}</b>${av(tw)!=null&&av(tp)!=null?`<span class="small ${av(tw)<av(tp)?'ok':av(tw)>av(tp)?'bad':'muted'}">${av(tw)<av(tp)?'▲ besser':av(tw)>av(tp)?'▼ schlechter':'= gleich'}</span>`:''}</div></div></div>`;
+  /* neue Bestwerte (14 Tage) */
+  const from14=iso(addDays(refD,-14)); const prs=[];
+  exCatalog().forEach(o=>{ if(o.sess.length<2) return; let best=null; o.sess.forEach(x=>{ const v=exVal(o,x); if(v==null) return; if(best!=null && v>best*1.001 && x.date>=from14 && x.date<=td) prs.push({o, x, v, d:v-best}); if(best==null||v>best) best=v; }); });
+  const rowsAll=logRows(); const firstOhne={}; rowsAll.slice().reverse().forEach(r=>{ if(!r.att) return; r.att.forEach(a=>{ if(a.ok===true && a.h==='ohne' && !firstOhne[r.element]) firstOhne[r.element]=r.date; }); });
+  const tprs=Object.entries(firstOhne).filter(([,d])=>d>=from14 && d<=td);
+  const seenPr=new Set(); const prU=prs.slice().reverse().filter(p=>{ if(seenPr.has(p.o.base)) return false; seenPr.add(p.o.base); return true; });
+  const items=[...prU.slice(0,6).map(p=>`<button class="ovrow" data-act="kjump" data-v="${esc(p.o.base)}"><span class="ic">🏆</span><span><b>${esc(p.o.base)}</b><small>${fmt(Math.round(p.v))} ${exUnit(p.o)} (+${fmt(Math.round(p.d*10)/10)}) · ${dm(parse(p.x.date))}</small></span></button>`),
+    ...tprs.map(([n,d])=>`<button class="ovrow" data-act="tjump" data-v="${esc(n)}"><span class="ic">⭐</span><span><b>${esc(shortName(n,40).s)}</b><small>erstmals ohne Hilfe geschafft · ${dm(parse(d))}</small></span></button>`)];
+  html += `<h3>Neue Bestwerte · 14 Tage bis ${dm(refD)}</h3><div class="card stack">${items.join('')||'<p class="small muted">Noch keine. Sie erscheinen hier, sobald du einen alten Bestwert übertriffst.</p>'}</div>`;
+  /* Trends Elemente: Quote letzte 14 Tage vs. davor */
+  const from28=iso(addDays(refD,-28)); const tr=[];
+  [...new Set(rowsAll.filter(r=>r.status==='Versuch').map(r=>r.element))].forEach(n=>{ const a=rowsAll.filter(r=>r.element===n && r.ok!=null); const A=a.filter(r=>r.date>=from14 && r.date<=td), B=a.filter(r=>r.date>=from28&&r.date<from14);
+    const qa=A.reduce((s,r)=>s+r.ok,0)/Math.max(1,A.reduce((s,r)=>s+r.versuche,0)), qb=B.reduce((s,r)=>s+r.ok,0)/Math.max(1,B.reduce((s,r)=>s+r.versuche,0));
+    if(A.length&&B.length&&Math.abs(qa-qb)>=.15) tr.push({n, qa, qb}); });
+  const warn=[];
+  /* Geräte: 3 abgeschlossene Wochen unter 70 % */
+  const wc = w<wNow ? w+1 : w; if(wc>3){ const ms=[wc-3,wc-2,wc-1].map(x=>turnWeekMetrics(x)); devOly().forEach(dv=>{ const v=ms.map(m=>m.dev[dv]&&m.dev[dv].plan?m.dev[dv].done/m.dev[dv].plan:null); if(v.every(x=>x!=null&&x<.7)) warn.push(`<div class="ovrow"><span class="ic">⚠️</span><span><b>${DEV[dv].label} 3 Wochen unter Plan</b><small>${v.map(x=>Math.round(x*100)+' %').join(' · ')}</small></span></div>`); }); }
+  exCatalog().forEach(o=>{ const s=stagOf(o); if(s) warn.push(`<button class="ovrow" data-act="kjump" data-v="${esc(o.base)}"><span class="ic">⏸</span><span><b>${esc(o.base)} stagniert</b><small>seit 3 Einheiten kein neuer Bestwert</small></span></button>`); });
+  const up=tr.filter(t=>t.qa>t.qb), dn=tr.filter(t=>t.qa<t.qb);
+  const trow=t=>`<button class="ovrow" data-act="tjump" data-v="${esc(t.n)}"><span class="ic">${t.qa>t.qb?'📈':'📉'}</span><span><b>${esc(shortName(t.n,40).s)}</b><small>gelungen ${Math.round(t.qb*100)} % → ${Math.round(t.qa*100)} % (letzte 14 Tage)</small></span></button>`;
+  html += `<h3>Läuft gut</h3><div class="card stack">${up.map(trow).join('')||'<p class="small muted">Noch keine klaren Verbesserungen (ab 15 Prozentpunkten im Vergleich zu den 14 Tagen davor).</p>'}</div>`;
+  html += `<h3>Braucht Aufmerksamkeit</h3><div class="card stack">${[...dn.map(trow), ...warn].join('')||'<p class="small muted">Alles im grünen Bereich.</p>'}</div>`;
+  const cp=checkpoints().filter(c=>c.date>=td)[0]; if(cp) html += `<div class="note small"><b>Nächster Check ${dm(parse(cp.date))}:</b> ${esc(cp.text)}</div>`;
+  return html; }
+
+/* ===== v41: vereinfachte Statistik ===== */
+/* Plan erfüllt: jede geplante Muss-Übung zählt gleich (Anteil vom eigenen Soll, max. 100 %) */
+const f1 = x => fmt(Math.round(x*10)/10);
+function ring(p, label, sub, color){ const P=Math.max(0,Math.min(100,Math.round(p*100))); return `<div class="dring"><span class="rg2" style="--p:${P};${color?'--ok:'+color:''}">${P}</span><b>${esc(label)}</b><small>${sub}</small></div>`; }
+/* Turnen: Elemente mit Zahlen */
+function elNums(name){ const st=elementStats(name); return st; }
+function gradeChart(name){ const rows=logRows().filter(x=>x.element===name && x.grades && x.grades.length).slice(0,14).reverse(); if(rows.length<1) return '';
+  const pts=rows.map(r=>({x:weekX(r.date), y:Math.round(r.grades.reduce((a,b)=>a+Number(b),0)/r.grades.length*10)/10, tip:`${dm(parse(r.date))}: Ø ${fmt(Math.round(r.grades.reduce((a,b)=>a+Number(b),0)/r.grades.length*10)/10)} (${r.grades.length} Noten)`}));
+  return `<div class="lbl">Ø Note pro Einheit · 1 = sehr sauber, runter = besser</div>${lineChart([{name:'Note',color:'var(--warn)',pts}],{y0:1,y1:5,yticks:[1,2,3,4,5],label:'Note pro Einheit',h:120})}`; }
+/* Einstellungen: Hilfen pro Element, Rollen, Kraft-Stände */
+function vElSettings(){ const els=PLAN.status.slice().sort((a,b)=>devRank(a.device)-devRank(b.device)).map(x=>x.element); const sel=UI.hxEl && els.includes(UI.hxEl) ? UI.hxEl : els[0]; const l=hilfeFor(sel); const own=Array.isArray(S.helpEx?.[sel]);
+  const pool=[...new Set([...hilfeList(),'Pilz','Gummiband stark','Gummiband leicht'])].filter(h=>!l.includes(h)); const w=clampWeek(weekOf(today())); const ph=phaseIdx(w); const r=currentRole(sel,w);
+  return `<div class="card stack" id="elprefs"><b>x</b><label class="lbl">Element</label><select data-in="hxsel" aria-label="Element wählen">${els.map(n=>`<option ${n===sel?'selected':''} value="${esc(n)}">${esc(shortName(n,48).s)}</option>`).join('')}</select>
+    <div class="lbl">Hilfen · oben = hilft am meisten, unten = hilft am wenigsten</div><p class="small muted">Nur diese Hilfen erscheinen beim Eintragen der Versuche. Die Reihenfolge bestimmt, wie selbstständig ein gelungener Versuch zählt.</p>
+    <div class="hlist">${l.map((h,i)=>`<div class="hrow"><span class="num muted">${i+1}</span><span class="nm">${esc(h)}</span>${h==='ohne'?'':`<button class="pm" data-act="hxmove" data-name="${esc(sel)}" data-v="${esc(h)}" data-k="-1" ${i===0?'disabled':''} aria-label="nach oben">↑</button><button class="pm" data-act="hxmove" data-name="${esc(sel)}" data-v="${esc(h)}" data-k="1" ${i>=l.length-2?'disabled':''} aria-label="nach unten">↓</button><button class="pm" data-act="hxdel" data-name="${esc(sel)}" data-v="${esc(h)}" aria-label="${esc(h)} entfernen">✕</button>`}</div>`).join('')}</div>
+    ${pool.length?`<div class="chips">${pool.map(h=>`<button class="chip" data-act="hxadd" data-name="${esc(sel)}" data-v="${esc(h)}">＋ ${esc(h)}</button>`).join('')}</div>`:''}
+    <div class="row" style="flex-wrap:nowrap"><input type="text" id="hxnew" placeholder="Eigene Hilfe" style="flex:1"><button class="btn ghost sm" data-act="hxnew" data-name="${esc(sel)}">Hinzufügen</button></div>
+    ${own?`<button class="btn ghost sm" data-act="hxreset" data-name="${esc(sel)}">Vorschlag wiederherstellen</button>`:''}
+    <div class="lbl" style="margin-top:6px">Rolle im Plan</div><div class="row small"><span class="lbl">Wo ${['1–4','5–8','9–14'][ph]}</span><div class="seg">${['–','S','U','K'].map(x=>{ const on = x==='S' ? (r||'').startsWith('S') : (r||'–')===x; return `<button class="${on?'on':''}" data-act="role" data-name="${esc(sel)}" data-ph="${ph}" data-v="${x}">${x}</button>`; }).join('')}</div></div>
+    <p class="small muted">S = Schwerpunkt, U = Untergrenze, K = konstant.</p>
+    <button type="button" class="prefrow" data-act="kuer" data-name="${esc(sel)}"><span><b>Gehört zur Kür (Januar)</b><small>Erscheint im Kür-Check unter Statistik → Turnen</small></span><span class="sw ${isKuer(sel)?'on':''}"><i></i></span></button></div>`; }
+function vCalcSettings(){ return `<div class="card stack" id="calcprefs"><b>x</b><p class="small muted">Pro Übung trägst du einen schweren Testsatz ein (kg × Wdh @ RIR). Daraus schätzt die App dein Maximum (e1RM) und rechnet alle Ziel-Gewichte. Stand A gilt Wo 1–5, B Wo 6–9, C ab Wo 12. Übung antippen zum Bearbeiten.</p>
+  ${PLAN.calc.map(c=>{ const stNow=PLAN.ltStates[clampWeek(weekOf(today()))-1]||'C'; const cur=e1rm(c.nr,stNow); return `<details class="el" ${UI.calcOpen===c.nr?'open':''}><summary><span class="spread" style="display:inline-flex;width:calc(100% - 20px)"><span>${esc(c.name)}</span><span class="num">${cur==null?'testen':fmt(Math.round(cur))+' kg'}</span></span></summary><div class="stack" style="margin-top:6px">${calcBody(c)}</div></details>`; }).join('')}</div>`; }
+
+/* ===== v44: Review-Punkte ===== */
+/* Aufbau-Wochen (für Stagnation): nur hier wird Steigerung erwartet */
+const PROG_PH = /^(Build|Attack)/;
+function turnWeekEx(w, upto){ const r={n:0, f:0, dev:{}};
+  turnSlots().filter(sl=>sl.w===w && (!upto || sl.date<=upto)).forEach(sl=>{ const sess=turnSession(parse(sl.date)); if(!sess) return; const D=S.turn[sl.date]||{};
+    sess.items.forEach(i=>{ if(i.program || i.extra || isKann(sess,i)) return; const goal=goalOf(sess.day,i,sess.w); if(goal<=0) return; const pc=execCount(i,goal); if(!pc) return;
+      const fr=Math.min(1, execDone(i, D.items?.[ikey(i)])/pc); const g=grpOf(i); const o=(r.dev[g] ||= {n:0,f:0}); o.n++; o.f+=fr; r.n++; r.f+=fr; }); });
+  return r; }
+function gymLoadWeek(w, upto){ let plan=0, done=0; PLAN.gym.forEach(g=>{ if(parseInt(g.code.slice(1))!==w || (upto && gDate(g)>upto)) return; const l=gymLoadOf(g); plan+=l.plan; done+=l.done; }); return {plan:plan/1000, done:done/1000}; }
+function stagOf(o){ if(exMetric(o)!=='e1' || o.timed || o.hold) return null;
+  const ss=o.sess.filter(x=>x.e1!=null && PROG_PH.test(PLAN.weeks[clampWeek(weekOf(parse(x.date)))-1]?.phase||''));
+  if(ss.length<4) return null; if((parse(ss[ss.length-1].date)-parse(ss[0].date))/864e5 < 21) return null;
+  const before=Math.max(...ss.slice(0,-3).map(x=>x.e1)); if(Math.max(...ss.slice(-3).map(x=>x.e1)) > before*1.005) return null;
+  const a=ss[ss.length-4], z=ss[ss.length-1]; if(a.planKg!=null && z.planKg!=null && z.planKg<=a.planKg) return null;
+  return {since:3, tip:'Seit 3 Einheiten in Aufbauwochen kein neuer Bestwert, obwohl der Plan steigert. Ideen: Schlaf und Erholung prüfen, Technik/Tempo, eine leichtere Woche oder den Wdh-Bereich wechseln.'}; }
+
+/* ----- Hilfe abbauen (Guidance-Hypothese: Hilfe schrittweise zurücknehmen) ----- */
+function helpNext(name, beforeIso){ const rows=logRows().filter(r=>r.element===name && r.att && r.att.length && (!beforeIso || r.date<beforeIso));
+  const last3=rows.slice(0,3); if(last3.length<3) return null;
+  const cnt={}; last3[0].att.forEach(a=>{ if(a.h) cnt[a.h]=(cnt[a.h]||0)+1; }); const H=Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0]?.[0]; if(!H || H==='ohne') return null;
+  let n=0, ok=0; for(const r of last3){ const t=r.att.filter(a=>a.h===H && a.ok!=null); if(!t.length) return null; n+=t.length; ok+=t.filter(a=>a.ok).length; }
+  if(n<4 || ok/n<0.8) return null; const L=hilfeFor(name); const i=L.indexOf(H); if(i<0 || i>=L.length-1) return null;
+  return {from:H, to:L[i+1], ok, n}; }
+function helpNextNote(name, hil, k, dIso){ const s=helpNext(name, dIso); if(!s) return ''; const L=hilfeFor(name); if(hil && L.indexOf(hil)>=L.indexOf(s.to)) return '';
+  return `<div class="note ok small hnext"><span>⬆ <b>Bereit für weniger Hilfe:</b> ${s.ok}/${s.n} mit ${esc(s.from)} gelungen (letzte 3 Einheiten). Nächster Schritt: <b>${esc(s.to)}</b></span><button class="btn sm" data-act="hnext" data-ik="${esc(k)}" data-name="${esc(name)}" data-v="${esc(s.to)}">Übernehmen</button></div>`; }
+
+/* ----- Qualität erste vs. letzte Versuche (Ermüdung) ----- */
+function fatigueOf(name, refIso){ const ref=refIso||iso(today()); const from=iso(addDays(parse(ref),-28)); const rows=logRows().filter(r=>r.element===name && r.att && r.date>=from && r.date<=ref);
+  const gs=[], qs=[];
+  rows.forEach(r=>{ const g=r.att.map(a=>a.g).filter(x=>x!=null).map(Number); if(g.length>=4) gs.push({f:(g[0]+g[1])/2, l:(g[g.length-2]+g[g.length-1])/2});
+    const o=r.att.filter(a=>a.ok!=null); if(o.length>=4){ const h=Math.floor(o.length/2); qs.push({f:o.slice(0,h).filter(a=>a.ok).length/h, l:o.slice(o.length-h).filter(a=>a.ok).length/h}); } });
+  const avg=(arr,k)=>arr.reduce((a,x)=>a+x[k],0)/arr.length; const out={};
+  if(gs.length){ out.g={n:gs.length, f:avg(gs,'f'), l:avg(gs,'l')}; out.g.d=out.g.l-out.g.f; }
+  if(qs.length){ out.q={n:qs.length, f:avg(qs,'f'), l:avg(qs,'l')}; out.q.d=out.q.f-out.q.l; }
+  out.flag = !!((out.g && out.g.n>=3 && out.g.d>=0.75) || (out.q && out.q.n>=3 && out.q.d>=0.25)); return out; }
+function fatigueBox(name){ const f=fatigueOf(name); if(!f.g && !f.q) return '';
+  return `<div class="lbl">Erste vs. letzte Versuche (28 Tage)</div><div class="small">${f.g?`Note ${f1(f.g.f)} → ${f1(f.g.l)} <span class="muted">(${f.g.n} Einheiten mit ≥ 4 Noten)</span>`:''}${f.g&&f.q?'<br>':''}${f.q?`gelungen ${Math.round(f.q.f*100)} % → ${Math.round(f.q.l*100)} % <span class="muted">(erste vs. zweite Hälfte, ${f.q.n} Einheiten)</span>`:''}</div>
+    ${f.flag?`<div class="note warn small">Hinten raus deutlich schlechter. Versuche begrenzen oder längere Pausen zwischen den Versuchen. <span class="muted">Schwelle: ab 0,75 Noten bzw. 25 %-Punkte in mind. 3 Einheiten (Ableitung).</span></div>`:''}`; }
+
+/* ----- Kür-Check ----- */
+const KUER_DEF=[/^Kippe in Handstand/,/^Überkehren/,/^Salto-Abgang/,/^Strecksalto/,/^Übergrätschen/,/^Unterschwung/,/^Wanderflanke/];
+const isKuer = n => (S.kuer && Object.prototype.hasOwnProperty.call(S.kuer,n)) ? !!S.kuer[n] : KUER_DEF.some(r=>r.test(n));
+function kuerState(name){ const st=elementStats(name); const all=logRows().filter(x=>x.element===name);
+  const f14=iso(addDays(today(),-14)), f28=iso(addDays(today(),-28)); const r28=all.filter(x=>x.date>=f28);
+  const go28=r28.reduce((a,x)=>a+(x.go||0),0), v28=r28.reduce((a,x)=>a+(x.versuche||0),0), ok28=r28.reduce((a,x)=>a+(x.ok||0),0);
+  const sessO=all.filter(x=>x.date>=f14 && (x.vo||0)>0).length;
+  if(sessO>=3 && st.VO>=3 && st.QO>=0.8) return {k:'ready', t:`ohne Hilfe ${st.GO}/${st.VO} gelungen in ${sessO} Einheiten`};
+  if(go28>0) return {k:'close', t:`ohne Hilfe ${st.GO}/${st.VO} gelungen (14 T.)${sessO<3?` · ${sessO}/3 Einheiten ohne Hilfe`:''}`};
+  if(ok28>0) return {k:'help', t:`nur mit Hilfe gelungen (${ok28}/${v28} in 28 T.)`};
+  return {k:'open', t: v28?`noch nicht gelungen (${v28} Versuche)`:'keine Versuche in 28 Tagen'}; }
+function vKuerCheck(){ const els=PLAN.status.filter(x=>isKuer(x.element)); if(!els.length) return '';
+  const cps=checkpoints(); const wk=cps.filter(c=>/Wettkampf/.test(c.text)).pop(); const ke=cps.find(c=>/Kür-Entscheid/.test(c.text)); const days=d=>Math.round((parse(d)-today())/864e5);
+  const lab={ready:'wettkampfreif', close:'fast', help:'mit Hilfe', open:'offen'}; const order=['Boden','Pferd','Barren','Reck'];
+  const devs=[...new Set(els.map(x=>x.device))].sort((a,b)=>((order.indexOf(a)+1)||9)-((order.indexOf(b)+1)||9));
+  const states=els.map(x=>({x, s:kuerState(x.element)})); const nR=states.filter(z=>z.s.k==='ready').length;
+  const op=!!UI.kuerOpen; const cnt=k=>states.filter(z=>z.s.k===k).length;
+  return `<div class="card stack kuer"><button type="button" class="lnk kuerhead" data-act="kueropen" aria-expanded="${op}"><span class="spread"><b>Kür-Check</b><span class="small"><b>${nR}/${els.length}</b> wettkampfreif <span class="chev">${op?'▴':'▾'}</span></span></span>
+    <span class="lsdots kdots">${states.map(z=>`<i class="kd k-${z.s.k}" title="${esc(z.x.element)}"></i>`).join('')}</span><small class="muted">${['ready','close','help','open'].filter(k=>cnt(k)).map(k=>cnt(k)+' '+lab[k]).join(' · ')}</small></button>
+    <div class="small">${ke&&days(ke.date)>=0?`Kür-Entscheid in <b>${days(ke.date)} Tagen</b> (${dm(parse(ke.date))})`:''}${ke&&wk&&days(ke.date)>=0&&days(wk.date)>=0?' · ':''}${wk&&days(wk.date)>=0?`Wettkampf in <b>${days(wk.date)} Tagen</b> (${dm(parse(wk.date))})`:''}</div>
+    ${op?devs.map(d=>`<div class="kdev"><div class="kdl" style="color:${dcol(d)}">${esc(DEV[d]?.label||d)}</div>${states.filter(z=>z.x.device===d).map(z=>`<button class="krow k-${z.s.k}" data-act="stopen" data-v="${esc(z.x.element)}"><i></i><span><b>${esc(shortName(z.x.element,40).s)}</b><small>${lab[z.s.k]} · ${esc(z.s.t)}</small></span></button>`).join('')}</div>`).join('')+`
+    <p class="small muted">Wettkampfreif = in den letzten 14 Tagen in mind. 3 Einheiten ohne Hilfe geturnt und ≥ 80 % davon gelungen (deine Ampel-Regel). Welche Elemente zur Kür zählen: Einstellungen → Turnen.</p>`:''}</div>`; }
+
+/* ----- Session-RPE (Foster et al. 2001): Anstrengung 0–10 × Dauer ----- */
+const RPE_TXT={0:'Ruhe',1:'sehr leicht',2:'leicht',3:'mäßig',4:'etwas schwer',5:'schwer',7:'sehr schwer',10:'maximal'};
+const sessMin = D => D?.start&&D?.end ? Math.max(1,Math.round((D.end-D.start)/60e3)) : null;
+const sessAU = D => D?.rpe!=null && sessMin(D) ? D.rpe*sessMin(D) : null;
+function rpeCard(kind, key, D){ return `<div class="card stack rpecard"><b>Wie anstrengend war die Einheit?</b><p class="small muted">0 = Ruhe · 3 = mäßig · 5 = schwer · 7 = sehr schwer · 10 = maximal</p>
+  <div class="rpegrid">${[...Array(11)].map((_,n)=>`<button class="${D.rpe===n?'on':''}" data-act="rpe" data-k="${kind}" data-v="${esc(key)}" data-n="${n}">${n}</button>`).join('')}</div></div>`; }
+function weekLoad(w, upto){ let au=0, n=0; const fs=[];
+  turnSlots().filter(sl=>sl.w===w && (!upto || sl.date<=upto)).forEach(sl=>{ const a=sessAU(S.turn[sl.date]); if(a!=null){ au+=a; n++; } });
+  PLAN.gym.forEach(g=>{ if(parseInt(g.code.slice(1))!==w || (upto && gDate(g)>upto)) return; const a=sessAU(S.gym[g.id]); if(a!=null){ au+=a; n++; } });
+  Object.values(S.form||{}).forEach(f=>{ if(f?.ts && clampWeek(weekOf(new Date(f.ts)))===w && weekOf(new Date(f.ts))===w){ const s=formScore(f); if(s) fs.push(s); } });
+  return {au, n, form: fs.length? fs.reduce((a,b)=>a+b,0)/fs.length : null}; }
+function vLoadSection(w, wNow, cut, cutP){ const L=[...Array(14)].map((_,k)=>weekLoad(k+1)); const cur=cut?weekLoad(w,cut):L[w-1], prev=w>1?(cutP?weekLoad(w-1,cutP):L[w-2]):null;
+  if(!L.some(x=>x.n) && !L.some(x=>x.form!=null)) return `<h3>Belastung &amp; Erholung</h3><div class="card stack"><p class="small muted">Nach jeder abgeschlossenen Einheit fragt die App, wie anstrengend sie war (0–10). Daraus entsteht hier dein Belastungsverlauf (Anstrengung × Minuten), neben deiner Tagesform.</p></div>`;
+  const data=L.map((x,k)=>({w:k+1, plan:0, done:Math.round(x.au)})); const fpts=L.map((x,k)=>x.form!=null?{x:k+1.5, y:Math.round(x.form*10)/10, tip:`Wo ${k+1}: Tagesform ${fmt(Math.round(x.form*10)/10)}`}:null).filter(Boolean);
+  const ch = prev&&prev.au&&cur.au ? (cur.au-prev.au)/prev.au : null;
+  return `<h3>Belastung &amp; Erholung</h3><div class="card stack">
+    <div class="small">Woche ${w}${cut?` bis ${WD[parse(cut).getDay()]}`:''}: <b>${fmt(Math.round(cur.au))} AU</b> aus ${cur.n} Einheit${cur.n===1?'':'en'} mit Angabe${ch!=null?` · <span class="${ch>0.3?'bad':''}">${ch>0?'+':''}${Math.round(ch*100)} % zur Vorwoche${cut?' (gleicher Stand)':''}</span>`:''}${cur.form!=null?` · Tagesform Ø ${fmt(Math.round(cur.form*10)/10)}`:''}</div>
+    ${weekBars(data,{unit:'AU', label:'Belastung pro Woche'})}
+    ${fpts.length?`<div class="lbl">Tagesform pro Woche (1–5, höher = fitter)</div>${lineChart([{name:'Tagesform',color:'var(--ok)',pts:fpts}],{y0:1,y1:5,yticks:[1,3,5],label:'Tagesform',h:110})}`:''}
+    <p class="small muted">Belastung = Anstrengung (0–10) × Dauer in Minuten (Session-RPE nach Foster et al., 2001). Steigt sie deutlich, während die Tagesform sinkt, lieber Erholung einplanen. Bewusst ohne „Acute:Chronic“-Warnwert, der ist umstritten (Impellizzeri et al., 2020).</p></div>`; }
+
+/* ----- Woche ----- */
+function weekHints(w, td, refD){ const from14=iso(addDays(refD,-14)), from28=iso(addDays(refD,-28)); const out=[];
+  const prs=[]; exCatalog().forEach(o=>{ if(o.sess.length<2) return; let best=null; o.sess.forEach(x=>{ const v=exVal(o,x); if(v==null) return; if(best!=null && v>best*1.001 && x.date>=from14 && x.date<=td) prs.push({o,x,v,d:v-best}); if(best==null||v>best) best=v; }); });
+  const seen=new Set(); prs.reverse().forEach(p=>{ if(seen.has(p.o.base)) return; seen.add(p.o.base); out.push({pr:1, html:`<button class="ovrow" data-act="kjump" data-v="${esc(p.o.base)}"><span class="ic">🏆</span><span><b>${esc(p.o.base)}</b><small>Bestwert ${fmt(Math.round(p.v))} ${exUnit(p.o)} (+${fmt(Math.round(p.d*10)/10)}) · ${dm(parse(p.x.date))}</small></span></button>`}); });
+  const rowsAll=logRows(); const first={}; rowsAll.slice().reverse().forEach(r=>{ if(r.att) r.att.forEach(a=>{ if(a.ok===true && a.h==='ohne' && !first[r.element]) first[r.element]=r.date; }); });
+  Object.entries(first).filter(([,d])=>d>=from14&&d<=td).forEach(([n,d])=>out.push({pr:1, html:`<button class="ovrow" data-act="tjump" data-v="${esc(n)}"><span class="ic">⭐</span><span><b>${esc(shortName(n,40).s)}</b><small>erstmals ohne Hilfe gelungen · ${dm(parse(d))}</small></span></button>`}));
+  PLAN.status.forEach(x=>{ const s=helpNext(x.element); if(s) out.push({pr:2, html:`<button class="ovrow" data-act="tjump" data-v="${esc(x.element)}"><span class="ic">⬆️</span><span><b>${esc(shortName(x.element,40).s)}</b><small>bereit für weniger Hilfe: ${esc(s.to)} statt ${esc(s.from)} (${s.ok}/${s.n})</small></span></button>`});
+    const f=fatigueOf(x.element, td); if(f.flag) out.push({pr:2, html:`<button class="ovrow" data-act="tjump" data-v="${esc(x.element)}"><span class="ic">🔋</span><span><b>${esc(shortName(x.element,40).s)}: hinten raus schlechter</b><small>${f.g&&f.g.n>=3&&f.g.d>=0.75?`Note ${f1(f.g.f)} → ${f1(f.g.l)}`:`gelungen ${Math.round(f.q.f*100)} % → ${Math.round(f.q.l*100)} %`} · Versuche begrenzen</small></span></button>`}); });
+  if(w>3){ const ms=[w-3,w-2,w-1].map(x=>turnWeekEx(x)); devOly().forEach(dv=>{ const v=ms.map(m=>m.dev[dv]&&m.dev[dv].n?m.dev[dv].f/m.dev[dv].n:null); if(v.every(x=>x!=null&&x<.7)) out.push({pr:2, html:`<div class="ovrow"><span class="ic">⚠️</span><span><b>${DEV[dv].label} 3 Wochen unter Plan</b><small>${v.map(x=>Math.round(x*100)+' %').join(' · ')} der Übungen erfüllt</small></span></div>`}); }); }
+  exCatalog().forEach(o=>{ if(stagOf(o)) out.push({pr:2, html:`<button class="ovrow" data-act="kjump" data-v="${esc(o.base)}"><span class="ic">⏸</span><span><b>${esc(o.base)} stagniert</b><small>3 Einheiten ohne Bestwert, obwohl der Plan steigert</small></span></button>`}); });
+  [...new Set(rowsAll.filter(r=>r.status==='Versuch').map(r=>r.element))].forEach(n=>{ const a=rowsAll.filter(r=>r.element===n && r.ok!=null); const A=a.filter(r=>r.date>=from14&&r.date<=td), B=a.filter(r=>r.date>=from28&&r.date<from14);
+    const q=X=>X.reduce((s,r)=>s+r.ok,0)/Math.max(1,X.reduce((s,r)=>s+r.versuche,0)); if(!A.length||!B.length) return; const qa=q(A), qb=q(B); if(Math.abs(qa-qb)<.15) return;
+    out.push({pr:qa>qb?3:2, html:`<button class="ovrow" data-act="tjump" data-v="${esc(n)}"><span class="ic">${qa>qb?'📈':'📉'}</span><span><b>${esc(shortName(n,40).s)}</b><small>gelungen ${Math.round(qb*100)} % → ${Math.round(qa*100)} %</small></span></button>`}); });
+  const prs1=out.filter(x=>x.pr===1).slice(0,2), rest=out.filter(x=>x.pr!==1).sort((a,b)=>a.pr-b.pr);
+  return [...rest.slice(0,5-prs1.length), ...prs1].slice(0,5).map(x=>x.html); }
+function vWoche(){
+  const wNow=clampWeek(weekOf(today())); const w=Math.min(UI.ovW||wNow,14); UI.selWeek=w; const wEnd=iso(addDays(START,w*7-1)); const tdI=iso(today()); const running = w===wNow && tdI<=wEnd;
+  const hasToday = Object.values(S.turn[tdI]?.items||{}).some(e=>(e.done||0)>0) || PLAN.gym.some(g=>gDate(g)===tdI && Object.values(S.gym[g.id]?.items||{}).some(I=>(I.sets||[]).some(s=>s.done)));
+  const cut = running ? (hasToday ? tdI : iso(addDays(today(),-1))) : null; const cutP = cut ? iso(addDays(parse(cut),-7)) : null;
+  const td = running ? tdI : wEnd; const refD=parse(td);
+  const tw=turnWeekMetrics(w, cut), tp=w>1?turnWeekMetrics(w-1, cutP):null; const ex=turnWeekEx(w, cut), exp=w>1?turnWeekEx(w-1, cutP):null;
+  const g0=gymLoadWeek(w, cut), g1=w>1?gymLoadWeek(w-1, cutP):null; const exAll=running?turnWeekEx(w):ex; const gAll=running?gymLoadWeek(w):g0; const twAll=running?turnWeekMetrics(w):tw;
+  const fq=e=>e&&e.n?e.f/e.n:null, vq=m=>m&&m.V?m.G/m.V:null, q=m=>m&&m.mc?m.mf/m.mc:null; const r1=x=>Math.round(x*10)/10;
+  const cmp=(a,b,suf)=> a==null||b==null ? '' : `<span class="small ${a>b?'ok':a<b?'bad':'muted'}">${a>b?'▲':a<b?'▼':'='} ${suf==='%'?Math.abs(Math.round((a-b)*100))+' %-Pkt.':fmt(Math.abs(r1(a-b)))+suf}</span>`;
+  const early = running && cut < iso(addDays(START,(w-1)*7));
+  let html = `<div class="ovnav"><button class="pm" data-act="ovw" data-v="-1" ${w<=1?'disabled':''} aria-label="Vorige Woche">‹</button><span><b>Woche ${w}</b> · ${esc(PLAN.weeks[w-1].phase)}${w===wNow?' · aktuell':''}</span><button class="pm" data-act="ovw" data-v="1" ${w>=wNow?'disabled':''} aria-label="Nächste Woche">›</button></div>
+  <p class="small muted center-h">${running ? (early ? 'Noch keine Einheit in dieser Woche. Der Vergleich startet mit der ersten Einheit.' : `Stand bis ${WD[parse(cut).getDay()]} ${dm(parse(cut))} · verglichen mit der Vorwoche bis ${WD[parse(cutP).getDay()]} ${dm(parse(cutP))}`) : 'Ganze Woche · verglichen mit der ganzen Vorwoche'}</p>
+  <div class="ovgrid">
+    <div class="ov"><span class="lbl">Turnen Muss</span><b class="num">${tw.mc?tw.mf+'/'+tw.mc:'–'}</b>${cmp(q(tw),q(tp),'%')}${running?`<span class="small muted">ganze Woche: ${twAll.mc} Muss</span>`:''}</div>
+    <div class="ov"><span class="lbl">Turnen Plan erfüllt</span><b class="num">${ex.n?Math.round(ex.f/ex.n*100)+' %':'–'}</b>${cmp(fq(ex),fq(exp),'%')}<span class="small muted">${f1(ex.f)} von ${ex.n} Übungen${running?` · Woche: ${exAll.n}`:''}</span></div>
+    <div class="ov"><span class="lbl">Gym-Load</span><b class="num">${fmt(r1(g0.done))} t</b>${g1?cmp(g0.done,g1.done,' t'):''}<span class="small muted">Plan ${fmt(r1(g0.plan))} t${running?` · Woche: ${fmt(r1(gAll.plan))} t`:''}</span></div>
+    <div class="ov"><span class="lbl">Versuche gelungen</span><b class="num">${tw.V?Math.round(tw.G/tw.V*100)+' %':'–'}</b>${cmp(vq(tw),vq(tp),'%')}<span class="small muted">${tw.G}/${tw.V} Versuche</span></div></div>`;
+  const devs=devOly().filter(g=>exAll.dev[g]).map(g=>[g,exAll.dev[g]]);
+  if(devs.length){ const mx=Math.max(1,...devs.map(([g,o])=>o.n));
+    html += `<h3>Turnen pro Gerät</h3><div class="card stack"><div class="drings">${devs.map(([g,o])=>ring(o.f/o.n, DEV[g]?.label||g, `${f1(o.f)}/${o.n}`, dcol(g))).join('')}</div>
+      <div class="devbars">${devs.map(([g,o])=>`<div class="db"><span>${DEV[g]?.label||g}</span><span class="bar"><i class="p" style="width:${o.n/mx*100}%"></i><i class="d" style="width:${o.f/mx*100}%;background:${dcol(g)}"></i></span><b class="num">${f1(o.f)}/${o.n}</b></div>`).join('')}</div>
+      <p class="small muted">${running?'Ganze Woche, auch noch offene Tage. ':''}Jede geplante Übung zählt gleich: ganz geschafft = 1, halb = 0,5. Grau = geplant, farbig = erfüllt.</p></div>`; }
+  const hints=weekHints(w, td, refD);
+  html += `<h3>Hinweise</h3><div class="card stack">${hints.join('')||'<p class="small muted">Keine besonderen Hinweise für diese Woche.</p>'}</div>`;
+  html += vLoadSection(w, wNow, running&&!early?cut:null, running&&!early?cutP:null);
+  const metric=UI.metric||'turn'; const data = metric==='turn' ? [...Array(14)].map((_,k)=>{ const e=turnWeekEx(k+1); return {w:k+1, plan:e.n, done:Math.round(e.f*10)/10}; }) : weekProgress(metric); const units={turn:'Übungen erfüllt', gym:'t Load', hand:'Versuche/Wdh'};
+  html += `<h3>Alle Wochen</h3><div class="card stack"><div class="seg full">${[['turn','Turnen'],['gym','Gym'],['hand','Handstand']].map(([k,l])=>`<button class="${metric===k?'on':''}" data-act="metric" data-v="${k}">${l}</button>`).join('')}</div>
+    ${weekBars(data,{unit:units[metric], label:'Wochen geplant und gemacht'})}<div class="legend"><span><i style="--c:var(--sunk);border:1px solid var(--line)"></i>geplant</span><span><i style="--c:var(--accent)"></i>gemacht</span></div></div>`;
+  return html; }
+
+/* ----- Turnen ----- */
+function vElDetail(x){ const st=elementStats(x.element); const la=lsAuto(x.element); const nx=helpNext(x.element);
+  const wk=elementWeekly(x.element).filter(o=>o.V-o.U>0);
+  const ser=[{name:'gelungen',color:'var(--ok)',pts:wk.map(o=>({x:o.w+0.5,y:Math.round(o.G/(o.V-o.U)*100),tip:`Wo ${o.w}: ${o.G}/${o.V-o.U} gelungen`}))},{name:'ohne Hilfe',color:'var(--accent)',pts:wk.map(o=>({x:o.w+0.5,y:Math.round(o.GO/(o.V-o.U)*100),tip:`Wo ${o.w}: ${o.GO} ohne Hilfe gelungen`}))}];
+  return `<div class="stack eldet">
+    <div class="stats"><div class="stat"><b class="num">${st.G}/${st.V}</b><span>gelungen</span></div><div class="stat"><b class="num">${st.VO?st.GO+'/'+st.VO:'–'}</b><span>ohne Hilfe gelungen</span></div><div class="stat"><b class="num">${st.avg==null?'–':fmt(Math.round(st.avg*10)/10)}</b><span>Ø Note</span></div><div class="stat"><b class="num">${la.enough?Math.round(la.score*100)+' %':'–'}</b><span>selbstständig</span></div></div>
+    <p class="small muted">Letzte 14 Tage. „ohne Hilfe 4/5“ = 5 Versuche ohne Hilfe, davon 4 gelungen.</p>
+    ${nx?`<div class="note ok small">⬆ <b>Bereit für weniger Hilfe:</b> ${nx.ok}/${nx.n} mit ${esc(nx.from)} gelungen in den letzten 3 Einheiten. Nächster Schritt: <b>${esc(nx.to)}</b>. <span class="muted">Regel: ≥ 80 % mit der aktuellen Hilfe in 3 Einheiten.</span></div>`:''}
+    ${wk.length?`<div class="lbl">Quote pro Woche (%)</div>${lineChart(ser,{y0:0,y1:100,yticks:[0,50,100],label:'Quote pro Woche',h:120})}<div class="legend"><span><i style="--c:var(--ok)"></i>gelungen</span><span><i style="--c:var(--accent)"></i>ohne Hilfe gelungen</span></div>`:''}
+    ${gradeChart(x.element)}
+    ${fatigueBox(x.element)}
+    ${helpChart(x.element)}
+    ${logRows().some(y=>y.element===x.element)?`<div class="lbl">Letzte Einheiten</div>${sessionBars(x.element)}<div class="legend"><span><i style="--c:var(--ok)"></i>gelungen</span><span><i style="--c:var(--bad)"></i>nicht</span><span><i style="--c:var(--warn)"></i>nicht bewertet</span></div>`:'<p class="small muted">Noch keine Versuche eingetragen.</p>'}
+    ${tryNotesList(x.element)}</div>`; }
+/* ===== v45: Turnen in Kartei + „wie oft gemacht“ ===== */
+/* Alle Turnübungen: Plan (Mo/Di/Do), eigene aus der Kartei, Zusatzübungen und freies Training */
+function turnCatalog(){ const M=new Map();
+  const add=(dev,name,src,unit,it)=>{ const k=dev+'|'+name; if(!M.has(k)) M.set(k,{k,dev,name,src:new Set(),days:new Set(),unit:unit||'',it:null,lern:false,prog:false}); const o=M.get(k); o.src.add(src); if(it&&!o.it) o.it=it; if(unit&&!o.unit) o.unit=unit; return o; };
+  ['Mo','Di','Do'].forEach(d=>(PLAN.turnen[d]?.items||[]).forEach(i=>{ if(i.program==='hand') return; const o=add(grpOf(i), i.name, 'plan', i.program?'Programm':unitParts(i.unit).main, i); o.days.add(d); if(i.status==='Versuch') o.lern=true; if(i.program) o.prog=true; }));
+  (S.customTurn||[]).forEach(c=>add(c.dev, c.n, 'eigene', c.unit||'Wdh'));
+  Object.values(S.extra?.turn||{}).forEach(list=>(list||[]).forEach(x=>{ const it=turnExtraItem(x); add(grpOf(it), it.name, 'zusatz', unitParts(it.unit).main); }));
+  (S.free||[]).forEach(f=>{ if(f.kind!=='turn') return; (f.items||[]).forEach(r=>{ if(r.name) add('Frei', r.name, 'frei', r.unit||''); }); });
+  return [...M.values()]; }
+/* Wie oft gemacht: Summe der eingetragenen Menge, Anzahl Einheiten, gelungene Versuche, letztes Datum */
+function turnCounts(from, to){ const R=new Map(); const plMap={};
+  ['Mo','Di','Do'].forEach(d=>(PLAN.turnen[d]?.items||[]).forEach(i=>{ (plMap[d] ||= {})[ikey(i)]=i; }));
+  const get=k=>{ if(!R.has(k)) R.set(k,{done:0,n:0,ok:0,okKnown:false,tries:false,last:'',hist:[]}); return R.get(k); };
+  Object.entries(S.turn||{}).forEach(([date,D])=>{ if(date<from||date>to||!D?.items) return; const xs={}; turnExtras(date).forEach(x=>xs[ikey(x)]=x);
+    Object.entries(D.items).forEach(([k,e])=>{ const it = xs[k] || plMap[D.day]?.[k]; if(!it) return; const dn=Number(e?.done)||0; if(dn<=0) return;
+      const o=get(grpOf(it)+'|'+it.name); o.done+=dn; o.n++; if(date>o.last) o.last=date; o.hist.push({date, done:dn, day:D.day});
+      if(it.status==='Versuch'){ o.tries=true; const okc = graded(e)?okCount(e):(e.ok??null); if(okc!=null){ o.ok+=okc; o.okKnown=true; } } });
+    if(D.prog?.boden){ const pi=(PLAN.turnen[D.day]?.items||[]).find(i=>i.program==='boden'); if(pi){ const o=get(grpOf(pi)+'|'+pi.name); o.done+=1; o.n++; if(date>o.last) o.last=date; o.hist.push({date, done:1, day:D.day}); } } });
+  (S.free||[]).forEach(f=>{ if(f.kind!=='turn' || f.date<from || f.date>to) return; (f.items||[]).forEach(r=>{ if(!r.name) return; const a=Number(r.amt)||0; const o=get('Frei|'+r.name); o.done+=a; o.n++; if(f.date>o.last) o.last=f.date; o.hist.push({date:f.date, done:a, day:WD[parse(f.date).getDay()]}); }); });
+  return R; }
+const DEV_ORDER = () => [...devOly(), 'Frei'];
+const devLabel = d => d==='Frei' ? 'Freies Training' : (DEV[d]?.label||d);
+/* ----- Statistik → Turnen → Alle Übungen ----- */
+function cntDetail(o, c){ if(o.it && o.src.has('plan')) return `<div class="eldet">${exDetail('t:'+o.name)}</div>`;
+  if(!c||!c.hist.length) return '<p class="small muted eldet">Noch keine Einträge.</p>';
+  return `<div class="eldet"><div class="tablewrap"><table><thead><tr><th>Datum</th><th class="n">Menge</th></tr></thead><tbody>${c.hist.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(h=>`<tr><td>${h.day||''} ${dm(parse(h.date))}</td><td class="n">${fmt(h.done)}</td></tr>`).join('')}</tbody></table></div></div>`; }
+/* ----- Kartei ----- */
+function vLibrary(){ const t=UI.libTab||'turn';
+  return `<div class="subhead"><button class="btn ghost sm" data-act="sub" data-v="">‹ Mehr</button><h2>Übungs-Kartei</h2><span></span></div>
+  <div class="seg full" style="margin-bottom:8px">${[['turn','Turnen'],['gym','Gym']].map(([k,l])=>`<button class="${t===k?'on':''}" data-act="libtab" data-v="${k}">${l}</button>`).join('')}</div>
+  ${t==='turn'?vLibTurn():vLibGym()}`; }
+function vLibTurn(){ const cat=turnCatalog(); const C=turnCounts('0000-00-00', iso(today()));
+  let html=`<p class="small muted center-h">Alle Turnübungen nach Gerät: aus dem Plan, deine eigenen und deine Zusatzübungen. Eigene Übungen erscheinen beim Hinzufügen einer Zusatzübung als Vorschlag.</p>`;
+  DEV_ORDER().forEach(d=>{ const rows=cat.filter(o=>o.dev===d).sort((a,b)=>(b.src.has('plan')-a.src.has('plan')) || a.name.localeCompare(b.name,'de')); if(!rows.length) return;
+    html += `<details class="card" ${UI.open['libt:'+d]?'open':''}><summary data-act="toggle" data-v="libt:${d}"><b style="color:${d==='Frei'?'inherit':dcol(d)}">${esc(devLabel(d))}</b> <span class="small muted">${rows.length} Übung${rows.length===1?'':'en'}</span></summary><div class="flist" style="margin-top:6px">${rows.map(o=>{ const c=C.get(o.k);
+      const meta=[o.days.size?[...o.days].join(' · '):'', o.prog?'Programm':(o.unit||''), o.lern?'Lern-Element':'', o.src.has('plan')?'':(o.src.has('eigene')?'eigene':o.src.has('zusatz')?'Zusatz':'frei')].filter(Boolean).join(' · ');
+      return `<div class="lgi"><span>${esc(o.name)}<small style="display:block">${esc(meta)}</small></span><span class="num"><small>${c&&c.done?`${fmt(Math.round(c.done))} · zuletzt ${dm(parse(c.last))}`:'–'}</small>${o.src.has('eigene')&&!o.src.has('plan')?` <button class="btn ghost sm" data-act="tdelcustom" data-v="${esc(o.name)}" data-k="${esc(o.dev)}" aria-label="Löschen">✕</button>`:''}</span></div>`; }).join('')}</div></details>`; });
+  const dv=UI.ctDev||'Boden';
+  html += `<div class="card stack"><b>Eigene Turnübung hinzufügen</b>
+    <input type="text" id="ctName" placeholder="z. B. Flick-Flack-Salto rw">
+    <div class="row" style="flex-wrap:nowrap"><select id="ctDev" aria-label="Gerät">${devOly().map(g=>`<option value="${g}" ${dv===g?'selected':''}>${DEV[g].label}</option>`).join('')}</select>
+    <select id="ctUnit" aria-label="Einheit">${['Wdh','Versuche','Sek.'].map(u=>`<option>${u}</option>`).join('')}</select>
+    <button class="btn primary sm" data-act="taddcustom">Hinzufügen</button></div></div>`;
+  return html; }
+function vLibGym(){ const used=new Set(); PLAN.gym.forEach(g=>g.items.forEach(it=>used.add(baseEx(gName(g,it))))); const td=iso(today())+'z';
+  return `<p class="small muted center-h">Alle Gym-Übungen nach Bewegung. Im Training wechselst du über „⇄ Übung wechseln“.</p>
+  ${LIB.map(grp=>{ const ex=[...grp.ex, ...(S.customEx||[]).filter(c=>c.g===grp.id).map(c=>[c.n,c.eq||'eigene',true])];
+    return `<details class="card" ${UI.open['lib:'+grp.id]?'open':''}><summary data-act="toggle" data-v="lib:${grp.id}"><b>${esc(grp.l)}</b> <span class="small muted">${esc(grp.m)}</span></summary><div class="flist" style="margin-top:6px">${ex.map(e=>{ const last=lastUseTxt(e[0], td);
+      return `<div class="lgi"><span>${esc(e[0])} ${used.has(e[0])?'<small class="tag">im Plan</small>':''}<small style="display:block">${esc(e[1])}</small></span><span class="num"><small>${last?esc(last):'–'}</small>${e[2]?` <button class="btn ghost sm" data-act="swdelcustom" data-v="${esc(e[0])}" aria-label="Löschen">✕</button>`:''}</span></div>`; }).join('')}</div></details>`; }).join('')}`; }
+
+/* ===== v46: Turnen-Statistik mit Geräte-Filter, Gruppen eingeklappt ===== */
+/* Suche filtert direkt im DOM (Tastatur bleibt offen) */
+function tFilter(){ const box=document.querySelector('.flt'); if(!box) return; const q=(UI.tq||'').trim().toLowerCase(); box.classList.toggle('searching', !!q); let n=0;
+  box.querySelectorAll('.cgrp').forEach(g=>{ let m=0; g.querySelectorAll('.frow').forEach(r=>{ const ok=!!q && r.dataset.name.includes(q); r.classList.toggle('match', ok); if(ok) m++; }); g.classList.toggle('hasmatch', m>0); n+=m; });
+  const none=document.querySelector('.tqnone'); if(none) none.hidden=!q||n>0; }
+const tSearch = () => `<input type="search" id="tq" data-in="tq" placeholder="Suchen …" value="${esc(UI.tq||'')}" autocomplete="off">`;
+const grpHead = (key, act, color, title, sub, open) => `<button type="button" class="cgh" data-act="${act}" data-v="${esc(key)}" aria-expanded="${open}"><i class="gdot" style="background:${color}"></i><span class="t"><b>${esc(title)}</b><small>${sub}</small></span><span class="chev">${open?'▴':'▾'}</span></button>`;
+/* ----- Alle Übungen · wie oft ----- */
+function vTurnCounts(){ const P=UI.cntP||'all'; const td=iso(today()); const wNow=clampWeek(weekOf(today()));
+  const from = P==='w' ? iso(addDays(START,(wNow-1)*7)) : P==='4w' ? iso(addDays(today(),-27)) : '0000-00-00';
+  const C=turnCounts(from, td); const cat=turnCatalog(); const sess=new Set(); C.forEach(o=>o.hist.forEach(h=>sess.add(h.date)));
+  const devs=DEV_ORDER().filter(d=>cat.some(o=>o.dev===d)); const sel=UI.cntSel||'all'; const exSel=sel.startsWith('ex:')?sel.slice(3):null;
+  const opt=(v,l)=>`<option value="${esc(v)}" ${sel===v?'selected':''}>${esc(l)}</option>`;
+  const doneN=cat.filter(o=>C.get(o.k)?.done>0).length;
+  let html=`<div class="kbar"><select data-in="cntsel" aria-label="Gerät oder Übung wählen"><optgroup label="Geräte">${opt('all','Alle Geräte')}${devs.map(d=>opt(d, devLabel(d)+' ('+cat.filter(o=>o.dev===d).length+')')).join('')}</optgroup>
+      <optgroup label="Einzelne Übung">${cat.slice().sort((a,b)=>a.name.localeCompare(b.name,'de')).map(o=>opt('ex:'+o.k, shortName(o.name,40).s+' · '+devLabel(o.dev))).join('')}</optgroup></select>${tSearch()}</div>
+    <div class="seg full" style="margin-bottom:6px">${[['all','Gesamt'],['4w','4 Wochen'],['w','Diese Woche']].map(([k,l])=>`<button class="${P===k?'on':''}" data-act="cntp" data-v="${k}">${l}</button>`).join('')}</div>
+    <p class="small muted center-h">${doneN} von ${cat.length} Übungen gemacht · ${sess.size} Trainingstag${sess.size===1?'':'e'}. Zahl rechts = Summe deiner Einträge. ${sel==='all'?'Gerät antippen zum Aufklappen.':''}</p><div class="klist flt">`;
+  devs.forEach(d=>{ let rows=cat.filter(o=>o.dev===d); if(sel!=='all' && !exSel && sel!==d) return; if(exSel){ rows=rows.filter(o=>o.k===exSel); if(!rows.length) return; }
+    rows.sort((a,b)=>((C.get(b.k)?.done||0)>0)-((C.get(a.k)?.done||0)>0) || (C.get(b.k)?.n||0)-(C.get(a.k)?.n||0) || (C.get(b.k)?.done||0)-(C.get(a.k)?.done||0) || a.name.localeCompare(b.name,'de'));
+    const all=cat.filter(o=>o.dev===d); const dn=all.filter(o=>C.get(o.k)?.done>0).length; const last=all.map(o=>C.get(o.k)?.last||'').sort().pop();
+    const open = sel!=='all' || !!UI.cntDevOpen?.[d] || rows.some(o=>o.k===UI.cntOpen);
+    const sn={}; rows.forEach(o=>{ const k=shortName(o.name,46).s; sn[k]=(sn[k]||0)+1; });
+    html += `<div class="cgrp ${open?'':'shut'}">${sel!=='all'?'':grpHead(d,'cntdev',d==='Frei'?'var(--muted)':dcol(d),devLabel(d),`${dn}/${all.length} gemacht${last?' · zuletzt '+dm(parse(last)):''}`,open)}`;
+    rows.forEach(o=>{ const c=C.get(o.k); const op = exSel ? true : UI.cntOpen===o.k; const z=!c||!c.done; const dupDays = sn[shortName(o.name,46).s]>1 && o.days.size ? ' ('+[...o.days].join('/')+')' : '';
+      const tags=[o.lern?'Lern-Element':'', o.src.has('zusatz')&&!o.src.has('plan')?'Zusatz':'', o.src.has('eigene')&&!o.src.has('plan')?'eigene':''].filter(Boolean);
+      const sub = z ? 'noch nicht gemacht' : `${c.n} Einheit${c.n===1?'':'en'} · zuletzt ${WD[parse(c.last).getDay()]} ${dm(parse(c.last))}${c.tries&&c.okKnown?` · ${c.ok} gelungen`:''}`;
+      html += `<div class="kcard frow cntrow ${z?'zero':''} ${op?'on':'shut'}" data-name="${esc(o.name.toLowerCase())}"><button class="lnk elrow" data-act="${exSel?'':'cntopen'}" data-v="${esc(o.k)}" aria-expanded="${op}"><span class="nm"><b>${esc(shortName(o.name,46).s)}${esc(dupDays)}</b><small>${esc(sub)}${tags.length?' · '+tags.map(t=>`<span class="tag">${t}</span>`).join(' '):''}</small></span><span class="cnt num">${z?'0':fmt(Math.round(c.done))}<small>${esc(o.prog?'Mal':(o.unit||'').replace(/^Sek.*$/,'Sek.'))}</small></span>${exSel?'':`<span class="chev">${op?'▴':'▾'}</span>`}</button>${op?cntDetail(o,c):''}</div>`; });
+    html += `</div>`; });
+  html += `</div><p class="small muted tqnone" hidden>Keine Übung gefunden.</p>`;
+  if(UI.tq) setTimeout(tFilter,0);
+  return html; }
+/* ----- Lern-Elemente ----- */
+function vTurnStats(){ const w=clampWeek(weekOf(today()));
+  const foc = x => (currentRole(x.element,w)||'').startsWith('S');
+  const groups=[]; const add=(key,label,color,els)=>{ if(els.length) groups.push({key,label,color,els}); };
+  add('Schwerpunkte','Schwerpunkte','var(--accent)', PLAN.status.filter(foc).sort((a,b)=>devRank(a.device)-devRank(b.device)));
+  devOly().forEach(d=>add(d, DEV[d].label, dcol(d), PLAN.status.filter(x=>x.device===d && !foc(x))));
+  const sel=UI.elSel||'all'; const elSel=sel.startsWith('el:')?sel.slice(3):null;
+  const opt=(v,l)=>`<option value="${esc(v)}" ${sel===v?'selected':''}>${esc(l)}</option>`;
+  let html=vKuerCheck()+`<h3>Alle Lern-Elemente</h3>
+    <div class="kbar"><select data-in="elsel" aria-label="Gruppe oder Element wählen"><optgroup label="Gruppen">${opt('all','Alle Gruppen')}${groups.map(g=>opt(g.key, g.label+' ('+g.els.length+')')).join('')}</optgroup>
+      <optgroup label="Einzelnes Element">${PLAN.status.slice().sort((a,b)=>a.element.localeCompare(b.element,'de')).map(x=>opt('el:'+x.element, shortName(x.element,44).s)).join('')}</optgroup></select>${tSearch()}</div>
+    <p class="small muted">Letzte 14 Tage. Punkt = Lernstufe (rot A, gelb B, grün C), automatisch berechnet. Antippen für Verlauf, Noten, Hilfen und Notizen.</p><div class="klist flt">`;
+  groups.forEach(g=>{ let els=g.els; if(elSel){ els=els.filter(x=>x.element===elSel); if(!els.length) return; } else if(sel!=='all' && sel!==g.key) return;
+    const open = sel!=='all' || !!UI.elGrpOpen?.[g.key] || els.some(x=>UI.statusOpen?.[x.element]);
+    const dots=g.els.map(x=>`<i class="lsd ls-${lsOf(x.element)}"></i>`).join('');
+    html += `<div class="cgrp ${open?'':'shut'}">${sel!=='all'?'':grpHead(g.key,'elgrp',g.color,g.label,`${g.els.length} Element${g.els.length===1?'':'e'} <span class="lsdots">${dots}</span>`,open)}`;
+    els.forEach(x=>{ const st=elementStats(x.element); const ls=lsOf(x.element); const op=!!elSel || !!UI.statusOpen?.[x.element]; const nx=helpNext(x.element);
+      html += `<div class="kcard frow ${op?'on':'shut'}" data-name="${esc(x.element.toLowerCase())}"><button class="lnk elrow" data-act="${elSel?'':'stopen'}" data-v="${esc(x.element)}" aria-expanded="${op}"><span class="lsb ls-${ls}">${ls}</span><span class="nm"><b>${esc(shortName(x.element,44).s)}</b><small>${st.V?`${st.G}/${st.V} gelungen · ${st.VO?`ohne Hilfe ${st.GO}/${st.VO}`:'noch nicht ohne Hilfe versucht'}${st.avg!=null?' · Ø '+fmt(Math.round(st.avg*10)/10):''}`:'keine Versuche in 14 Tagen'}${nx?` · <span class="ok">⬆ ${esc(nx.to)}</span>`:''}</small></span>${elSel?'':`<span class="chev">${op?'▴':'▾'}</span>`}</button>${op?vElDetail(x):''}</div>`; });
+    html += `</div>`; });
+  html += `</div><p class="small muted tqnone" hidden>Kein Element gefunden.</p>`;
+  if(UI.tq) setTimeout(tFilter,0);
+  return html; }
 
 /* ----- Export & Mehr ----- */
 function painPoints(){
@@ -2186,20 +2724,31 @@ function painPoints(){
   PLAN.gym.forEach(g=>g.items.forEach(it=>{ const p=S.gym[g.id]?.items?.[it.nr]?.pain; if(p!==''&&p!=null) pts.push({date:gDate(g), y:Number(p), src:exKey(gName(g,it))}); }));
   return pts.sort((a,b)=>a.date.localeCompare(b.date));
 }
+const isStandalone = () => { try{ return matchMedia('(display-mode: standalone)').matches || navigator.standalone===true; }catch(e){ return false; } };
+try{ if(navigator.storage && navigator.storage.persisted){ navigator.storage.persisted().then(p=>{ if(p){ UI.persist=true; return; } return navigator.storage.persist ? navigator.storage.persist().then(r=>{ UI.persist=!!r; }) : null; }).catch(()=>{}); } }catch(e){}
+function vA2hsNag(){ const P=S.prefs; if(isStandalone() || window.top!==window || P.a2hsDone || (P.a2hsSnooze && P.a2hsSnooze>iso(today()))) return '';
+  const has=Object.keys(S.turn).length+Object.keys(S.gym).length>0;
+  return `<div class="nag a2hs"><span>📱</span><span class="t"><b>Zum Home-Bildschirm hinzufügen</b><small>Safari kann Daten von Webseiten löschen, die 7 Tage nicht genutzt wurden. Als Home-Bildschirm-App passiert das nicht. Safari: Teilen → „Zum Home-Bildschirm“. ${has?'Wichtig: Die Home-Bildschirm-App hat einen eigenen Speicher. Vorher Backup herunterladen und dort unter Mehr → Daten einspielen.':''}</small></span><span class="stack" style="gap:4px">${has?'<button class="btn primary sm" data-act="export">Backup</button>':''}<button class="btn ghost sm" data-act="a2hs" data-v="later">Später</button><button class="btn ghost sm" data-act="a2hs" data-v="done">Erledigt</button></span></div>`; }
 function vBackupNag(){ const P=S.prefs; const has=Object.keys(S.turn).length+Object.keys(S.gym).length>0; if(!has || P.backupSnooze===iso(today())) return '';
   const last=P.lastBackup||0; const ref=last||P.since||Date.now(); const days=Math.floor((Date.now()-ref)/864e5); const sunday=today().getDay()===0 && Date.now()-last>2*864e5;
   if(days<7 && !sunday) return '';
   return `<div class="nag"><span>💾</span><span class="t"><b>Sicherung</b><small>${last?`zuletzt vor ${days} Tag${days===1?'':'en'}`:'noch keine gespeichert'}</small></span><button class="btn primary sm" data-act="export">Herunterladen</button><button class="btn ghost sm" data-act="snooze" aria-label="Später">Später</button></div>`; }
+/* Einstellungen als aufklappbare Abschnitte */
+function setSec(key, ic, title, desc, inner){ inner=inner.replace(/^\s*<div class="card stack"(?: id="[^"]*")?><b>[^<]*<\/b>/, '<div class="stack">');
+  return `<details class="card setsec" data-sk="${key}" ${UI.setOpen?.[key]?'open':''}><summary><span class="ic">${ic}</span><span class="tx"><b>${title}</b><small>${desc}</small></span><span class="schev">▾</span></summary><div class="setbody">${inner}</div></details>`; }
 function vSettings(){
   return `<div class="subhead"><button class="btn ghost sm" data-act="sub" data-v="">‹ Mehr</button><h2>Einstellungen</h2><span></span></div>
-  ${vUiPrefs()}
-  ${vTimerPrefs()}
-  <div class="card stack"><b>Kraft</b>
+  <p class="small muted">Abschnitt antippen zum Aufklappen.</p>
+  ${setSec('ui','🎨','Darstellung &amp; Bedienung','Hell/Dunkel, automatisch weiter, Gewichte anpassen', vUiPrefs())}
+  ${setSec('timer','⏱','Timer &amp; Ton','Pausen-Ton, Pause beim Dehnen, Display anlassen', vTimerPrefs())}
+  ${setSec('el','🤸','Turnen: Hilfen &amp; Rollen','Welche Hilfen es pro Element gibt, wie viel sie helfen, Schwerpunkt / Untergrenze', vElSettings())}
+  ${setSec('calc','🏋️','Gym: Maximalkraft-Tests','Deine Testsätze (Stand A/B/C), aus denen alle Ziel-Gewichte berechnet werden', vCalcSettings())}
+  ${setSec('body','⚖️','Körpergewicht','Für Dips und Übungen mit Körpergewicht', `<div class="stack">
     <div class="row" style="flex-wrap:nowrap"><label class="lbl" for="bw" style="flex:1">Körpergewicht</label><input type="number" id="bw" data-in="bw" value="${PLAN.bodyweight}" inputmode="decimal" style="max-width:90px"><span>kg</span></div>
-    <button type="button" class="prefrow" data-act="pref" data-v="dipsBW"><span><b>Körpergewicht bei Dips einrechnen</b><small>${S.prefs.dipsBW?'an: e1RM = (Zusatz + Körpergewicht) × …':'aus: e1RM nur aus dem Zusatzgewicht'}</small></span><span class="sw ${S.prefs.dipsBW?'on':''}"><i></i></span></button></div>
-  <div class="card stack"><b>App</b>
+    <button type="button" class="prefrow" data-act="pref" data-v="dipsBW"><span><b>Körpergewicht bei Dips einrechnen</b><small>${S.prefs.dipsBW?'an: e1RM = (Zusatz + Körpergewicht) × …':'aus: e1RM nur aus dem Zusatzgewicht'}</small></span><span class="sw ${S.prefs.dipsBW?'on':''}"><i></i></span></button></div>`)}
+  ${setSec('app','⚙️','App','Einführung, alle Einträge zurücksetzen', `<div class="stack">
     <button class="btn ghost sm" data-act="introagain">Einführung wieder anzeigen</button>
-    <div class="row">${UI.confirmReset?`<span class="small">Alle Einträge löschen?</span><button class="btn danger" data-act="reset2">Ja, löschen</button><button class="btn ghost" data-act="reset0">Abbrechen</button>`:`<button class="btn ghost sm danger" data-act="reset1">Alle Einträge zurücksetzen</button>`}</div></div>`;
+    <div class="row">${UI.confirmReset?`<span class="small">Alle Einträge löschen?</span><button class="btn danger" data-act="reset2">Ja, löschen</button><button class="btn ghost" data-act="reset0">Abbrechen</button>`:`<button class="btn ghost sm danger" data-act="reset1">Alle Einträge zurücksetzen</button>`}</div></div>`)}`;
 }
 function vUiPrefs(){ const P=S.prefs;
   return `<div class="card stack"><b>Darstellung &amp; Bedienung</b>
@@ -2270,11 +2819,15 @@ function vMehr(){
   if(UI.sub==='lib') return vLibrary();
   return `<h2 class="center-h">Mehr</h2>
   <button type="button" class="setlink" data-act="sub" data-v="settings"><span class="ic">⚙</span><span><b>Einstellungen</b><small>Ansicht, Bedienung, Gewichte, Pausen-Timer, Körpergewicht</small></span><span class="chev">›</span></button>
-  <button type="button" class="setlink" data-act="sub" data-v="lib"><span class="ic">🗂</span><span><b>Übungs-Kartei</b><small>Alle Gym-Übungen und Alternativen, mit deinen letzten Werten</small></span><span class="chev">›</span></button>
-  <div class="card export"><div class="spread"><b>Excel-Auswertung</b><span class="small muted">${nTurn} Turn-Einträge · ${nGym} Gym-Sätze</span></div>
-    <p class="small muted">Dein Plan im gewohnten Format mit allen Einträgen, plus Blätter App-Auswertung, App-Turnen, App-Gym und App-Frei (freie Trainings).</p>
-    <button class="btn primary big" data-act="xlsx" id="xlsxBtn">⬇ Excel herunterladen</button></div>
+  <button type="button" class="setlink" data-act="sub" data-v="lib"><span class="ic">🗂</span><span><b>Übungs-Kartei</b><small>Alle Turn- und Gym-Übungen, mit deinen letzten Werten</small></span><span class="chev">›</span></button>
+  <h3>Mein Plan</h3>
+  <details class="card"><summary><b>Plan-Änderungen</b></summary><div class="stack small" style="margin-top:8px">${vOverrides()}</div></details>
+  <details class="card"><summary><b>Pause und Taper</b></summary><div class="tablewrap" style="margin-top:8px"><table><thead><tr><th>Zeitraum</th><th>Tag</th><th>Turnen</th><th>Gym</th><th>Hinweis</th></tr></thead><tbody>${PLAN.pause.rows.filter(r=>r[0]||r[1]).map(r=>`<tr><td>${esc(r[0]||'')}</td><td>${esc(r[1]||'')}</td><td>${esc(r[2]||'')}</td><td>${esc(r[3]||'')}</td><td class="muted">${esc(r[5]||'')}</td></tr>`).join('')}</tbody></table></div>${PLAN.pause.notes.map(n=>`<p class="small muted" style="margin-top:8px">${esc(n)}</p>`).join('')}</details>
+  <details class="card"><summary><b>Regeln</b></summary><div class="list" style="margin-top:6px">${PLAN.rules.map(r=>`<div class="small"><b class="num">${r.nr}</b> ${esc(r.text)} <span class="muted">(${esc(r.src)})</span></div>`).join('')}</div></details>
+  <details class="card"><summary><b>Annahmen</b></summary><div class="stack small" style="margin-top:8px">${PLAN.assumptions.map(a=>`<p>${esc(a)}</p>`).join('')}</div></details>
+  <details class="card"><summary><b>Dauer der Gym-Einheiten</b></summary><div class="tablewrap" style="margin-top:8px"><table><thead><tr><th>Einheit</th><th class="n">Schätzung</th><th class="n">Gemessen</th></tr></thead><tbody>${durs.map(d=>`<tr><td>${d.u}</td><td class="n">${d.est} min</td><td class="n">${d.ms.length?d.ms.join(', ')+' min':'–'}</td></tr>`).join('')}</tbody></table></div></details>
   ${vPlanUpdate()}
+  <h3>Körper</h3>
   <details class="card"><summary><b>Notizen</b> <span class="small muted">(${notes.length})</span></summary><div class="stack" style="margin-top:10px">
   <div class="row" style="flex-wrap:nowrap"><div class="field" style="flex:0 0 140px"><label class="lbl" for="nDate">Datum</label><input type="date" id="nDate" value="${iso(today())}"></div><div class="field" style="flex:1"><label class="lbl" for="nTopic">Thema</label><input type="text" id="nTopic" placeholder="z. B. Schulter"></div></div>
   <div class="field"><label class="lbl" for="nText">Notiz</label><textarea id="nText" placeholder="Cues, Schmerzen, Themen"></textarea></div>
@@ -2282,13 +2835,13 @@ function vMehr(){
   ${notes.length?`<div class="list">${notes.map(n=>`<div><div class="spread"><b>${n.date?dm(parse(n.date)):''} ${esc(n.topic||'')}${n.pain!=null&&n.pain!==''?` · Schmerz ${esc(n.pain)}`:''}</b><button class="btn ghost sm" data-act="delnote" data-v="${n.id}" aria-label="Notiz löschen">✕</button></div><p class="small">${esc(n.text)}</p></div>`).join('')}</div>`:''}</div></details>
   <details class="card"><summary><b>Schmerz-Verlauf</b></summary><div class="stack" style="margin-top:10px">${pp.length? lineChart(series,{y0:0,y1:10,yticks:[0,5,10],label:'Schmerz 0 bis 10'})+`<div class="legend">${series.map(s=>`<span><i style="--c:${s.color}"></i>${esc(s.name)}</span>`).join('')}</div>` : `<p class="muted small">Noch keine Werte. Schmerz 0–10 trägst du direkt bei einer Gym-Übung oder in einer Notiz ein.</p>`}
     ${ruleRef('Schmerz:')}</div></details>
-  <details class="card"><summary><b>Dauer der Gym-Einheiten</b></summary><div class="tablewrap" style="margin-top:8px"><table><thead><tr><th>Einheit</th><th class="n">Schätzung</th><th class="n">Gemessen</th></tr></thead><tbody>${durs.map(d=>`<tr><td>${d.u}</td><td class="n">${d.est} min</td><td class="n">${d.ms.length?d.ms.join(', ')+' min':'–'}</td></tr>`).join('')}</tbody></table></div></details>
-  <details class="card"><summary><b>Plan-Änderungen</b></summary><div class="stack small" style="margin-top:8px">${vOverrides()}</div></details>
-  <details class="card"><summary><b>Pause und Taper</b></summary><div class="tablewrap" style="margin-top:8px"><table><thead><tr><th>Zeitraum</th><th>Tag</th><th>Turnen</th><th>Gym</th><th>Hinweis</th></tr></thead><tbody>${PLAN.pause.rows.filter(r=>r[0]||r[1]).map(r=>`<tr><td>${esc(r[0]||'')}</td><td>${esc(r[1]||'')}</td><td>${esc(r[2]||'')}</td><td>${esc(r[3]||'')}</td><td class="muted">${esc(r[5]||'')}</td></tr>`).join('')}</tbody></table></div>${PLAN.pause.notes.map(n=>`<p class="small muted" style="margin-top:8px">${esc(n)}</p>`).join('')}</details>
-  <details class="card"><summary><b>Regeln</b></summary><div class="list" style="margin-top:6px">${PLAN.rules.map(r=>`<div class="small"><b class="num">${r.nr}</b> ${esc(r.text)} <span class="muted">(${esc(r.src)})</span></div>`).join('')}</div></details>
-  <details class="card"><summary><b>Annahmen</b></summary><div class="stack small" style="margin-top:8px">${PLAN.assumptions.map(a=>`<p>${esc(a)}</p>`).join('')}</div></details>
+  <h3>Daten</h3>
+  <div class="card export"><div class="spread"><b>Excel-Auswertung</b><span class="small muted">${nTurn} Turn-Einträge · ${nGym} Gym-Sätze</span></div>
+    <p class="small muted">Dein Plan im gewohnten Format mit allen Einträgen, plus Blätter App-Auswertung, App-Turnen, App-Gym und App-Frei (freie Trainings).</p>
+    <button class="btn primary big" data-act="xlsx" id="xlsxBtn">⬇ Excel herunterladen</button></div>
   <details class="card"><summary><b>Datensicherung</b></summary><div class="stack" style="margin-top:8px">
     <p class="small muted">Deine Einträge liegen nur in diesem Browser auf diesem Gerät. Sichere sie ab und zu.</p>
+    <p class="small">${isStandalone()?'✓ Läuft als Home-Bildschirm-App.':'⚠ Läuft im Browser. Safari kann Daten nach 7 Tagen ohne Nutzung löschen. Besser zum Home-Bildschirm hinzufügen (eigener Speicher, Backup dort einspielen).'}${UI.persist===true?' Speicher ist als dauerhaft markiert.':''}</p>
     <div class="row"><button class="btn" data-act="export">Backup herunterladen</button><button class="btn" data-act="copy">Backup kopieren</button></div>
     <div class="field"><label class="lbl" for="impFile">Backup einspielen</label><input type="file" id="impFile" accept=".json,application/json"></div>
     <div class="field"><label class="lbl" for="impText">… oder Backup-Text einfügen</label><textarea id="impText" placeholder='{"v":3, …}'></textarea><div class="row"><button class="btn" data-act="importtext">Einspielen</button></div></div>
@@ -2333,7 +2886,7 @@ async function buildWorkbook(ExcelJS){
   for(let r=6;r<=405;r++) for(let c=1;c<=8;c++) tl.getCell(r,c).value=null;
   const tRows = logRows().filter(r=>statusNames.has(r.element)).sort((a,b)=>a.date.localeCompare(b.date));
   tRows.slice(0,400).forEach((x,k)=>{ const r=6+k; const slot=turnSlots().find(s=>s.date===x.date && s.day===x.day); const moved = slot && slot.date!==slot.orig;
-    const hil = HILFE.includes(x.hilfe) ? x.hilfe : ''; const extra=[x.hilfe && !hil ? x.hilfe : '', moved?`verschoben auf ${WD[parse(x.date).getDay()]} ${dm(parse(x.date))}`:''].filter(Boolean).join(' · ');
+    const hil = [...hilfeList(), ...hilfeFor(x.element)].includes(x.hilfe) ? x.hilfe : ''; const extra=[x.hilfe && !hil ? x.hilfe : '', moved?`verschoben auf ${WD[parse(x.date).getDay()]} ${dm(parse(x.date))}`:''].filter(Boolean).join(' · ');
     tl.getCell(r,1).value=xDate(x.date); tl.getCell(r,1).numFmt='dd.mm.yy'; set(tl,`B${r}`,x.day); set(tl,`C${r}`,x.element); set(tl,`D${r}`,hil);
     set(tl,`E${r}`,x.versuche); set(tl,`F${r}`,x.ok??''); set(tl,`G${r}`,x.note??''); set(tl,`H${r}`,[x.notiz,extra].filter(Boolean).join(' · ')); });
   // 2) Gym Plan
@@ -2358,7 +2911,7 @@ async function buildWorkbook(ExcelJS){
   PLAN.calc.forEach(c=>{ ['A','B','C'].forEach(st=>{ const o=S.calc[c.nr]?.[st]; if(!o) return; const r=c.row, c0=col[st];
     cs.getCell(r,c0).value=o.kg===''?null:Number(o.kg); cs.getCell(r,c0+1).value=o.reps===''?null:Number(o.reps); cs.getCell(r,c0+2).value=o.rir===''?null:Number(o.rir); }); });
   // 4) Status Lernstufe
-  const ss=wb.getWorksheet('Status'); PLAN.status.forEach(x=>{ if(x.row) ss.getCell(x.row,4).value=S.lernstufe[x.element]||'A'; });
+  const ss=wb.getWorksheet('Status'); PLAN.status.forEach(x=>{ if(x.row) ss.getCell(x.row,4).value=lsOf(x.element); });
   // 5) Stufen
   const bb=wb.getWorksheet('Bodenbahnen'); Object.values(PLAN.bodenbahnen.programs).forEach(P=>P.lanes.forEach(l=>{ const k=Object.keys(PLAN.bodenbahnen.programs).find(p=>PLAN.bodenbahnen.programs[p]===P)+'-'+l.bahn; if(l.row && S.stufen.boden[k]!=null) bb.getCell(l.row,7).value=S.stufen.boden[k]; }));
   const hsW=wb.getWorksheet('Handstand'); PLAN.handstand.exercises.forEach(x=>{ if(x.row && S.stufen.hand[x.name]!=null) hsW.getCell(x.row,6).value=S.stufen.hand[x.name]; });
@@ -2387,7 +2940,7 @@ async function buildWorkbook(ExcelJS){
     vals.forEach((v,k2)=>{ const cell=ws1.getCell(r,k2+1); cell.value=v; if(k2===7) cell.numFmt='dd.mm.yy'; }); r++; });
   r++; title(ws1,r,'Plan-Änderungen in der App'); r++; const ov=overridesList(); if(!ov.length){ ws1.getCell(r,1).value='keine'; r++; } ov.forEach(o=>{ ws1.getCell(r,1).value=o.txt; r++; });
   r++; title(ws1,r,'Lern-Elemente (letzte 14 Tage, wie in der App)'); r++; head(ws1,r,['Gerät','Element','Lernstufe','Versuche','gelungen','Quote ohne Hilfe','Einheiten','Ø Note','Ampel']); r++;
-  PLAN.status.forEach(x=>{ const st=elementStats(x.element); const vals=[x.device,x.element,S.lernstufe[x.element]||'A',st.V,st.G,st.QO,st.K,st.avg==null?null:Math.round(st.avg*10)/10,st.amp[1]]; vals.forEach((v,k2)=>{ const cell=ws1.getCell(r,k2+1); cell.value=v; if(k2===5) cell.numFmt='0%'; }); r++; });
+  PLAN.status.forEach(x=>{ const st=elementStats(x.element); const vals=[x.device,x.element,lsOf(x.element),st.V,st.G,st.QO,st.K,st.avg==null?null:Math.round(st.avg*10)/10,st.amp[1]]; vals.forEach((v,k2)=>{ const cell=ws1.getCell(r,k2+1); cell.value=v; if(k2===5) cell.numFmt='0%'; }); r++; });
   ws1.views=[{state:'frozen', ySplit:0}];
   // App-Turnen
   const ws2=wb.addWorksheet('App-Turnen'); ws2.columns=[{width:10},{width:7},{width:6},{width:12},{width:44},{width:16},{width:9},{width:9},{width:10},{width:12},{width:7},{width:36}];
@@ -2587,6 +3140,39 @@ document.addEventListener('click', ev=>{
       return; }
     case 'showall': UI.showAll=!UI.showAll; UI.menu=false; break;
     case 'toggle': UI.open[v]=!UI.open[v];  break;
+    case 'kex': UI.kex = (UI.kex===v || !v) ? null : v; break;
+    case 'turnsub': UI.turnSub=v; UI.tq=''; break;
+    case 'cntp': UI.cntP=v; UI.cntOpen=null; break;
+    case 'cntopen': UI.cntOpen = UI.cntOpen===v ? null : v; break;
+    case 'kueropen': UI.kuerOpen=!UI.kuerOpen; break;
+    case 'cntdev': { const open = !!UI.cntDevOpen?.[v] || (UI.cntOpen||'').startsWith(v+'|'); (UI.cntDevOpen ||= {})[v]=!open; if(open && (UI.cntOpen||'').startsWith(v+'|')) UI.cntOpen=null; break; }
+    case 'elgrp': { const cur = !!UI.elGrpOpen?.[v] || PLAN.status.some(x=>UI.statusOpen?.[x.element] && (v==='Schwerpunkte' ? (currentRole(x.element,clampWeek(weekOf(today())))||'').startsWith('S') : x.device===v)); (UI.elGrpOpen ||= {})[v]=!cur; if(cur){ PLAN.status.forEach(x=>{ if(UI.statusOpen?.[x.element]) delete UI.statusOpen[x.element]; }); } break; }
+    case 'libtab': UI.libTab=v; break;
+    case 'taddcustom': { const n=($('#ctName')?.value||'').trim(); if(!n){ toast('Bitte einen Namen eingeben.'); return; } const dev=$('#ctDev')?.value||'Boden'; const unit=$('#ctUnit')?.value||'Wdh'; UI.ctDev=dev;
+      S.customTurn ||= []; if(!S.customTurn.some(c=>c.n===n && c.dev===dev)) S.customTurn.push({n, dev, unit}); UI.open['libt:'+dev]=true; save(); msg='Turnübung hinzugefügt'; break; }
+    case 'tdelcustom': S.customTurn=(S.customTurn||[]).filter(c=>!(c.n===v && c.dev===b.dataset.k)); save(); break;
+    case 'rpe': { const D = b.dataset.k==='turn' ? S.turn[v] : S.gym[v]; if(!D) break; const n=b.dataset.n; D.rpe = n==='' ? null : Number(n); save(); if(n!=='') msg='Anstrengung '+n+'/10 gespeichert'; break; }
+    case 'hnext': { const e=tEntry(dIso,ik,true); e.hilfe=v; S.lastHilfe[b.dataset.name]=v; save(); msg='Hilfe für neue Versuche: '+v; break; }
+    case 'kuer': { const n=b.dataset.name; (S.kuer ||= {})[n]=!isKuer(n); save(); break; }
+    case 'cycall': UI.cycAll=!UI.cycAll; break;
+    case 'a2hs': if(v==='done') S.prefs.a2hsDone=true; else S.prefs.a2hsSnooze=iso(addDays(today(),14)); save(); break;
+    case 'calcset': UI.tab='mehr'; UI.sub='settings'; (UI.setOpen ||= {}).calc=true; UI.calcOpen=v?Number(v):null; setTimeout(()=>document.getElementById('calcprefs')?.scrollIntoView({block:'start'}),60); break;
+    case 'hxmove': { const n=b.dataset.name; const l=hilfeFor(n); const i=l.indexOf(v), j=i+Number(b.dataset.k); if(i<0||j<0||j>=l.length-1) break; [l[i],l[j]]=[l[j],l[i]]; (S.helpEx ||= {})[n]=l; UI.hxEl=n; save(); break; }
+    case 'hxdel': { const n=b.dataset.name; (S.helpEx ||= {})[n]=hilfeFor(n).filter(x=>x!==v); UI.hxEl=n; save(); break; }
+    case 'hxadd': { const n=b.dataset.name; const l=hilfeFor(n); if(!l.includes(v)) l.splice(l.length-1,0,v); (S.helpEx ||= {})[n]=l; UI.hxEl=n; save(); break; }
+    case 'hxnew': { const n=b.dataset.name; const t=(document.getElementById('hxnew')?.value||'').trim(); if(!t) break; const l=hilfeFor(n); if(!l.includes(t)) l.splice(l.length-1,0,t); (S.helpEx ||= {})[n]=l; UI.hxEl=n; save(); break; }
+    case 'hxreset': { const n=b.dataset.name; if(S.helpEx) delete S.helpEx[n]; UI.hxEl=n; save(); break; }
+    case 'kopen': (UI.kopen ||= {})[v]=!UI.kopen[v]; break;
+    case 'hset': UI.tab='mehr'; UI.sub='settings'; (UI.setOpen ||= {}).el=true; UI.scrollTo='helpprefs'; setTimeout(()=>document.getElementById('helpprefs')?.scrollIntoView({block:'start'}),60); break;
+    case 'ovw': UI.ovW=Math.max(1,Math.min(14,(UI.ovW||clampWeek(weekOf(today())))+Number(v))); UI.selWeek=UI.ovW; break;
+    case 'kjump': UI.statTab='kraft'; UI.kview='ex:'+v; UI.kq=''; break;
+    case 'tjump': UI.statTab='turn'; UI.turnSub='el'; UI.elSel='all'; UI.tq=''; UI.statusOpen={[v]:true}; break;
+    case 'hmove': { const l=hilfeList(); const i=l.indexOf(v), j=i+Number(b.dataset.k); if(i<0||j<0||j>=l.length-1) break; [l[i],l[j]]=[l[j],l[i]]; S.prefs.helpOrder=l; save(); break; }
+    case 'hadd': { const t=(document.getElementById('hnew')?.value||'').trim(); if(!t) break; const l=hilfeList(); if(!l.includes(t)){ l.splice(l.length-1,0,t); S.prefs.helpOrder=l; (S.prefs.helpCustom ||= []).push(t); save(); } break; }
+    case 'hdel': S.prefs.helpCustom=(S.prefs.helpCustom||[]).filter(x=>x!==v); S.prefs.helpOrder=hilfeList().filter(x=>x!==v); save(); break;
+    case 'hreset': delete S.prefs.helpOrder; save(); break;
+    case 'kmain': { const l=mainList().slice(); const i=l.indexOf(v); if(i>=0) l.splice(i,1); else l.push(v); S.prefs.mainEx=l; save(); break; }
+    case 'kmainreset': delete S.prefs.mainEx; save(); break;
     case 'stopen': { const was=UI.statusOpen[v]; UI.statusOpen={}; UI.statusOpen[v]=!was; break; }
     case 'exf': UI.exF=v; UI.exOpen=null; break;
     case 'exopen': UI.exOpen = UI.exOpen===v ? null : v; break;
@@ -2679,7 +3265,7 @@ document.addEventListener('click', ev=>{
     case 'takebest': { const c=PLAN.calc.find(x=>x.nr==b.dataset.nr); const best=bestFromLog(c); if(best){ (S.calc[c.nr] ||= {})[b.dataset.st]={kg:best.kg,reps:best.reps,rir:best.rir}; save(); msg=`Stand ${b.dataset.st} gesetzt: ${fmt(Math.round(best.v))} kg`; } break; }
     case 'metric': UI.metric=v; UI.selWeek=null; break;
     case 'stattab': UI.statTab=v; break;
-    case 'selweek': UI.selWeek=Number(v); break;
+    case 'selweek': UI.selWeek=Number(v); UI.ovW=Number(v); break;
     case 'cmpweek': { const cw=UI.cmpWeek||clampWeek(weekOf(today())); UI.cmpWeek=Math.max(1,Math.min(14,cw+Number(v))); break; }
     case 'addnote': { const text=$('#nText').value.trim(); if(!text){ toast('Bitte zuerst eine Notiz schreiben.'); return; } S.notes.push({id:uid(), date:$('#nDate').value, topic:$('#nTopic').value.trim(), text, pain:$('#nPain').value}); save(); msg='Notiz gespeichert'; break; }
     case 'delnote': S.notes=S.notes.filter(n=>n.id!==v); save(); break;
@@ -2706,9 +3292,10 @@ document.addEventListener('click', ev=>{
 });
 function readSetInputs(gid,nr,k,s){ ['kg','reps','rir'].forEach(f=>{ const el=document.getElementById(`g-${gid}-${nr}-${k}-${f}`); if(el && el.value!=='') s[f]=Number(el.value); }); }
 
-document.addEventListener('input', ev=>{ const el=ev.target; if(el.dataset?.xf && UI.xDraft){ UI.xDraft[el.dataset.xf]=el.value; return; } const f=el.dataset?.fr; if(!f || !UI.freeDraft) return;
+document.addEventListener('input', ev=>{ const el=ev.target; if(el.dataset?.in==='kq'){ UI.kq=el.value; kFilter(); return; } if(el.dataset?.in==='tq'){ UI.tq=el.value; tFilter(); return; } if(el.dataset?.xf && UI.xDraft){ UI.xDraft[el.dataset.xf]=el.value; return; } const f=el.dataset?.fr; if(!f || !UI.freeDraft) return;
   if(el.dataset.k!=null) UI.freeDraft.items[Number(el.dataset.k)][f]=el.value; else UI.freeDraft[f]=el.value; });
-document.addEventListener('change', ev=>{ const el0=ev.target; if(el0.dataset?.xf && UI.xDraft){ UI.xDraft[el0.dataset.xf]=el0.value; if(el0.dataset.xf==='dev') render(); return; } if(el0.dataset?.fr && UI.freeDraft){ if(el0.dataset.k!=null) UI.freeDraft.items[Number(el0.dataset.k)][el0.dataset.fr]=el0.value; else UI.freeDraft[el0.dataset.fr]=el0.value; return; } });
+document.addEventListener('toggle', ev=>{ const d=ev.target; if(d?.dataset?.sk){ (UI.setOpen ||= {})[d.dataset.sk]=d.open; } }, true);
+document.addEventListener('change', ev=>{ const el0=ev.target; if(el0.dataset?.in==='cntsel'){ UI.cntSel=el0.value; UI.tq=''; UI.cntOpen = el0.value.startsWith('ex:') ? el0.value.slice(3) : null; render(); return; } if(el0.dataset?.in==='elsel'){ UI.elSel=el0.value; UI.tq=''; render(); return; } if(el0.dataset?.in==='hxsel'){ UI.hxEl=el0.value; render(); return; } if(el0.dataset?.in==='kview'){ UI.kview=el0.value; UI.kq=''; if(el0.value.startsWith('ex:')) UI.kex=el0.value.slice(3); render(); return; } if(el0.dataset?.xf && UI.xDraft){ UI.xDraft[el0.dataset.xf]=el0.value; if(el0.dataset.xf==='dev') render(); return; } if(el0.dataset?.fr && UI.freeDraft){ if(el0.dataset.k!=null) UI.freeDraft.items[Number(el0.dataset.k)][el0.dataset.fr]=el0.value; else UI.freeDraft[el0.dataset.fr]=el0.value; return; } });
 document.addEventListener('change', ev=>{
   const el=ev.target; const f=el.dataset.in;
   if(el.id==='planFile'){ const file=el.files[0]; if(file){ toast('Plan wird gelesen …'); planRead(file); } return; }
